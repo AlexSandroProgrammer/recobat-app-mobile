@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   default: {
     fontSize: 16,
     lineHeight: 24,
+    fontFamily: "KanitRegular",
   },
   defaultSemiBold: {
     fontSize: 16,
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "bold",
+    fontFamily: "KanitBold",
     lineHeight: 32,
   },
   subtitle: {
