@@ -1,7 +1,7 @@
 import { View, Text, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import { Redirect } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 
 const CheckAuthenticationLayout = () => {
   const { status, checkStatus } = useAuthStore();
@@ -27,9 +27,14 @@ const CheckAuthenticationLayout = () => {
     return <Redirect href="/auth/login" />;
   }
   return (
-    <View>
-      <Text>CheckAuthenticationLayout</Text>
-    </View>
+    <Stack>
+      <Stack.Screen
+        name="(home)/index"
+        options={{
+          title: "Bienvenido Usuario",
+        }}
+      ></Stack.Screen>
+    </Stack>
   );
 };
 
