@@ -2,8 +2,11 @@ import { View, Text, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import { Redirect, Stack } from "expo-router";
+import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
 
 const CheckAuthenticationLayout = () => {
+  const primaryColor = useThemeColor({}, "primary");
+
   const { status, checkStatus } = useAuthStore();
   useEffect(() => {
     checkStatus();
@@ -19,7 +22,7 @@ const CheckAuthenticationLayout = () => {
           marginBottom: 5,
         }}
       >
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color={primaryColor} />
       </View>
     );
   }
