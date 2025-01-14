@@ -15,6 +15,7 @@ import ThemedTextInput from "@/presentation/theme/components/ThemedTextInput";
 import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import ThemedButton from "@/presentation/theme/components/ThemedButton";
+import ThemedLink from "@/presentation/theme/components/ThemedLink";
 
 const LoginScreen = () => {
   const { login } = useAuthStore();
@@ -102,7 +103,7 @@ const LoginScreen = () => {
         </ThemedButton>
 
         {/* Spacer */}
-        <View style={{ marginTop: 50 }} />
+        <View style={{ marginTop: 40 }} />
 
         {/* Enlace a registro */}
         <View
@@ -113,9 +114,9 @@ const LoginScreen = () => {
           }}
         >
           <ThemedText>¿No tienes cuenta?</ThemedText>
-          {/* <ThemedLink href="/auth/register" style={{ marginHorizontal: 5 }}>
+          <ThemedLink href="auth/register" style={{ marginHorizontal: 5 }}>
             Crear cuenta
-          </ThemedLink> */}
+          </ThemedLink>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
