@@ -1,10 +1,7 @@
+import { recobatApi } from "../api/recobatApi";
 import { User } from "../auth/interface/user";
 
-export interface AuthResponse {
-  jwt: string;
-  user: UserData;
-}
-
+//* interfaz con los datos del usuario
 export interface UserData {
   id: number;
   documentId: string;
@@ -22,9 +19,20 @@ export interface UserData {
   telephone: string;
 }
 
+//* interfaz con los datos del token y el usuario
+export interface AuthResponse {
+  jwt: string;
+  user: UserData;
+}
+
 //* creamos una funcion para retornar el token y el usuario
 
-const returnUserAndToken = (data: AuthResponse) => {
+const returnUserAndToken = (
+  data: AuthResponse
+): {
+  user: User;
+  jwt: string;
+} => {
   // extraemos los datos del usuario y el token de la respuesta
   const {
     id,
@@ -56,3 +64,33 @@ const returnUserAndToken = (data: AuthResponse) => {
     jwt,
   };
 };
+
+//* creamos una funcion para el login del usuario
+
+export const authLogin = async (email: string, password: string) => {
+  email = email.toLowerCase();
+  try {
+    const { data } = await recobatApi.post<AuthResponse>("/auth/local", {
+      identifier: email,
+      password,
+    });
+    return returnUserAndToken(data);
+  } catch (error) {
+    console.error(error);
+    // throw new Error("Error al momento de iniciar sesion");
+    return null;
+  }
+};
+
+export const authCheckStatus = async () => {
+  try {
+    const { data } = await recobatApi.get<AuthResponse>("/auth/check");
+    return returnUserAndToken(data);
+  } catch (error) {
+    console.error(error);
+    // throw new Error("Error al momento de verificar el estado de la sesion");
+    return null;
+  }
+};
+
+// TODO: Hacer el registro del usuario
