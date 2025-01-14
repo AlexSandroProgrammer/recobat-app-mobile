@@ -54,6 +54,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
 
   // metodo para verificar el estado del usuario
   checkStatus: async () => {
+    //* verificamos si el token esta en el secure storage
     const resp = await authCheckStatus();
     get().changeStatus(resp?.jwt, resp?.user);
   },

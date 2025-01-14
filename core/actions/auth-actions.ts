@@ -1,7 +1,7 @@
 import { recobatApi } from "../api/recobatApi";
 import { User } from "../auth/interface/user";
 
-//* interfaz con los datos del usuario
+// interfaz con los datos del usuario
 export interface UserData {
   id: number;
   documentId: string;
@@ -18,15 +18,13 @@ export interface UserData {
   document: string;
   telephone: string;
 }
-
-//* interfaz con los datos del token y el usuario
+// interfaz con los datos del token y el usuario
 export interface AuthResponse {
   jwt: string;
   user: UserData;
 }
 
-//* creamos una funcion para retornar el token y el usuario
-
+// creamos una funcion para retornar el token y el usuario
 const returnUserAndToken = (
   data: AuthResponse
 ): {
@@ -84,10 +82,11 @@ export const authLogin = async (email: string, password: string) => {
 
 export const authCheckStatus = async () => {
   try {
-    const { data } = await recobatApi.get<AuthResponse>("/auth/check");
+    const { data } = await recobatApi.get<AuthResponse>("/users/me");
     return returnUserAndToken(data);
   } catch (error) {
     console.error(error);
+    console.log("entro en el catch");
     // throw new Error("Error al momento de verificar el estado de la sesion");
     return null;
   }
