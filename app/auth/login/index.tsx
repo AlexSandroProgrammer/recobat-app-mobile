@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Alert,
   KeyboardAvoidingView,
   ScrollView,
   useWindowDimensions,
@@ -10,13 +9,13 @@ import {
 import { router } from "expo-router";
 
 // import ThemedLink from "@/presentation/theme/components/ThemedLink";
+import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
+import SnackBarNotificationDanger from "@/presentation/theme/components/SnackBarNotificationDanger";
+import ThemedButton from "@/presentation/theme/components/ThemedButton";
+import ThemedLink from "@/presentation/theme/components/ThemedLink";
 import { ThemedText } from "@/presentation/theme/components/ThemedText";
 import ThemedTextInput from "@/presentation/theme/components/ThemedTextInput";
 import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
-import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import ThemedButton from "@/presentation/theme/components/ThemedButton";
-import ThemedLink from "@/presentation/theme/components/ThemedLink";
-import SnackBarNotificationDanger from "@/presentation/theme/components/SnackBarNotificationDanger";
 
 const LoginScreen = () => {
   const { login } = useAuthStore();
@@ -55,10 +54,10 @@ const LoginScreen = () => {
     }
 
     setIsPosting(true);
-    const wasSuccessful = await login(email, password);
+    const authSuccess = await login(email, password);
     setIsPosting(false);
 
-    if (wasSuccessful) {
+    if (authSuccess) {
       router.replace("/");
       return;
     }
