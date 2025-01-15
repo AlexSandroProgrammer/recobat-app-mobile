@@ -12,6 +12,7 @@ export const Colors = {
     primary: "#24ca12",
     secondaryLight: "#19b009",
     terciaryLight: "#178a0b",
+    danger: "#E6191F",
   },
   dark: {
     text: "#043201",
@@ -23,5 +24,6 @@ export const Colors = {
     primary: "#24ca12",
     secondaryLight: "#19b009",
     terciaryLight: "#178a0b",
+    danger: "#E6191F",
   },
 };

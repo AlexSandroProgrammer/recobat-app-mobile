@@ -20,6 +20,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const primaryColor = useThemeColor({}, "primary");
+  const backgroundColor = useThemeColor({}, "background");
   const [loading, setLoading] = useState(true);
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
@@ -59,7 +60,9 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView
+      style={{ backgroundColor: backgroundColor, flex: 1 }}
+    >
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack
           screenOptions={{

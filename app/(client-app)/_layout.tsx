@@ -6,6 +6,7 @@ import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
 
 const CheckAuthenticationLayout = () => {
   const primaryColor = useThemeColor({}, "primary");
+  const backgroundColor = useThemeColor({}, "background");
 
   const { status, checkStatus } = useAuthStore();
   useEffect(() => {
@@ -30,7 +31,17 @@ const CheckAuthenticationLayout = () => {
     return <Redirect href="/auth/login" />;
   }
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        headerShadowVisible: false,
+        headerStyle: {
+          backgroundColor: backgroundColor,
+        },
+        contentStyle: {
+          backgroundColor: backgroundColor,
+        },
+      }}
+    >
       <Stack.Screen
         name="(home)/index"
         options={{

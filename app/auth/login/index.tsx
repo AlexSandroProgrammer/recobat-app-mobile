@@ -16,6 +16,7 @@ import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import ThemedButton from "@/presentation/theme/components/ThemedButton";
 import ThemedLink from "@/presentation/theme/components/ThemedLink";
+import SnackBarNotificationDanger from "@/presentation/theme/components/SnackBarNotificationDanger";
 
 const LoginScreen = () => {
   const { login } = useAuthStore();
@@ -29,12 +30,27 @@ const LoginScreen = () => {
     password: "",
   });
 
+  // Estado para el Snackbar
+  const [snackbar, setSnackbar] = useState({
+    visible: false,
+    message: "",
+  });
+
+  const showSnackbar = (message: string) => {
+    setSnackbar({ visible: true, message });
+  };
+
+  const hideSnackbar = () => {
+    setSnackbar({ visible: false, message: "" });
+  };
+
   const onLogin = async () => {
     const { email, password } = form;
 
     console.log({ email, password });
 
     if (email.length === 0 || password.length === 0) {
+      showSnackbar("Por favor ingresa todos los datos.");
       return;
     }
 
@@ -47,7 +63,8 @@ const LoginScreen = () => {
       return;
     }
 
-    Alert.alert("Error", "Usuario o contraseña no son correctos");
+    // Alert.alert("Error", "Usuario o contraseña no son correctos");
+    showSnackbar("Usuario o contraseña no son correctos.");
   };
 
   return (
@@ -119,6 +136,12 @@ const LoginScreen = () => {
           </ThemedLink>
         </View>
       </ScrollView>
+      {/* Snackbar */}
+      <SnackBarNotificationDanger
+        visible={snackbar.visible}
+        onDismiss={hideSnackbar}
+        message={snackbar.message}
+      />
     </KeyboardAvoidingView>
   );
 };
