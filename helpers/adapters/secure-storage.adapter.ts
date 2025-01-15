@@ -12,7 +12,7 @@ export class SecureStorageAdapter {
   }
 
   // creamos una funcion para obtener el token
-  static async getItem(key: string, value: string) {
+  static async getItem(key: string) {
     try {
       return await SecureStore.getItemAsync(key);
     } catch (error) {

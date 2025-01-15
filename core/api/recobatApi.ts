@@ -1,5 +1,6 @@
 //* importamos axios
 import axios from "axios";
+import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
 import { Platform } from "react-native";
 
 //TODO: conectar mediante vars, Android e IOS
@@ -18,5 +19,13 @@ const recobatApi = axios.create({
   baseURL: API_URL,
 });
 
-//TODO: implementar los interceptores
+//implementacion los interceptores
+recobatApi.interceptors.request.use(async (config) => {
+  // verificamos si tenemos un token en el secure storage
+  const token = await SecureStorageAdapter.getItem("jwt");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 export { recobatApi };
