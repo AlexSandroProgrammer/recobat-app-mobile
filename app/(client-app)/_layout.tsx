@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import { Redirect, Stack } from "expo-router";
 import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
+import LogoutIconButton from "@/presentation/auth/components/LogoutIconButton";
 
 const CheckAuthenticationLayout = () => {
   const primaryColor = useThemeColor({}, "primary");
@@ -46,6 +47,7 @@ const CheckAuthenticationLayout = () => {
         name="(home)/index"
         options={{
           title: "Bienvenido Usuario",
+          headerRight: () => <LogoutIconButton />,
         }}
       ></Stack.Screen>
     </Stack>
