@@ -1,23 +1,8 @@
 import { recobatApi } from "../api/recobatApi";
 import { User } from "../auth/interface/user";
+import { UserData } from "../interfaces/index.interface";
+import { SecureStorageAdapter } from "../../helpers/adapters/secure-storage.adapter";
 
-// interfaz con los datos del usuario
-export interface UserData {
-  id: number;
-  documentId: string;
-  username: string;
-  email: string;
-  provider: string;
-  confirmed: boolean;
-  blocked: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  publishedAt: Date;
-  names: string;
-  surnames: string;
-  document: string;
-  telephone: string;
-}
 // interfaz con los datos del token y el usuario
 export interface AuthResponse {
   jwt: string;
@@ -82,8 +67,13 @@ export const authLogin = async (email: string, password: string) => {
 
 export const authCheckStatus = async () => {
   try {
-    const { data } = await recobatApi.get<AuthResponse>("/users/me");
-    return returnUserAndToken(data);
+    // const { data } = await recobatApi.get<AuthResponse>("/users/me");
+    // console.log(data);
+    // return returnUserAndToken(data);
+    const jwt = await SecureStorageAdapter.getItem("jwt");
+    return {
+      jwt,
+    };
   } catch (error) {
     console.error(error);
     console.log("entro en el catch");
