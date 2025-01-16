@@ -1,6 +1,10 @@
 import { create } from "zustand";
 import { User } from "@/core/auth/interface/user";
-import { authCheckStatus, authLogin } from "@/core/actions/auth-actions";
+import {
+  authCheckStatus,
+  authLogin,
+  authRegister,
+} from "@/core/actions/auth-actions";
 import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
 // creamos los tipos de estado que puede tener un usuario
 export type AuthStatus = "authenticated" | "unauthenticated" | "checking";
@@ -13,6 +17,11 @@ export interface AuthState {
   user?: User;
   //creamos dos accions para la autenticacion del usuario
   login: (email: string, password: string) => Promise<boolean>;
+  register: (
+    username: string,
+    email: string,
+    password: string
+  ) => Promise<boolean>;
   checkStatus: () => Promise<void>;
   logout: () => Promise<void>;
   // accion para cambiar de estado
@@ -54,11 +63,18 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
     return get().changeStatus(resp?.jwt);
   },
 
+  // accion del login
+  register: async (username: string, email: string, password: string) => {
+    // llamamos la accion para pasarle los datos
+    const resp = await authRegister(username, email, password);
+    return get().changeStatus(resp?.jwt);
+  },
+
   // accion para verificar el estado del usuario
   checkStatus: async () => {
     //* verificamos si el token esta en el secure storage
-    const response = await authCheckStatus();
-    get().changeStatus(response?.jwt);
+    const resp = await authCheckStatus();
+    get().changeStatus(resp?.jwt);
   },
 
   // accion para desloguearse

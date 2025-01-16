@@ -65,19 +65,39 @@ export const authLogin = async (email: string, password: string) => {
   }
 };
 
+//* creamos una funcion para el login del usuario
+
+export const authRegister = async (
+  username: string,
+  email: string,
+  password: string
+) => {
+  email = email.toLowerCase();
+  try {
+    const { data } = await recobatApi.post<AuthResponse>(
+      "/auth/local/register",
+      {
+        username,
+        email,
+        password,
+      }
+    );
+    return returnUserAndToken(data);
+  } catch (error) {
+    console.error(error);
+    // throw new Error("Error al momento de iniciar sesion");
+    return null;
+  }
+};
+
 export const authCheckStatus = async () => {
   try {
-    // const { data } = await recobatApi.get<AuthResponse>("/users/me");
-    // console.log(data);
-    // return returnUserAndToken(data);
     const jwt = await SecureStorageAdapter.getItem("jwt");
     return {
       jwt,
     };
   } catch (error) {
     console.error(error);
-    console.log("entro en el catch");
-    // throw new Error("Error al momento de verificar el estado de la sesion");
     return null;
   }
 };

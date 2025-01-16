@@ -16,43 +16,54 @@ import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import ThemedButton from "@/presentation/theme/components/ThemedButton";
 import ThemedLink from "@/presentation/theme/components/ThemedLink";
+import SnackBarNotificationDanger from "@/presentation/theme/components/SnackBarNotificationDanger";
 
 const RegisterScreen = () => {
-  const { login } = useAuthStore();
+  const { register } = useAuthStore();
 
   const { height } = useWindowDimensions();
   const backgroundColor = useThemeColor({}, "background");
 
   const [isPosting, setIsPosting] = useState(false);
   const [form, setForm] = useState({
-    document: "",
-    names: "",
-    surnames: "",
     username: "",
     email: "",
-    telephone: "",
     password: "",
   });
 
+  // Estado para el Snackbar
+  const [snackbar, setSnackbar] = useState({
+    visible: false,
+    message: "",
+  });
+
+  const showSnackbar = (message: string) => {
+    setSnackbar({ visible: true, message });
+  };
+
+  const hideSnackbar = () => {
+    setSnackbar({ visible: false, message: "" });
+  };
+
   const onRegister = async () => {
-    const { email, password } = form;
+    const { username, email, password } = form;
 
-    console.log({ email, password });
-
-    if (email.length === 0 || password.length === 0) {
+    if (email.length === 0 || password.length === 0 || username.length === 0) {
+      showSnackbar("Por favor ingresa todos los datos.");
       return;
     }
 
     setIsPosting(true);
-    const wasSuccessful = await login(email, password);
+    const authRegister = await register(username, email, password);
     setIsPosting(false);
 
-    if (wasSuccessful) {
+    if (authRegister) {
       router.replace("/");
       return;
     }
 
-    Alert.alert("Error", "Usuario o contraseña no son correctos");
+    // Alert.alert("Error", "Usuario o contraseña no son correctos");
+    showSnackbar("Error al momento de registrar los datos.");
   };
 
   return (
@@ -65,7 +76,7 @@ const RegisterScreen = () => {
       >
         <View
           style={{
-            paddingTop: height * 0.1,
+            paddingTop: height * 0.3,
           }}
         >
           <ThemedText type="title">Registrarme</ThemedText>
@@ -76,7 +87,7 @@ const RegisterScreen = () => {
 
         {/* Email y Password */}
         <View style={{ marginTop: 20 }}>
-          <ThemedTextInput
+          {/* <ThemedTextInput
             placeholder="Numero de documento"
             keyboardType="numeric"
             autoCapitalize="none"
@@ -91,24 +102,24 @@ const RegisterScreen = () => {
             icon="checkmark-done-circle"
             value={form.names}
             onChangeText={(value) => setForm({ ...form, names: value })}
-          />
+          /> */}
 
-          <ThemedTextInput
+          {/* <ThemedTextInput
             placeholder="Apellidos"
             keyboardType="default"
             autoCapitalize="words"
             icon="checkmark-done-circle"
             value={form.surnames}
             onChangeText={(value) => setForm({ ...form, surnames: value })}
-          />
-          <ThemedTextInput
+          /> */}
+          {/* <ThemedTextInput
             placeholder="Numero de Celular"
             keyboardType="numeric"
             autoCapitalize="none"
             icon="phone-portrait-outline"
             value={form.telephone}
             onChangeText={(value) => setForm({ ...form, telephone: value })}
-          />
+          /> */}
 
           <ThemedTextInput
             placeholder="Correo electrónico"
@@ -147,7 +158,7 @@ const RegisterScreen = () => {
           onPress={onRegister}
           disabled={isPosting}
         >
-          Ingresar
+          Registrarme
         </ThemedButton>
 
         {/* Spacer */}
@@ -167,6 +178,12 @@ const RegisterScreen = () => {
           </ThemedLink>
         </View>
       </ScrollView>
+      {/* Snackbar */}
+      <SnackBarNotificationDanger
+        visible={snackbar.visible}
+        onDismiss={hideSnackbar}
+        message={snackbar.message}
+      />
     </KeyboardAvoidingView>
   );
 };

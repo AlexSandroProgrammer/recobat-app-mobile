@@ -88,7 +88,7 @@ const LoginScreen = () => {
         {/* Email y Password */}
         <View style={{ marginTop: 20 }}>
           <ThemedTextInput
-            placeholder="Correo electrónico"
+            placeholder="Correo electrónico O Usuario"
             keyboardType="email-address"
             autoCapitalize="none"
             icon="mail-outline"
