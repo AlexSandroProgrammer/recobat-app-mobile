@@ -22,6 +22,7 @@ import { useColorScheme } from "@/presentation/theme/hooks/useColorScheme";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ActivityIndicator, View } from "react-native";
 import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
+import IsLoadingRefresh from "@/presentation/theme/components/IsLoadingRefresh";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -62,18 +63,7 @@ export default function RootLayout() {
   }
 
   if (loading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: 5,
-        }}
-      >
-        <ActivityIndicator size="large" color={primaryColor} />
-      </View>
-    );
+    return <IsLoadingRefresh />;
   }
 
   return (

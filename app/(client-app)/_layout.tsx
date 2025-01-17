@@ -1,51 +1,60 @@
 import LogoutIconButton from "@/presentation/auth/components/LogoutIconButton";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import { useClientStore } from "@/presentation/client/store/useClientStore";
 import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
 
+import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
+import useClient from "@/presentation/client/hooks/useClient";
 import { Redirect, Stack } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
 import { UserData } from "../../core/interfaces/index.interface";
+import IsLoadingRefresh from "../../presentation/theme/components/IsLoadingRefresh";
 
 const CheckAuthenticationLayout = () => {
-  const primaryColor = useThemeColor({}, "primary");
-  const backgroundColor = useThemeColor({}, "background");
   // Estado para almacenar los datos del usuario autenticado
-  const [userDataNew, setUserDataNew] = useState<UserData | null>(null);
   const { status, checkStatus } = useAuthStore();
-  const { userAuthenticated } = useClientStore();
+  const backgroundColor = useThemeColor({}, "background");
+
+  // Estado para manejar el token y el estado de carga
+  const [jwt, setJwt] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     checkStatus();
-    const dataUser = async () => {
+  }, []);
+
+  useEffect(() => {
+    // Obtener el token de forma asíncrona
+    const fetchJwt = async () => {
       try {
-        const {} = await userAuthenticated();
+        const token = await SecureStorageAdapter.getItem("jwt");
+        if (token) {
+          setJwt(token);
+        } else {
+          console.warn("Token no encontrado");
+        }
       } catch (error) {
-        console.error("Error al obtener los datos del usuario:", error);
+        console.error("Error al obtener el token:", error);
+      } finally {
+        setIsLoading(false); // Detener el estado de carga
       }
     };
-
-    dataUser();
+    fetchJwt();
   }, []);
 
   if (status === "checking") {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: 5,
-        }}
-      >
-        <ActivityIndicator size="large" color={primaryColor} />
-      </View>
-    );
+    return <IsLoadingRefresh />;
   }
   if (status === "unauthenticated") {
     return <Redirect href="/auth/login" />;
   }
+
+  const { userQuery } = useClient(`${jwt}`);
+
+  if (userQuery.isLoading) {
+    return <IsLoadingRefresh />;
+  }
+
+  const user = userQuery.data!;
   return (
     <Stack
       screenOptions={{
@@ -61,9 +70,10 @@ const CheckAuthenticationLayout = () => {
       <Stack.Screen
         name="(home)/index"
         options={{
-          title: `Bienvenido ${userData?.user?.username}`,
+          title: `Bienvenido ${user?.username}`,
           headerRight: () => <LogoutIconButton />,
         }}
+        //* pasamos la data para tenerla de manera general
       ></Stack.Screen>
     </Stack>
   );
