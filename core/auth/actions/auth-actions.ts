@@ -1,7 +1,7 @@
-import { recobatApi } from "../api/recobatApi";
-import { User } from "../auth/interface/user";
-import { UserData } from "../interfaces/index.interface";
-import { SecureStorageAdapter } from "../../helpers/adapters/secure-storage.adapter";
+import { recobatApi } from "../../api/recobatApi";
+import { User } from "../interface/user";
+import { UserData } from "../../interfaces/index.interface";
+import { SecureStorageAdapter } from "../../../helpers/adapters/secure-storage.adapter";
 
 // interfaz con los datos del token y el usuario
 export interface AuthResponse {

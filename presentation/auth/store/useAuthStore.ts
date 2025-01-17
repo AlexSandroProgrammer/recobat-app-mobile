@@ -4,7 +4,7 @@ import {
   authCheckStatus,
   authLogin,
   authRegister,
-} from "@/core/actions/auth-actions";
+} from "@/core/auth/actions/auth-actions";
 import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
 // creamos los tipos de estado que puede tener un usuario
 export type AuthStatus = "authenticated" | "unauthenticated" | "checking";

@@ -1,7 +1,7 @@
-import { recobatApi } from "../api/recobatApi";
-import { User } from "../auth/interface/user";
-import { UserData } from "../interfaces/index.interface";
-import { SecureStorageAdapter } from "../../helpers/adapters/secure-storage.adapter";
+import { recobatApi } from "../../api/recobatApi";
+import { User } from "../../auth/interface/user";
+import { UserData } from "../../interfaces/index.interface";
+import { SecureStorageAdapter } from "../../../helpers/adapters/secure-storage.adapter";
 
 // creamos una funcion para retornar el token y el usuario
 const userAuthenticated = (

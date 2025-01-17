@@ -14,4 +14,5 @@ export interface UserData {
   surnames: string;
   document: string;
   telephone: string;
+  stateData: string;
 }

@@ -5,12 +5,13 @@ import { Redirect, Stack } from "expo-router";
 import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
 import LogoutIconButton from "@/presentation/auth/components/LogoutIconButton";
 import { useClientStore } from "@/presentation/client/store/useClientStore";
+import { UserData } from "../../core/interfaces/index.interface";
 
 const CheckAuthenticationLayout = () => {
   const primaryColor = useThemeColor({}, "primary");
   const backgroundColor = useThemeColor({}, "background");
   // Estado para almacenar los datos del usuario autenticado
-  const [userData, setUserData] = useState({});
+  const [userDataNew, setUserDataNew] = useState<UserData | null>(null);
   const { status, checkStatus } = useAuthStore();
   const { userAuthenticated } = useClientStore();
 
@@ -18,8 +19,7 @@ const CheckAuthenticationLayout = () => {
     checkStatus();
     const dataUser = async () => {
       try {
-        const data = await userAuthenticated();
-        setUserData(data); // Actualiza el estado con los datos del usuario
+        const {} = await userAuthenticated();
       } catch (error) {
         console.error("Error al obtener los datos del usuario:", error);
       }
@@ -27,8 +27,6 @@ const CheckAuthenticationLayout = () => {
 
     dataUser();
   }, []);
-
-  console.log(userData);
 
   if (status === "checking") {
     return (
