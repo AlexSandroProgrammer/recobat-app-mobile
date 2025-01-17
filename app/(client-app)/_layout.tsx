@@ -1,10 +1,11 @@
-import { View, Text, ActivityIndicator } from "react-native";
-import React, { useEffect, useState } from "react";
-import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import { Redirect, Stack } from "expo-router";
-import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
 import LogoutIconButton from "@/presentation/auth/components/LogoutIconButton";
+import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import { useClientStore } from "@/presentation/client/store/useClientStore";
+import { useThemeColor } from "@/presentation/theme/hooks/useThemeColor";
+
+import { Redirect, Stack } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Text, View } from "react-native";
 import { UserData } from "../../core/interfaces/index.interface";
 
 const CheckAuthenticationLayout = () => {
