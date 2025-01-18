@@ -6,62 +6,57 @@ import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter"
 import useClient from "@/presentation/client/hooks/useClient";
 import { Redirect, Stack } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { UserData } from "../../core/interfaces/index.interface";
 import IsLoadingRefresh from "../../presentation/theme/components/IsLoadingRefresh";
 
 const CheckAuthenticationLayout = () => {
-  // Estado para almacenar los datos del usuario autenticado
   const { status, checkStatus } = useAuthStore();
   const backgroundColor = useThemeColor({}, "background");
+  const primaryColor = useThemeColor({}, "primary");
 
-  // Estado para manejar el token y el estado de carga
-  const [jwt, setJwt] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(true);
+  // const [jwt, setJwt] = useState<string | null>(null);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    checkStatus();
-  }, []);
+  // useEffect(() => {
+  //   checkStatus();
+  // }, [checkStatus]);
 
-  useEffect(() => {
-    // Obtener el token de forma asíncrona
-    const fetchJwt = async () => {
-      try {
-        const token = await SecureStorageAdapter.getItem("jwt");
-        if (token) {
-          setJwt(token);
-        } else {
-          console.warn("Token no encontrado");
-        }
-      } catch (error) {
-        console.error("Error al obtener el token:", error);
-      } finally {
-        setIsLoading(false); // Detener el estado de carga
-      }
-    };
-    fetchJwt();
-  }, []);
+  // useEffect(() => {
+  //   const fetchJwt = async () => {
+  //     try {
+  //       const token = await SecureStorageAdapter.getItem("jwt");
+  //       setJwt(token || null);
+  //     } catch (error) {
+  //       console.error("Error al obtener el token:", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   fetchJwt();
+  // }, []);
 
-  if (status === "checking") {
-    return <IsLoadingRefresh />;
-  }
-  if (status === "unauthenticated") {
-    return <Redirect href="/auth/login" />;
-  }
+  // if (status === "checking") {
+  //   return <IsLoadingRefresh />;
+  // }
 
-  const { userQuery } = useClient(`${jwt}`);
+  // if (status === "unauthenticated") {
+  //   return <Redirect href="/auth/login" />;
+  // }
 
-  if (userQuery.isLoading) {
-    return <IsLoadingRefresh />;
-  }
+  // const { userQuery } = useClient(jwt || "");
 
-  const user = userQuery.data!;
+  // if (userQuery.isLoading) {
+  //   return <IsLoadingRefresh />;
+  // }
+
+  // const user = userQuery.data!;
   return (
     <Stack
       screenOptions={{
         headerShadowVisible: false,
         headerStyle: {
-          backgroundColor: backgroundColor,
+          backgroundColor: primaryColor,
         },
+        headerTintColor: backgroundColor,
         contentStyle: {
           backgroundColor: backgroundColor,
         },
@@ -70,10 +65,9 @@ const CheckAuthenticationLayout = () => {
       <Stack.Screen
         name="(home)/index"
         options={{
-          title: `Bienvenido ${user?.username}`,
+          title: `RecobatApp`,
           headerRight: () => <LogoutIconButton />,
         }}
-        //* pasamos la data para tenerla de manera general
       ></Stack.Screen>
     </Stack>
   );

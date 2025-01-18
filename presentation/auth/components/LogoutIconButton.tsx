@@ -5,7 +5,7 @@ import { useAuthStore } from "../store/useAuthStore";
 import { Ionicons } from "@expo/vector-icons";
 
 const LogoutIconButton = () => {
-  const dangerColor = useThemeColor({}, "danger");
+  const dangerColor = useThemeColor({}, "text");
   const { logout } = useAuthStore();
   return (
     <TouchableOpacity style={{ marginRight: 8 }} onPress={logout}>
