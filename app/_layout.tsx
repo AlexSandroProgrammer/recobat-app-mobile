@@ -20,5 +20,5 @@ export default function RootLayout() {
   // si falla la carga de las fuentes
   if (!fontsLoaded) return null;
 
-  return <Stack />;
+  return <Stack screenOptions={{ headerShown: false }} />;
 }

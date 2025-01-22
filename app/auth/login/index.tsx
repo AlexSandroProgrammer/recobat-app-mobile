@@ -16,11 +16,7 @@ import images from "@/constants/images";
 const Auth = () => {
   return (
     <SafeAreaView className="bg-white h-full">
-      <ScrollView
-        contentContainerStyle={{
-          height: "100%",
-        }}
-      >
+      <ScrollView contentContainerClassName="h-full">
         <Image
           source={images.onboarding}
           className="w-full h-4/6"
@@ -28,22 +24,35 @@ const Auth = () => {
         />
 
         <View className="px-10">
-          <Text className="text-base text-center uppercase font-rubik text-black-200">
-            Welcome To Real Scout
+          <Text className="text-base text-center uppercase font-kanit text-black-200">
+            Bienvenido a Recobat
           </Text>
 
-          <Text className="text-3xl font-rubik-bold text-black-300 text-center mt-2">
-            Let's Get You Closer To {"\n"}
-            <Text className="text-primary-300">Your Ideal Home</Text>
-          </Text>
-
-          <Text className="text-lg font-rubik text-black-200 text-center mt-12">
-            Login to Real Scout with Google
+          <Text className="text-3xl font-kanit-bold text-black-300 text-center mt-1">
+            Tu mejor asistente {"\n"}
+            <Text className="text-primary-300">Para manejar tus cultivos</Text>
           </Text>
 
           <TouchableOpacity
             onPress={() => console.log("Iniciar Sesion")}
-            className="bg-white shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
+            className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
+          >
+            <View className="flex flex-row items-center justify-center">
+              <Image
+                source={icons.person}
+                className="w-5 h-5"
+                resizeMode="contain"
+                // le cambiamos el color a blanco
+                style={{ tintColor: "white" }}
+              />
+              <Text className="text-lg font-kanit text-white ml-2">
+                Iniciar Sesion
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => console.log("Iniciar Sesion")}
+            className="bg-primary-400 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-2"
           >
             <View className="flex flex-row items-center justify-center">
               <Image
@@ -51,8 +60,8 @@ const Auth = () => {
                 className="w-5 h-5"
                 resizeMode="contain"
               />
-              <Text className="text-lg font-rubik-medium text-black-300 ml-2">
-                Continue with Google
+              <Text className="text-lg font-kanit text-white ml-2">
+                Continuar con Google
               </Text>
             </View>
           </TouchableOpacity>

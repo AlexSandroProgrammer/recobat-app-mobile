@@ -13,7 +13,7 @@ export default function Index() {
       <Text className="text-blue-400 font-bold m-2">
         Edita esta pagina para el index del home.
       </Text>
-      <Link href="/">Example 1</Link>
+      <Link href="/auth/login">Iniciar Sesion</Link>
       <Link href="/">Example 2</Link>
       <Link href="/">Example 3</Link>
       <Link href="/">Example 4</Link>
