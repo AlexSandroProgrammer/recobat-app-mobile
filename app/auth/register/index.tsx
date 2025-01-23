@@ -1,10 +1,138 @@
-import { View, Text } from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+} from "react-native";
+
+import icons from "@/constants/icons";
+import images from "@/constants/images";
+import ThemedTextInput from "@/presentation/components/ThemedTextInput";
+import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
+import { router } from "expo-router";
 
 const RegisterScreen = () => {
+  const { register } = useAuthStore();
+
+  const { height } = useWindowDimensions();
+
+  const [isPosting, setIsPosting] = useState(false);
+  const [form, setForm] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
+
+  const onLogin = async () => {
+    const { email, username, password } = form;
+
+    console.log({ email, username, password });
+
+    if (email.length === 0 || username.length === 0 || password.length === 0) {
+      // showSnackbar("Por favor ingresa todos los datos.");
+      Alert.alert(
+        "Opsss!",
+        "Faltan datos por ingresar, por favor verifica los datos."
+      );
+
+      return;
+    }
+
+    setIsPosting(true);
+    const authSuccess = await register(username, email, password);
+    setIsPosting(false);
+
+    if (authSuccess) {
+      router.replace("/");
+      return;
+    }
+
+    Alert.alert("Error", "Error al momento de registrar los datos");
+    // showSnackbar("Usuario o contraseña no son correctos.");
+  };
+
   return (
-    <View>
-      <Text>RegisterScreen</Text>
-    </View>
+    <SafeAreaView className="bg-white h-full">
+      <ScrollView
+        contentContainerStyle={{
+          height: "100%",
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View className="justify-center h-full">
+          <Image
+            source={images.logo}
+            className="w-full h-24"
+            resizeMode="contain"
+          />
+          <View className="px-10 mt-5">
+            <Text className="text-3xl font-kanit-bold text-black-300 uppercase text-center mt-1">
+              <Text className="text-primary-300">Iniciar Sesion</Text>
+            </Text>
+            <Text className="text-base text-center font-kanit text-black-200">
+              Por favor Ingresa tus credenciales de email y contraseña.
+            </Text>
+
+            <ThemedTextInput
+              placeholder="Correo electrónico o Usuario"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              value={form.email}
+              iconRef="mail-outline"
+              onChangeText={(value) => setForm({ ...form, email: value })}
+            />
+
+            <ThemedTextInput
+              placeholder="Ingresa tu contraseña"
+              secureTextEntry
+              autoCapitalize="none"
+              value={form.password}
+              iconRef="lock-closed-outline"
+              onChangeText={(value) => setForm({ ...form, password: value })}
+            />
+
+            <TouchableOpacity
+              onPress={onLogin}
+              className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
+            >
+              <View className="flex flex-row items-center justify-center">
+                <Image
+                  source={icons.send}
+                  className="w-5 h-5"
+                  resizeMode="contain"
+                  // le cambiamos el color a blanco
+                  style={{ tintColor: "white" }}
+                />
+                <Text className="text-lg font-kanit text-white ml-2">
+                  Registrarme
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => console.log("Iniciar Sesion")}
+              className="bg-primary-400 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-2"
+            >
+              <View className="flex flex-row items-center justify-center">
+                <Image
+                  source={icons.google}
+                  className="w-5 h-5"
+                  resizeMode="contain"
+                />
+                <Text className="text-lg font-kanit text-white ml-2">
+                  Continuar con Google
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

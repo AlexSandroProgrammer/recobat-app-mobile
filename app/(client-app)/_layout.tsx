@@ -6,28 +6,28 @@ import { ActivityIndicator, View } from "react-native";
 const CheckAuthenticationLayout = () => {
   const { status, checkStatus } = useAuthStore();
 
-  // useEffect(() => {
-  //   checkStatus();
-  // }, [checkStatus]);
+  useEffect(() => {
+    checkStatus();
+  }, [checkStatus]);
 
-  // if (status === "checking") {
-  //   return (
-  //     <View
-  //       style={{
-  //         flex: 1,
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         marginBottom: 5,
-  //       }}
-  //     >
-  //       <ActivityIndicator size="large" color="#000" />
-  //     </View>
-  //   );
-  // }
+  if (status === "checking") {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: 5,
+        }}
+      >
+        <ActivityIndicator size="large" color="#4880e9" />
+      </View>
+    );
+  }
 
-  // if (status === "unauthenticated") {
-  //   return <Redirect href="/auth/login" />;
-  // }
+  if (status === "unauthenticated") {
+    return <Redirect href="/auth/login" />;
+  }
   return (
     <Stack
       screenOptions={{
@@ -37,7 +37,7 @@ const CheckAuthenticationLayout = () => {
       <Stack.Screen
         name="(home)/index"
         options={{
-          title: `RecobatApp`,
+          title: `Bienvenido Usuario`,
         }}
       ></Stack.Screen>
     </Stack>
