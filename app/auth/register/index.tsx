@@ -19,7 +19,6 @@ import ButtonAuthGoogle from "@/presentation/components/ButtonAuthGoogle";
 
 const RegisterScreen = () => {
   const { register } = useAuthStore();
-
   const { height } = useWindowDimensions();
 
   const [isPosting, setIsPosting] = useState(false);
@@ -40,7 +39,6 @@ const RegisterScreen = () => {
         "Opsss!",
         "Faltan datos por ingresar, por favor verifica los datos."
       );
-
       return;
     }
 

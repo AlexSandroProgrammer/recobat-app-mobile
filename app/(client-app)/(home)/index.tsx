@@ -1,3 +1,4 @@
+import AppTabs from "@/presentation/components/AppTabs";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
 
@@ -18,6 +19,7 @@ export default function Index() {
       <Link href="/">Example 3</Link>
       <Link href="/">Example 4</Link>
       <Link href="/">Example 5</Link>
+      {/* <AppTabs /> */}
     </View>
   );
 }
