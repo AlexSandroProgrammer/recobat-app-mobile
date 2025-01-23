@@ -30,7 +30,7 @@ const ThemedTextInput = ({ iconRef, ...rest }: Props) => {
           {...rest}
           placeholderTextColor="#273d88"
           // cambiamos el color de los inputs
-          style={{ color: "#273d88" }}
+          style={{ color: "#1b2550" }}
         />
       </View>
     </View>

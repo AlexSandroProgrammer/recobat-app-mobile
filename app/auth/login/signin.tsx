@@ -55,13 +55,16 @@ const LoginScreen = () => {
         showsVerticalScrollIndicator={false}
       >
         <Image
-          source={images.onboarding}
-          className="w-full h-3/6"
+          source={images.logo}
+          className="w-full h-3/4"
           resizeMode="contain"
         />
         <View className="px-10">
-          <Text className="text-3xl font-kanit-bold text-black-300 text-center mt-1">
+          <Text className="text-3xl font-kanit-bold text-black-300 uppercase text-center mt-1">
             <Text className="text-primary-300">Iniciar Sesion</Text>
+          </Text>
+          <Text className="text-base text-center font-kanit text-black-200">
+            Por favor Ingresa tus credenciales de email y contraseña.
           </Text>
 
           <ThemedTextInput
@@ -83,7 +86,7 @@ const LoginScreen = () => {
           />
 
           <TouchableOpacity
-            onPress={() => console.log("")}
+            onPress={onLogin}
             className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
           >
             <View className="flex flex-row items-center justify-center">
