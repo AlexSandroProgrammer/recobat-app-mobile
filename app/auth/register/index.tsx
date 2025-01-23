@@ -14,7 +14,8 @@ import icons from "@/constants/icons";
 import images from "@/constants/images";
 import ThemedTextInput from "@/presentation/components/ThemedTextInput";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
+import ButtonAuthGoogle from "@/presentation/components/ButtonAuthGoogle";
 
 const RegisterScreen = () => {
   const { register } = useAuthStore();
@@ -28,7 +29,7 @@ const RegisterScreen = () => {
     password: "",
   });
 
-  const onLogin = async () => {
+  const onRegister = async () => {
     const { email, username, password } = form;
 
     console.log({ email, username, password });
@@ -72,19 +73,37 @@ const RegisterScreen = () => {
           />
           <View className="px-10 mt-5">
             <Text className="text-3xl font-kanit-bold text-black-300 uppercase text-center mt-1">
-              <Text className="text-primary-300">Iniciar Sesion</Text>
+              <Text className="text-primary-300">Registrarme</Text>
             </Text>
             <Text className="text-base text-center font-kanit text-black-200">
-              Por favor Ingresa tus credenciales de email y contraseña.
+              Por favor Ingresa los siguientes datos para continuar con tu
+              registro.
             </Text>
 
             <ThemedTextInput
-              placeholder="Correo electrónico o Usuario"
+              placeholder="Correo electrónico"
               keyboardType="email-address"
               autoCapitalize="none"
               value={form.email}
+              // evitamos que tenga espacios
+              maxLength={30}
+              onChangeText={(value) =>
+                setForm({ ...form, email: value.replace(/\s/g, "") })
+              }
               iconRef="mail-outline"
-              onChangeText={(value) => setForm({ ...form, email: value })}
+            />
+
+            <ThemedTextInput
+              placeholder="Nombre Usuario"
+              keyboardType="ascii-capable"
+              autoCapitalize="none"
+              value={form.username}
+              iconRef="person-outline"
+              // evitamos que tenga espacios
+              maxLength={30}
+              onChangeText={(value) =>
+                setForm({ ...form, username: value.replace(/\s/g, "") })
+              }
             />
 
             <ThemedTextInput
@@ -93,11 +112,14 @@ const RegisterScreen = () => {
               autoCapitalize="none"
               value={form.password}
               iconRef="lock-closed-outline"
-              onChangeText={(value) => setForm({ ...form, password: value })}
+              maxLength={20}
+              onChangeText={(value) =>
+                setForm({ ...form, password: value.replace(/\s/g, "") })
+              }
             />
 
             <TouchableOpacity
-              onPress={onLogin}
+              onPress={onRegister}
               className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
             >
               <View className="flex flex-row items-center justify-center">
@@ -114,21 +136,13 @@ const RegisterScreen = () => {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => console.log("Iniciar Sesion")}
-              className="bg-primary-400 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-2"
-            >
-              <View className="flex flex-row items-center justify-center">
-                <Image
-                  source={icons.google}
-                  className="w-5 h-5"
-                  resizeMode="contain"
-                />
-                <Text className="text-lg font-kanit text-white ml-2">
-                  Continuar con Google
-                </Text>
-              </View>
-            </TouchableOpacity>
+            <ButtonAuthGoogle />
+            <Text className="text-base font-kanit-bold text-black-300 text-center mt-1">
+              ¿Ya tienes cuenta? {"\n"}
+              <Link href="/auth/login/signin" className="text-primary-300">
+                Iniciar Sesion
+              </Link>
+            </Text>
           </View>
         </View>
       </ScrollView>

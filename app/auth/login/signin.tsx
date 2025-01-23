@@ -14,7 +14,8 @@ import icons from "@/constants/icons";
 import images from "@/constants/images";
 import ThemedTextInput from "@/presentation/components/ThemedTextInput";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
+import ButtonAuthGoogle from "@/presentation/components/ButtonAuthGoogle";
 
 const LoginScreen = () => {
   const { login } = useAuthStore();
@@ -113,21 +114,14 @@ const LoginScreen = () => {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => console.log("Iniciar Sesion")}
-              className="bg-primary-400 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-2"
-            >
-              <View className="flex flex-row items-center justify-center">
-                <Image
-                  source={icons.google}
-                  className="w-5 h-5"
-                  resizeMode="contain"
-                />
-                <Text className="text-lg font-kanit text-white ml-2">
-                  Continuar con Google
-                </Text>
-              </View>
-            </TouchableOpacity>
+            <ButtonAuthGoogle />
+
+            <Text className="text-base font-kanit-bold text-black-300 text-center mt-3">
+              ¿No tienes cuenta? {"\n"}
+              <Link href="/auth/register" className="text-primary-300">
+                Registrarme
+              </Link>
+            </Text>
           </View>
         </View>
       </ScrollView>

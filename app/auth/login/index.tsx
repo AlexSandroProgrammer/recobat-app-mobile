@@ -12,6 +12,7 @@ import {
 import { Redirect, useRouter } from "expo-router";
 import icons from "@/constants/icons";
 import images from "@/constants/images";
+import ButtonAuthGoogle from "@/presentation/components/ButtonAuthGoogle";
 
 const RedirectScreen = () => {
   //* funcion para redireccionar a la vista del login
@@ -62,21 +63,7 @@ const RedirectScreen = () => {
               </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => console.log("Iniciar Sesion")}
-            className="bg-primary-400 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-2"
-          >
-            <View className="flex flex-row items-center justify-center">
-              <Image
-                source={icons.google}
-                className="w-5 h-5"
-                resizeMode="contain"
-              />
-              <Text className="text-lg font-kanit text-white ml-2">
-                Continuar con Google
-              </Text>
-            </View>
-          </TouchableOpacity>
+          <ButtonAuthGoogle />
         </View>
       </ScrollView>
     </SafeAreaView>
