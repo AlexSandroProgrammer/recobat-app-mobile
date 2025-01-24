@@ -1,5 +1,6 @@
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import { Redirect, Stack } from "expo-router";
+import { Redirect, Slot, Stack } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
@@ -29,18 +30,21 @@ const CheckAuthenticationLayout = () => {
     return <Redirect href="/auth/login" />;
   }
   return (
-    <Stack
-      screenOptions={{
-        headerShadowVisible: false,
-      }}
-    >
-      <Stack.Screen
-        name="(home)/index"
-        options={{
-          title: `Bienvenido Usuario`,
-        }}
-      ></Stack.Screen>
-    </Stack>
+    // <Stack
+    //   screenOptions={{
+    //     headerShadowVisible: false,
+    //   }}
+    // >
+    //   <Stack.Screen
+    //     name="(home)/index"
+    //     options={{
+    //       title: `Bienvenido Usuario`,
+    //     }}
+    //   ></Stack.Screen>
+    // </Stack>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Slot />
+    </GestureHandlerRootView>
   );
 };
 

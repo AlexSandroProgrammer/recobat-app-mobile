@@ -1,12 +1,12 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const list = () => {
+const SettingsScreen = () => {
   return (
     <View>
-      <Text>list</Text>
+      <Text>SettingsScreen</Text>
     </View>
   );
 };
 
-export default list;
+export default SettingsScreen;
