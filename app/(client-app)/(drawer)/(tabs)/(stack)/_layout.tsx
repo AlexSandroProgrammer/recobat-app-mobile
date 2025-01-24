@@ -37,6 +37,12 @@ const StackLayout = () => {
           title: "Inicio",
         }}
       />
+      <Stack.Screen
+        name="farm/index"
+        options={{
+          title: "Mis Fincas",
+        }}
+      />
     </Stack>
   );
 };
