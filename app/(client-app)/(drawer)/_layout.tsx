@@ -29,9 +29,8 @@ const DrawerLayout = () => {
           ),
         }}
       />
-
       <Drawer.Screen
-        name="farm/index"
+        name="farms/index"
         options={{
           drawerLabel: "Fincas",
           title: "Lista de Fincas",

@@ -1,6 +1,6 @@
 import { DrawerActions } from "@react-navigation/native";
 import { Link, useNavigation } from "expo-router";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 const PrincipalScreen = () => {
   return (
     <View

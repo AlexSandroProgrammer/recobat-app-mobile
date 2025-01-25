@@ -30,18 +30,6 @@ const CheckAuthenticationLayout = () => {
     return <Redirect href="/auth/login" />;
   }
   return (
-    // <Stack
-    //   screenOptions={{
-    //     headerShadowVisible: false,
-    //   }}
-    // >
-    //   <Stack.Screen
-    //     name="(home)/index"
-    //     options={{
-    //       title: `Bienvenido Usuario`,
-    //     }}
-    //   ></Stack.Screen>
-    // </Stack>
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Slot />
     </GestureHandlerRootView>

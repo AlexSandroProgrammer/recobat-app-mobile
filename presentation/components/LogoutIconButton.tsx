@@ -7,8 +7,8 @@ const LogoutIconButton = () => {
   const dangerColor = "#f44336";
   const { logout } = useAuthStore();
   return (
-    <TouchableOpacity style={{ marginRight: 8 }} onPress={logout}>
-      <Ionicons name="log-out-outline" size={24} color={dangerColor} />
+    <TouchableOpacity style={{ marginRight: 5 }} onPress={logout}>
+      <Ionicons name="log-out-outline" size={25} color={dangerColor} />
     </TouchableOpacity>
   );
 };

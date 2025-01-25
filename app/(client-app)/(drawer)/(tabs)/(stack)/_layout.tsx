@@ -4,11 +4,7 @@ import { DrawerActions, StackActions } from "@react-navigation/native";
 import { Stack, useNavigation } from "expo-router";
 const StackLayout = () => {
   const navigation = useNavigation();
-  const onHeaderLeftClick = (canGoBack: boolean) => {
-    if (canGoBack) {
-      navigation.dispatch(StackActions.pop());
-      return;
-    }
+  const onHeaderLeftClick = () => {
     navigation.dispatch(DrawerActions.toggleDrawer);
   };
 
@@ -17,15 +13,19 @@ const StackLayout = () => {
       screenOptions={{
         // headerShown: false,
         headerShadowVisible: false,
+        headerStyle: {
+          backgroundColor: "#f0f6fe",
+        },
         contentStyle: {
           backgroundColor: "white",
         },
+        // headerTintColor: "#f0f6fe",
         headerLeft: ({ tintColor, canGoBack }) => (
           <Ionicons
-            name={canGoBack ? "arrow-back-outline" : "grid-outline"}
+            name={"grid-outline"}
             className="mr-5"
             size={20}
-            onPress={() => onHeaderLeftClick(canGoBack)}
+            onPress={onHeaderLeftClick}
           />
         ),
         headerRight: () => <LogoutIconButton />,
@@ -34,15 +34,11 @@ const StackLayout = () => {
       <Stack.Screen
         name="(home)/index"
         options={{
-          title: "Inicio",
+          title: "Bienvenido",
+          headerTitleAlign: "center",
         }}
-      />
-      <Stack.Screen
-        name="farm/index"
-        options={{
-          title: "Mis Fincas",
-        }}
-      />
+      ></Stack.Screen>
+      {/* example123re@gmail.com */}
     </Stack>
   );
 };
