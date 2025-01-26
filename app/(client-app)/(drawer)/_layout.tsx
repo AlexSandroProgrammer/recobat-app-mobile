@@ -1,7 +1,42 @@
+import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
+import useClient from "@/presentation/client/hooks/useClient";
 import CustomDrawer from "@/presentation/components/CustomDrawer";
+import IsLoadingRefresh from "@/presentation/components/IsLoadingRefresh";
+import ModalWindow from "@/presentation/components/modals/ModalWindow";
 import { Ionicons } from "@expo/vector-icons";
 import { Drawer } from "expo-router/drawer";
+import { useEffect, useState } from "react";
 const DrawerLayout = () => {
+  const [jwt, setJwt] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const fetchJwt = async () => {
+  //     try {
+  //       const token = await SecureStorageAdapter.getItem("jwt");
+  //       setJwt(token || null);
+  //     } catch (error) {
+  //       console.error("Error al obtener el token:", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   fetchJwt();
+  // }, []);
+
+  // const { userQuery } = useClient(jwt || "");
+
+  // if (userQuery.isLoading) {
+  //   return <IsLoadingRefresh />;
+  // }
+
+  // const user = userQuery.data!;
+
+  // // verificamos si el usuario tiene todos los datos registrados
+  // if (!user.stateData) {
+  //   //* creamos un modal con clases de nativewind indicandole al usuario que le hacen falta registrar datos
+  //   return <ModalWindow />;
+  // }
   return (
     <Drawer
       drawerContent={CustomDrawer}
@@ -16,6 +51,8 @@ const DrawerLayout = () => {
         sceneStyle: {
           backgroundColor: "white",
         },
+        headerTitleAlign: "center",
+        // headerRight: () => <LogoutIconButton />,
       }}
     >
       <Drawer.Screen
@@ -32,8 +69,8 @@ const DrawerLayout = () => {
       <Drawer.Screen
         name="farms/index"
         options={{
-          drawerLabel: "Fincas",
-          title: "Lista de Fincas",
+          drawerLabel: "Mis Fincas",
+          title: "Mis Fincas",
           drawerIcon: () => (
             <Ionicons name="albums-outline" size={26} color="#4880e9" />
           ),

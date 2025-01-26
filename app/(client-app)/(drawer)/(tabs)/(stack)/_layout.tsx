@@ -1,6 +1,6 @@
 import LogoutIconButton from "@/presentation/components/LogoutIconButton";
 import { Ionicons } from "@expo/vector-icons";
-import { DrawerActions, StackActions } from "@react-navigation/native";
+import { DrawerActions } from "@react-navigation/native";
 import { Stack, useNavigation } from "expo-router";
 const StackLayout = () => {
   const navigation = useNavigation();
@@ -14,7 +14,7 @@ const StackLayout = () => {
         // headerShown: false,
         headerShadowVisible: false,
         headerStyle: {
-          backgroundColor: "#f0f6fe",
+          backgroundColor: "white",
         },
         contentStyle: {
           backgroundColor: "white",
@@ -22,9 +22,9 @@ const StackLayout = () => {
         // headerTintColor: "#f0f6fe",
         headerLeft: ({ tintColor, canGoBack }) => (
           <Ionicons
-            name={"grid-outline"}
+            name={"menu-outline"}
             className="mr-5"
-            size={20}
+            size={25}
             onPress={onHeaderLeftClick}
           />
         ),
@@ -38,7 +38,13 @@ const StackLayout = () => {
           headerTitleAlign: "center",
         }}
       ></Stack.Screen>
-      {/* example123re@gmail.com */}
+      <Stack.Screen
+        name="user/index"
+        options={{
+          title: "Editar Mis Datos",
+          headerTitleAlign: "center",
+        }}
+      ></Stack.Screen>
     </Stack>
   );
 };

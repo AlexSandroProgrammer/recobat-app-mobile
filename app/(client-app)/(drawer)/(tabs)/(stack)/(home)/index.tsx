@@ -1,20 +1,14 @@
-import { DrawerActions } from "@react-navigation/native";
-import { Link, useNavigation } from "expo-router";
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView, FlatList } from "react-native";
 const PrincipalScreen = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text className="text-blue-400 font-bold m-2">
-        Edita esta pagina para el PrincipalScreen del home.
-      </Text>
-      <Link href="/auth/login">Iniciar Sesion</Link>
-    </View>
+    // recobatapp123456@gmail.com
+    <SafeAreaView>
+      <View className="pb-32 flex gap-5 px-5">
+        <View className="px-5">
+          <View className="flex flex-row items-center justify-between mt-5"></View>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
