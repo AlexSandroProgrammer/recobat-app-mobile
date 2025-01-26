@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { useAuthStore } from "../auth/store/useAuthStore";
+import { useAuthStore } from "../../auth/store/useAuthStore";
 
 const LogoutIconButton = () => {
   const dangerColor = "#f44336";

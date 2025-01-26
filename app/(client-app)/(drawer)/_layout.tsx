@@ -1,7 +1,7 @@
 import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
 import useClient from "@/presentation/client/hooks/useClient";
-import CustomDrawer from "@/presentation/components/CustomDrawer";
-import IsLoadingRefresh from "@/presentation/components/IsLoadingRefresh";
+import CustomDrawer from "@/presentation/components/drawer/CustomDrawer";
+import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import ModalWindow from "@/presentation/components/modals/ModalWindow";
 import { Ionicons } from "@expo/vector-icons";
 import { Drawer } from "expo-router/drawer";
@@ -10,33 +10,33 @@ const DrawerLayout = () => {
   const [jwt, setJwt] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchJwt = async () => {
-  //     try {
-  //       const token = await SecureStorageAdapter.getItem("jwt");
-  //       setJwt(token || null);
-  //     } catch (error) {
-  //       console.error("Error al obtener el token:", error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   fetchJwt();
-  // }, []);
+  useEffect(() => {
+    const fetchJwt = async () => {
+      try {
+        const token = await SecureStorageAdapter.getItem("jwt");
+        setJwt(token || null);
+      } catch (error) {
+        console.error("Error al obtener el token:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchJwt();
+  }, []);
 
-  // const { userQuery } = useClient(jwt || "");
+  const { userQuery } = useClient(jwt || "");
 
-  // if (userQuery.isLoading) {
-  //   return <IsLoadingRefresh />;
-  // }
+  if (userQuery.isLoading) {
+    return <IsLoadingRefresh />;
+  }
 
-  // const user = userQuery.data!;
+  const user = userQuery.data!;
 
-  // // verificamos si el usuario tiene todos los datos registrados
-  // if (!user.stateData) {
-  //   //* creamos un modal con clases de nativewind indicandole al usuario que le hacen falta registrar datos
-  //   return <ModalWindow />;
-  // }
+  // verificamos si el usuario tiene todos los datos registrados
+  if (!user.stateData) {
+    //* creamos un modal con clases de nativewind indicandole al usuario que le hacen falta registrar datos
+    return <ModalWindow />;
+  }
   return (
     <Drawer
       drawerContent={CustomDrawer}

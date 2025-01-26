@@ -1,4 +1,4 @@
-import LogoutIconButton from "@/presentation/components/LogoutIconButton";
+import LogoutIconButton from "@/presentation/components/theme/LogoutIconButton";
 import { Ionicons } from "@expo/vector-icons";
 import { DrawerActions } from "@react-navigation/native";
 import { Stack, useNavigation } from "expo-router";

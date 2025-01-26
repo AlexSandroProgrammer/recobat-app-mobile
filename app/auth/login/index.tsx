@@ -12,7 +12,7 @@ import {
 import { Redirect, useRouter } from "expo-router";
 import icons from "@/constants/icons";
 import images from "@/constants/images";
-import ButtonAuthGoogle from "@/presentation/components/ButtonAuthGoogle";
+import ButtonAuthGoogle from "@/presentation/components/theme/ButtonAuthGoogle";
 
 const RedirectScreen = () => {
   //* funcion para redireccionar a la vista del login

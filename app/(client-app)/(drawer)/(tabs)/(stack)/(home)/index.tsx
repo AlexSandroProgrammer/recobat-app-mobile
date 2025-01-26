@@ -1,7 +1,6 @@
 import { View, Text, SafeAreaView, FlatList } from "react-native";
 const PrincipalScreen = () => {
   return (
-    // recobatapp123456@gmail.com
     <SafeAreaView>
       <View className="pb-32 flex gap-5 px-5">
         <View className="px-5">

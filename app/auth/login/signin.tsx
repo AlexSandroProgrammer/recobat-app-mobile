@@ -12,10 +12,10 @@ import {
 
 import icons from "@/constants/icons";
 import images from "@/constants/images";
-import ThemedTextInput from "@/presentation/components/ThemedTextInput";
+import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import { Link, router } from "expo-router";
-import ButtonAuthGoogle from "@/presentation/components/ButtonAuthGoogle";
+import ButtonAuthGoogle from "@/presentation/components/theme/ButtonAuthGoogle";
 
 const LoginScreen = () => {
   const { login } = useAuthStore();

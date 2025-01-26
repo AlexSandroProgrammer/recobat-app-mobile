@@ -15,6 +15,7 @@ export interface UserData {
   document: string;
   telephone: string;
   stateData: string;
+  typeDocument: string;
 }
 
 // interfaz con los datos iniciales del usuario
