@@ -19,11 +19,12 @@ const StackLayout = () => {
         contentStyle: {
           backgroundColor: "white",
         },
+
         // headerTintColor: "#f0f6fe",
         headerLeft: ({ tintColor, canGoBack }) => (
           <Ionicons
             name={"menu-outline"}
-            className="mr-5"
+            className="mr-3"
             size={25}
             onPress={onHeaderLeftClick}
           />

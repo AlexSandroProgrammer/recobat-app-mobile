@@ -1,4 +1,4 @@
-import { ButtonGroupProps } from "@/core/client/index.interface";
+import { ButtonGroupProps } from "@/core/client/interfaces/index.interface";
 import { View, Text, TouchableOpacity } from "react-native";
 
 const ThemedButtonGroup = ({
