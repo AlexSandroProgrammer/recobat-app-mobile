@@ -83,8 +83,11 @@ const LoginScreen = () => {
               keyboardType="email-address"
               autoCapitalize="none"
               value={form.email}
+              maxLength={30}
               iconRef="mail-outline"
-              onChangeText={(value) => setForm({ ...form, email: value })}
+              onChangeText={(value) =>
+                setForm({ ...form, email: value.replace(/\s/g, "") })
+              }
             />
 
             <ThemedTextInput
@@ -92,8 +95,11 @@ const LoginScreen = () => {
               secureTextEntry
               autoCapitalize="none"
               value={form.password}
+              maxLength={20}
               iconRef="lock-closed-outline"
-              onChangeText={(value) => setForm({ ...form, password: value })}
+              onChangeText={(value) =>
+                setForm({ ...form, password: value.replace(/\s/g, "") })
+              }
             />
 
             <TouchableOpacity

@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import icons from "@/constants/icons";
 import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
@@ -7,8 +14,15 @@ import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter"
 import useClient from "@/presentation/client/hooks/useClient";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import ThemedButtonGroup from "../../../presentation/components/theme/ThemedButtonGroup";
+import { UserData } from "../../../core/auth/interfaces/index.interface";
+import images from "@/constants/images";
+import { Formik } from "formik";
+import { router } from "expo-router";
+import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 
 const UpdateDataScreen = () => {
+  const { updateUser } = useAuthStore();
+
   const [isPosting, setIsPosting] = useState(false);
 
   const [jwt, setJwt] = useState<string | null>(null);
@@ -37,29 +51,78 @@ const UpdateDataScreen = () => {
   const user = userQuery.data!;
 
   const [form, setForm] = useState({
+    id: user.id,
     email: user.email,
     username: user.username,
+    names: "",
+    surnames: "",
+    document: "",
+    telephone: "",
+    type_document: "",
+    stateData: "success",
   });
 
   const onUpdateData = async () => {
-    // const { email, password } = form;
-    // console.log({ email, password });
-    // if (email.length === 0 || password.length === 0) {
-    //   // showSnackbar("Por favor ingresa todos los datos.");
-    //   Alert.alert(
-    //     "Opsss!",
-    //     "Faltan Datos por ingresar, por favor verifica los datos."
-    //   );
-    //   return;
-    // }
-    // setIsPosting(true);
-    // const authSuccess = await login(email, password);
-    // setIsPosting(false);
-    // if (authSuccess) {
-    //   router.replace("/");
-    //   return;
-    // }
-    // Alert.alert("Error", "Usuario o contraseña no son correctos");
+    const {
+      email,
+      username,
+      names,
+      surnames,
+      document,
+      telephone,
+      type_document,
+      id,
+      stateData,
+    } = form;
+
+    console.log({
+      email,
+      username,
+      names,
+      surnames,
+      document,
+      telephone,
+      type_document,
+      id,
+      stateData,
+    });
+
+    if (
+      email.length === 0 ||
+      username.length === 0 ||
+      names.length === 0 ||
+      surnames.length === 0 ||
+      document.length === 0 ||
+      telephone.length === 0 ||
+      type_document === "" ||
+      stateData === ""
+    ) {
+      // showSnackbar("Por favor ingresa todos los datos.");
+      Alert.alert(
+        "Opsss!",
+        "Faltan Datos por ingresar, por favor verifica los datos."
+      );
+      return;
+    }
+    setIsPosting(true);
+    const authSuccess = await updateUser(
+      email,
+      username,
+      names,
+      surnames,
+      document,
+      telephone,
+      type_document,
+      id,
+      stateData
+    );
+    setIsPosting(false);
+    if (authSuccess) {
+      Alert.alert("Éxito", "Datos actualizados correctamente.");
+      router.replace("/");
+      return;
+    }
+    Alert.alert("Error", "Error, por favor verifica tus datos.");
     // showSnackbar("Usuario o contraseña no son correctos.");
   };
 
@@ -72,6 +135,11 @@ const UpdateDataScreen = () => {
         showsVerticalScrollIndicator={false}
       >
         <View className="justify-center h-full">
+          <Image
+            source={images.logo}
+            className="w-full h-24"
+            resizeMode="contain"
+          />
           <View className="px-10 mt-5">
             <Text className="text-3xl font-kanit-bold text-black-300 uppercase text-center mt-1">
               <Text className="text-primary-300">Completar Mis Datos</Text>
@@ -81,22 +149,97 @@ const UpdateDataScreen = () => {
               registro.
             </Text>
 
-            <ThemedButtonGroup
-              options={["T.I.", "C.E."]}
-              selectedOptions={""}
-              onSelect={(options) => console.log("")}
+            <View className="my-5">
+              <Text className="text-base text-left font-kanit text-black-100 mb-7">
+                Tipo de Documento:
+              </Text>
+              <ThemedButtonGroup
+                options={["T.I.", "C.E."]}
+                selectedOptions={form.type_document}
+                onSelect={(selectedOption) =>
+                  setForm((prevState) => ({
+                    ...prevState,
+                    type_document: selectedOption,
+                  }))
+                }
+              />
+            </View>
+
+            <ThemedTextInput
+              placeholder="Numero de documento"
+              keyboardType="numeric"
+              autoCapitalize="none"
+              value={form.document}
+              iconRef="card-outline"
+              maxLength={12}
+              onChangeText={(value) =>
+                setForm({ ...form, document: value.replace(/\s/g, "") })
+              }
+            />
+
+            <ThemedTextInput
+              placeholder="Nombres"
+              keyboardType="ascii-capable"
+              autoCapitalize="words"
+              value={form.names}
+              iconRef="text-outline"
+              // escribimos la primera letra en mayuscula cada vez que se de un espacio o que sea la primera letra
+              onChangeText={(value) =>
+                setForm({
+                  ...form,
+                  names: value
+                    .split(" ")
+                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(" "),
+                })
+              }
+            />
+
+            <ThemedTextInput
+              placeholder="Apellidos"
+              keyboardType="ascii-capable"
+              autoCapitalize="none"
+              value={form.surnames}
+              iconRef="text-outline"
+              onChangeText={(value) => setForm({ ...form, surnames: value })}
+            />
+
+            <ThemedTextInput
+              placeholder="Numero de Celular"
+              keyboardType="numeric"
+              autoCapitalize="none"
+              value={form.telephone}
+              iconRef="phone-portrait-outline"
+              onChangeText={(value) =>
+                setForm({ ...form, telephone: value.replace(/\s/g, "") })
+              }
             />
 
             <ThemedTextInput
               placeholder="Correo electrónico o Usuario"
               keyboardType="email-address"
               // bloqueamos el campo
-              editable={false}
               autoCapitalize="none"
               value={form.email}
               iconRef="mail-outline"
-              onChangeText={(value) => setForm({ ...form, email: value })}
+              onChangeText={(value) =>
+                setForm({ ...form, email: value.replace(/\s/g, "") })
+              }
             />
+
+            <ThemedTextInput
+              placeholder="Nombre Usuario"
+              keyboardType="ascii-capable"
+              autoCapitalize="none"
+              value={form.username}
+              iconRef="person-outline"
+              // evitamos que tenga espacios
+              maxLength={30}
+              onChangeText={(value) =>
+                setForm({ ...form, username: value.replace(/\s/g, "") })
+              }
+            />
+
             <TouchableOpacity
               onPress={onUpdateData}
               className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"

@@ -101,4 +101,40 @@ export const authCheckStatus = async () => {
   }
 };
 
-// TODO: Hacer el registro del usuario
+//* creamos un metodo para actualizar los datos del usuario
+export const updateUserData = async (
+  email: string,
+  username: string,
+  names: string,
+  surnames: string,
+  document: string,
+  telephone: string,
+  typeDocument: string,
+  id: number,
+  stateData: string
+) => {
+  try {
+    const jwt = await SecureStorageAdapter.getItem("jwt");
+    const { data } = await recobatApi.put<UserData>(
+      `/users/${id}`,
+      {
+        email,
+        username,
+        names,
+        surnames,
+        document,
+        telephone,
+        typeDocument,
+        stateData,
+      },
+      {
+        headers: { Authorization: `Bearer ${jwt}` },
+      }
+    );
+    return true;
+  } catch (error) {
+    console.error(error);
+    // throw new Error("Error al actualizar los datos del usuario");
+    return null;
+  }
+};

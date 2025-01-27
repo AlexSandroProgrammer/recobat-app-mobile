@@ -14,6 +14,7 @@ const DrawerLayout = () => {
     const fetchJwt = async () => {
       try {
         const token = await SecureStorageAdapter.getItem("jwt");
+        console.log(token);
         setJwt(token || null);
       } catch (error) {
         console.error("Error al obtener el token:", error);

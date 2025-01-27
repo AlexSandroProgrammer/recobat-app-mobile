@@ -3,6 +3,7 @@ import {
   authCheckStatus,
   authLogin,
   authRegister,
+  updateUserData,
 } from "@/core/auth/actions/auth-actions";
 import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
 import { User } from "@/core/auth/interfaces/index.interface";
@@ -22,6 +23,19 @@ export interface AuthState {
     email: string,
     password: string
   ) => Promise<boolean>;
+
+  updateUser: (
+    email: string,
+    username: string,
+    names: string,
+    surnames: string,
+    document: string,
+    telephone: string,
+    typeDocument: string,
+    id: number,
+    stateData: string
+  ) => Promise<boolean>;
+
   checkStatus: () => Promise<void>;
   logout: () => Promise<void>;
   // accion para cambiar de estado
@@ -63,11 +77,39 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
     return get().changeStatus(resp?.jwt);
   },
 
-  // accion del login
+  // accion del registro
   register: async (username: string, email: string, password: string) => {
     // llamamos la accion para pasarle los datos
     const resp = await authRegister(username, email, password);
     return get().changeStatus(resp?.jwt);
+  },
+
+  // accion del login
+  updateUser: async (
+    email: string,
+    username: string,
+    names: string,
+    surnames: string,
+    document: string,
+    telephone: string,
+    typeDocument: string,
+    id: number,
+    stateData: string
+  ) => {
+    // llamamos la accion para pasarle los datos
+    const resp = await updateUserData(
+      email,
+      username,
+      names,
+      surnames,
+      document,
+      telephone,
+      typeDocument,
+      id,
+      stateData
+    );
+    //¨* verificamos si todo salio bien
+    return resp ? true : false;
   },
 
   // accion para verificar el estado del usuario

@@ -15,7 +15,7 @@ export interface UserData {
   document: string;
   telephone: string;
   stateData: string;
-  typeDocument: string;
+  typeDocument?: TypeDocuments;
 }
 
 // interfaz con los datos iniciales del usuario
@@ -30,4 +30,9 @@ export interface User {
   username: string;
   blocked?: boolean;
   confirmed?: boolean;
+}
+
+export enum TypeDocuments {
+  TI = "T.I.",
+  CC = "C.C.",
 }
