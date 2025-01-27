@@ -6,4 +6,29 @@ export const dataCardItems = [
     icon: "home-outline",
     route: "/fincas",
   },
+  {
+    title: "Empleados",
+    description: "Cantidad de Empleados que actualmente tienes registrados",
+    icon: "person-outline",
+    route: "/fincas",
+  },
+  {
+    title: "Cultivos En Proceso",
+    description: "Cantidad de Empleados que actualmente tienes registrados",
+    icon: "person-outline",
+    route: "/fincas",
+  },
+  {
+    title: "Cultivo Finalizados",
+    description: "Cantidad de Empleados que actualmente tienes registrados",
+    icon: "person-outline",
+    route: "/fincas",
+  },
+];
+
+export const backgroundColors = [
+  "bg-primary-200", // Primer color
+  "bg-green-500", // Segundo color
+  "bg-yellow-500", // Tercer color
+  "bg-red-500", // Más colores si es necesario
 ];

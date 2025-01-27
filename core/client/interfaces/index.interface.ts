@@ -10,4 +10,5 @@ export interface CardsItems {
   icon: string;
   // onPress?: () => void;
   route: string;
+  bgColor?: any;
 }
