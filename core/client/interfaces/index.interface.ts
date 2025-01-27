@@ -3,3 +3,11 @@ export interface ButtonGroupProps {
   selectedOptions: string;
   onSelect: (option: string) => void;
 }
+
+export interface CardsItems {
+  title: string;
+  description: string;
+  icon: string;
+  // onPress?: () => void;
+  route: string;
+}

@@ -2,10 +2,8 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import icons from "@/constants/icons";
 import images from "@/constants/images";
-import {
-  Card,
-  FeaturedCard,
-} from "../../../../../../presentation/components/cards/Card";
+import { dataCardItems } from "@/presentation/components/cards/CardItems.data";
+import { Card } from "@/presentation/components/cards/Card";
 
 const Home = () => {
   return (
@@ -38,7 +36,15 @@ const Home = () => {
           </View>
         </View>
         <View className="flex">
-          <Card />
+          {dataCardItems.map((item) => (
+            <Card
+              key={item.title}
+              description={item.description}
+              route={item.route}
+              icon={item.icon}
+              title={item.title}
+            />
+          ))}
         </View>
       </View>
     </SafeAreaView>
