@@ -1,16 +1,12 @@
 import { CardsItems } from "@/core/client/interfaces/index.interface";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
-export const ThemedCard = ({
-  title,
-  description,
-  icon,
-  route,
-  bgColor,
-}: CardsItems) => {
+
+export const FarmCard = ({ title, description, icon, route }: CardsItems) => {
   return (
     <View
-      className={`w-full p-6 rounded-xl ${bgColor} shadow-lg shadow-blue-950/100 relative`}
+      className={`w-full p-6 rounded-xl shadow-lg bg-slate-300 shadow-black/80 relative`}
     >
       {/* Encabezado con icono y título */}
       <View className="flex flex-row items-center content-center">
@@ -37,15 +33,14 @@ export const ThemedCard = ({
           </View>
         </View>
       </View>
-
       {/* Footer */}
-      <View className="flex flex-row justify-between items-center mt-3">
+      <View className="flex flex-row items-end justify-end mt-3">
         <TouchableOpacity
-          onPress={() => console.log(route)}
-          className="bg-primary-100 shadow-md shadow-zinc-300 rounded-full w-full py-4"
+          onPress={() => router.push("/")}
+          className="bg-primary-100 shadow-md shadow-zinc-300 rounded-full w-3/6 py-4"
         >
           <View className="flex flex-row items-center justify-center">
-            <Text className="text-lg font-kanit text-black ml-2">Mirar</Text>
+            <Text className="text-lg font-kanit text-black ml-2">Lotes</Text>
             <Ionicons
               name="arrow-forward-circle-outline"
               size={25}

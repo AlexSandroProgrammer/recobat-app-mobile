@@ -7,7 +7,6 @@ const StackLayout = () => {
   const onHeaderLeftClick = () => {
     navigation.dispatch(DrawerActions.toggleDrawer);
   };
-
   return (
     <Stack
       screenOptions={{
@@ -35,17 +34,18 @@ const StackLayout = () => {
       <Stack.Screen
         name="(home)/index"
         options={{
-          title: "Bienvenido",
+          title: "Recobat",
           headerTitleAlign: "center",
         }}
       ></Stack.Screen>
       <Stack.Screen
-        name="user/index"
+        name="farm/registerfarm"
         options={{
-          title: "Editar Mis Datos",
-          headerTitleAlign: "center",
+          presentation: 'transparentModal',
+          animation: 'fade',
+          headerShown: false,
         }}
-      ></Stack.Screen>
+      />
     </Stack>
   );
 };

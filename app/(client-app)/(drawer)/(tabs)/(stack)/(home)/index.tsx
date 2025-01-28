@@ -9,6 +9,13 @@ import {
 import { CardStadistic } from "@/presentation/components/cards/CardStadistic";
 import { useRef } from "react";
 import DropProfile from "@/presentation/components/theme/DropProfile";
+import { DropProfileProps } from "../../../../../../core/client/interfaces/index.interface";
+
+const DataDropProfile: DropProfileProps = {
+  title: "Estadisticas",
+  titleButton: "Crear",
+  routeModal: "Estadisticas",
+};
 
 const Home = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -22,7 +29,7 @@ const Home = () => {
         scrollEventThrottle={16} // Controla la frecuencia de actualización del evento de scroll
       >
         <View className="px-5">
-          <DropProfile />
+          <DropProfile {...DataDropProfile} />
           <View className="flex gap-5 mb-28">
             {dataCardItems.map((item, index) => (
               <CardStadistic
