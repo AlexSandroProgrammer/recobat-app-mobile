@@ -1,7 +1,6 @@
 import { CardsItems } from "@/core/client/interfaces/index.interface";
 import { Ionicons } from "@expo/vector-icons";
 import { Text, TouchableOpacity, View } from "react-native";
-
 export const ThemedCard = ({
   title,
   description,

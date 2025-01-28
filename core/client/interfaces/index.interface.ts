@@ -8,7 +8,6 @@ export interface CardsItems {
   title: string;
   description: string;
   icon: string;
-  // onPress?: () => void;
   route: string;
   bgColor?: any;
 }

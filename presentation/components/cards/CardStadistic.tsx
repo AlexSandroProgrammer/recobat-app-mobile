@@ -11,7 +11,7 @@ export const CardStadistic = ({
 }: CardsItems) => {
   return (
     <View
-      className={`w-full p-6 rounded-xl ${bgColor} shadow-lg shadow-blue-950/100 relative`}
+      className={`w-full p-6 rounded-xl ${bgColor} shadow-lg shadow-black/80 relative`}
     >
       {/* Encabezado con icono y título */}
       <View className="flex flex-row items-center content-center">
