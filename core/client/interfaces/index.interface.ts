@@ -11,3 +11,9 @@ export interface CardsItems {
   route: string;
   bgColor?: any;
 }
+
+export interface DropProfileProps {
+  title: string;
+  titleButton: string;
+  routeModal: string;
+}

@@ -1,5 +1,6 @@
 import { CardsItems } from "@/core/client/interfaces/index.interface";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
 export const CardStadistic = ({
@@ -40,10 +41,10 @@ export const CardStadistic = ({
       </View>
 
       {/* Footer */}
-      <View className="flex flex-row justify-between items-center mt-3">
+      <View className="flex flex-row items-end justify-end mt-3">
         <TouchableOpacity
-          onPress={() => console.log(route)}
-          className="bg-primary-100 shadow-md shadow-zinc-300 rounded-full w-full py-4"
+          onPress={() => router.push("/farms")}
+          className="bg-primary-100 shadow-md shadow-zinc-300 rounded-full w-3/6 py-4"
         >
           <View className="flex flex-row items-center justify-center">
             <Text className="text-lg font-kanit text-black ml-2">Mirar</Text>

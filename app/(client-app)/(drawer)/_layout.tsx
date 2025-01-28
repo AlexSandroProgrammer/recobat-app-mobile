@@ -26,16 +26,13 @@ const DrawerLayout = () => {
   }, []);
 
   const { userQuery } = useClient(jwt || "");
-
   if (userQuery.isLoading) {
     return <IsLoadingRefresh />;
   }
-
   const user = userQuery.data!;
 
   // verificamos si el usuario tiene todos los datos registrados
   if (!user.stateData) {
-    //* creamos un modal con clases de nativewind indicandole al usuario que le hacen falta registrar datos
     return <ModalWindow />;
   }
   return (

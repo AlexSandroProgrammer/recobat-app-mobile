@@ -22,9 +22,7 @@ import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 
 const UpdateDataScreen = () => {
   const { updateUser } = useAuthStore();
-
   const [isPosting, setIsPosting] = useState(false);
-
   const [jwt, setJwt] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -104,6 +102,7 @@ const UpdateDataScreen = () => {
       );
       return;
     }
+
     setIsPosting(true);
     const authSuccess = await updateUser(
       email,
@@ -117,6 +116,8 @@ const UpdateDataScreen = () => {
       stateData
     );
     setIsPosting(false);
+
+    //* hacemos el cargue de la app
     if (authSuccess) {
       Alert.alert("Éxito", "Datos actualizados correctamente.");
       router.replace("/");
@@ -242,6 +243,7 @@ const UpdateDataScreen = () => {
 
             <TouchableOpacity
               onPress={onUpdateData}
+              disabled={isPosting}
               className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
             >
               <View className="flex flex-row items-center justify-center">

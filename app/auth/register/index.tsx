@@ -118,6 +118,7 @@ const RegisterScreen = () => {
 
             <TouchableOpacity
               onPress={onRegister}
+              disabled={isPosting}
               className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
             >
               <View className="flex flex-row items-center justify-center">

@@ -4,7 +4,7 @@ export const dataCardItems = [
     title: "Fincas",
     description: "Cantidad de Fincas que actualmente tienes registradas",
     icon: "home-outline",
-    route: "/fincas",
+    route: "/farms/index",
   },
   {
     title: "Empleados",
@@ -27,8 +27,8 @@ export const dataCardItems = [
 ];
 
 export const backgroundColors = [
-  "bg-primary-200", // Primer color
+  "bg-primary-300", // Primer color
   "bg-green-500", // Segundo color
-  "bg-yellow-500", // Tercer color
+  "bg-primary-200", // Tercer color
   "bg-red-500", // Más colores si es necesario
 ];
