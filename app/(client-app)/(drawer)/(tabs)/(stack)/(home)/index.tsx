@@ -1,20 +1,19 @@
-import { Image, Text, TouchableOpacity, View, Animated } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import icons from "@/constants/icons";
-import images from "@/constants/images";
 import {
-  dataCardItems,
   backgroundColors,
+  dataCardItems,
 } from "@/presentation/components/cards/CardItems.data";
 import { CardStadistic } from "@/presentation/components/cards/CardStadistic";
-import { useRef } from "react";
 import DropProfile from "@/presentation/components/theme/DropProfile";
-import { DropProfileProps } from "../../../../../../core/client/interfaces/index.interface";
+import { RelativePathString } from "expo-router";
+import { useRef } from "react";
+import { Animated, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { DropProfileProps } from "@/core/client/interfaces/index.interface";
 
 const DataDropProfile: DropProfileProps = {
   title: "Estadisticas",
   titleButton: "Crear",
-  routeModal: "Estadisticas",
+  routeModal: "farm/register" as RelativePathString,
 };
 
 const Home = () => {

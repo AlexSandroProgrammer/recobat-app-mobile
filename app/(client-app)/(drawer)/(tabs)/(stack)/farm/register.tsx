@@ -20,7 +20,7 @@ const RegisterFarmScreen = () => {
         entering={SlideInDown}
         style={{
           width: "90%",
-          height: "80%",
+          height: "90%",
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: "white",

@@ -1,3 +1,5 @@
+import { RelativePathString } from "expo-router";
+
 export interface ButtonGroupProps {
   options: string[];
   selectedOptions: string;
@@ -15,5 +17,5 @@ export interface CardsItems {
 export interface DropProfileProps {
   title: string;
   titleButton: string;
-  routeModal: string;
+  routeModal: RelativePathString;
 }

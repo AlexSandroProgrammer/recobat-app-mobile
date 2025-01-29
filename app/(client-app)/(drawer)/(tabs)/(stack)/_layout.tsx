@@ -39,10 +39,10 @@ const StackLayout = () => {
         }}
       ></Stack.Screen>
       <Stack.Screen
-        name="farm/registerfarm"
+        name="farm/register"
         options={{
-          presentation: 'transparentModal',
-          animation: 'fade',
+          presentation: "containedTransparentModal",
+          animation: "fade",
           headerShown: false,
         }}
       />

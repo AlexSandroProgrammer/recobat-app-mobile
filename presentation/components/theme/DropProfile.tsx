@@ -5,6 +5,7 @@ import icons from "@/constants/icons";
 import { Ionicons } from "@expo/vector-icons";
 import { DropProfileProps } from "../../../core/client/interfaces/index.interface";
 import { router } from "expo-router";
+import { RelativePathString } from "expo-router";
 
 const DropProfile = ({ title, titleButton, routeModal }: DropProfileProps) => {
   return (
@@ -29,7 +30,7 @@ const DropProfile = ({ title, titleButton, routeModal }: DropProfileProps) => {
             {title}
           </Text>
           <TouchableOpacity
-            onPress={() => router.push("/farm/registerfarm")}
+            onPress={() => router.push(routeModal)}
             className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-48 py-2"
           >
             <View className="flex flex-row items-center justify-center">
