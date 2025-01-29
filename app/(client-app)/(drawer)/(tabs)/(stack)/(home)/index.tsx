@@ -13,7 +13,7 @@ import { DropProfileProps } from "@/core/client/interfaces/index.interface";
 const DataDropProfile: DropProfileProps = {
   title: "Estadisticas",
   titleButton: "Crear",
-  routeModal: "farm/register" as RelativePathString,
+  routeModal: "/farm/register" as RelativePathString,
 };
 
 const Home = () => {

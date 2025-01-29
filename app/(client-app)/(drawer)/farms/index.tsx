@@ -2,6 +2,7 @@ import { DropProfileProps } from "@/core/client/interfaces/index.interface";
 import { dataCardItems } from "@/presentation/components/cards/CardItems.data";
 import { FarmCard } from "@/presentation/components/cards/FarmCard";
 import DropProfile from "@/presentation/components/theme/DropProfile";
+import { RelativePathString } from "expo-router";
 import { useRef } from "react";
 import { Animated, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,7 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const DataDropProfile: DropProfileProps = {
   title: "Mis Fincas",
   titleButton: "Registrar",
-  routeModal: "Estadisticas",
+  routeModal: "/farm/register" as RelativePathString,
 };
 
 const FarmScreen = () => {

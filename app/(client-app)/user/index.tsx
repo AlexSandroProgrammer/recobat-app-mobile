@@ -73,18 +73,6 @@ const UpdateDataScreen = () => {
       stateData,
     } = form;
 
-    console.log({
-      email,
-      username,
-      names,
-      surnames,
-      document,
-      telephone,
-      type_document,
-      id,
-      stateData,
-    });
-
     if (
       email.length === 0 ||
       username.length === 0 ||

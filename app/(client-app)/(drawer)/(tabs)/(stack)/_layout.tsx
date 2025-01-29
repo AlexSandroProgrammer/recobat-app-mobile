@@ -41,7 +41,15 @@ const StackLayout = () => {
       <Stack.Screen
         name="farm/register"
         options={{
-          presentation: "containedTransparentModal",
+          presentation: "transparentModal",
+          animation: "fade",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="farm/update"
+        options={{
+          presentation: "transparentModal",
           animation: "fade",
           headerShown: false,
         }}
