@@ -9,12 +9,10 @@ import { useEffect, useState } from "react";
 const DrawerLayout = () => {
   const [jwt, setJwt] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     const fetchJwt = async () => {
       try {
         const token = await SecureStorageAdapter.getItem("jwt");
-        console.log(token);
         setJwt(token || null);
       } catch (error) {
         console.error("Error al obtener el token:", error);
@@ -50,7 +48,6 @@ const DrawerLayout = () => {
           backgroundColor: "white",
         },
         headerTitleAlign: "center",
-        // headerRight: () => <LogoutIconButton />,
       }}
     >
       <Drawer.Screen

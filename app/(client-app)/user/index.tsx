@@ -14,11 +14,10 @@ import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter"
 import useClient from "@/presentation/client/hooks/useClient";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import ThemedButtonGroup from "../../../presentation/components/theme/ThemedButtonGroup";
-import { UserData } from "../../../core/auth/interfaces/index.interface";
 import images from "@/constants/images";
-import { Formik } from "formik";
 import { router } from "expo-router";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
+import SnackBarNotificationDanger from "@/presentation/components/notifications/SnackBarNotificationDanger";
 
 const UpdateDataScreen = () => {
   const { updateUser } = useAuthStore();
@@ -60,6 +59,20 @@ const UpdateDataScreen = () => {
     stateData: "success",
   });
 
+  // Estado para el Snackbar
+  const [snackbar, setSnackbar] = useState({
+    visible: false,
+    message: "",
+  });
+
+  // Muestra o oculta el Snackbar
+  const showSnackbar = (message: string) => {
+    setSnackbar({ visible: true, message });
+  };
+  const hideSnackbar = () => {
+    setSnackbar({ visible: false, message: "" });
+  };
+
   const onUpdateData = async () => {
     const {
       email,
@@ -83,11 +96,7 @@ const UpdateDataScreen = () => {
       type_document === "" ||
       stateData === ""
     ) {
-      // showSnackbar("Por favor ingresa todos los datos.");
-      Alert.alert(
-        "Opsss!",
-        "Faltan Datos por ingresar, por favor verifica los datos."
-      );
+      showSnackbar("Por favor ingresa todos los datos.");
       return;
     }
 
@@ -111,8 +120,7 @@ const UpdateDataScreen = () => {
       router.replace("/");
       return;
     }
-    Alert.alert("Error", "Error, por favor verifica tus datos.");
-    // showSnackbar("Usuario o contraseña no son correctos.");
+    showSnackbar("Usuario o contraseña no son correctos.");
   };
 
   return (
@@ -172,7 +180,6 @@ const UpdateDataScreen = () => {
               autoCapitalize="words"
               value={form.names}
               iconRef="text-outline"
-              // escribimos la primera letra en mayuscula cada vez que se de un espacio o que sea la primera letra
               onChangeText={(value) =>
                 setForm({
                   ...form,
@@ -207,7 +214,6 @@ const UpdateDataScreen = () => {
             <ThemedTextInput
               placeholder="Correo electrónico o Usuario"
               keyboardType="email-address"
-              // bloqueamos el campo
               autoCapitalize="none"
               value={form.email}
               iconRef="mail-outline"
@@ -250,6 +256,12 @@ const UpdateDataScreen = () => {
           </View>
         </View>
       </ScrollView>
+      {/* Snackbar */}
+      <SnackBarNotificationDanger
+        visible={snackbar.visible}
+        onDismiss={hideSnackbar}
+        message={snackbar.message}
+      />
     </SafeAreaView>
   );
 };

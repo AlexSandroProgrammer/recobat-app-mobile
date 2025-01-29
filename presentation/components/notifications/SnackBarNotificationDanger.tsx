@@ -16,7 +16,7 @@ const SnackBarNotificationDanger = ({ visible, onDismiss, message }: Props) => {
         label: "Cerrar",
         onPress: onDismiss,
       }}
-      style={{ backgroundColor: danger }}
+      style={{ backgroundColor: danger, borderRadius: 2 }}
     >
       {message}
     </Snackbar>

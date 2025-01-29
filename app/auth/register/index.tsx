@@ -1,26 +1,16 @@
 import React, { useState } from "react";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  Alert,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-} from "react-native";
-
 import icons from "@/constants/icons";
 import images from "@/constants/images";
-import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import { Link, router } from "expo-router";
 import ButtonAuthGoogle from "@/presentation/components/theme/ButtonAuthGoogle";
+import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
+import { Link, router } from "expo-router";
+import SnackBarNotificationDanger from "@/presentation/components/notifications/SnackBarNotificationDanger";
 
 const RegisterScreen = () => {
   const { register } = useAuthStore();
-  const { height } = useWindowDimensions();
-
   const [isPosting, setIsPosting] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -28,17 +18,25 @@ const RegisterScreen = () => {
     password: "",
   });
 
+  // Estado para el Snackbar
+  const [snackbar, setSnackbar] = useState({
+    visible: false,
+    message: "",
+  });
+
+  // Muestra o oculta el Snackbar
+  const showSnackbar = (message: string) => {
+    setSnackbar({ visible: true, message });
+  };
+  const hideSnackbar = () => {
+    setSnackbar({ visible: false, message: "" });
+  };
+
   const onRegister = async () => {
     const { email, username, password } = form;
-
-    console.log({ email, username, password });
-
     if (email.length === 0 || username.length === 0 || password.length === 0) {
       // showSnackbar("Por favor ingresa todos los datos.");
-      Alert.alert(
-        "Opsss!",
-        "Faltan datos por ingresar, por favor verifica los datos."
-      );
+      showSnackbar("Por favor ingresa todos los datos.");
       return;
     }
 
@@ -51,8 +49,8 @@ const RegisterScreen = () => {
       return;
     }
 
-    Alert.alert("Error", "Error al momento de registrar los datos");
-    // showSnackbar("Usuario o contraseña no son correctos.");
+    // Alert.alert("Error", "Error al momento de registrar los datos");
+    showSnackbar("Hey, Por favor verifica tus datos.");
   };
 
   return (
@@ -103,7 +101,6 @@ const RegisterScreen = () => {
                 setForm({ ...form, username: value.replace(/\s/g, "") })
               }
             />
-
             <ThemedTextInput
               placeholder="Ingresa tu contraseña"
               secureTextEntry
@@ -115,7 +112,6 @@ const RegisterScreen = () => {
                 setForm({ ...form, password: value.replace(/\s/g, "") })
               }
             />
-
             <TouchableOpacity
               onPress={onRegister}
               disabled={isPosting}
@@ -145,6 +141,12 @@ const RegisterScreen = () => {
           </View>
         </View>
       </ScrollView>
+      {/* Snackbar */}
+      <SnackBarNotificationDanger
+        visible={snackbar.visible}
+        onDismiss={hideSnackbar}
+        message={snackbar.message}
+      />
     </SafeAreaView>
   );
 };

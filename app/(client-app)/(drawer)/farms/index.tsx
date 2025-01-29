@@ -28,7 +28,7 @@ const FarmScreen = () => {
         <View className="px-5">
           <DropProfile {...DataDropProfile} />
           <View className="flex gap-5 mb-28">
-            {dataCardItems.map((item, index) => (
+            {dataCardItems.map((item) => (
               <FarmCard key={item.title} {...item} />
             ))}
           </View>

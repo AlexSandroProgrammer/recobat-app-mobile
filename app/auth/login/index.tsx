@@ -1,26 +1,17 @@
 import React from "react";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  Alert,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
 
-import { Redirect, useRouter } from "expo-router";
 import icons from "@/constants/icons";
 import images from "@/constants/images";
 import ButtonAuthGoogle from "@/presentation/components/theme/ButtonAuthGoogle";
+import { useRouter } from "expo-router";
 
 const RedirectScreen = () => {
   //* funcion para redireccionar a la vista del login
-
   const router = useRouter(); // Hook para manejar la navegación
-
   const redirectFormLogin = () => {
-    router.push("/auth/login/signin"); // Cambia "/form-login" por la ruta de tu vista
+    router.push("/auth/login/signin");
   };
   return (
     <SafeAreaView className="bg-white h-full">

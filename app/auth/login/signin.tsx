@@ -1,59 +1,50 @@
 import React, { useState } from "react";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  Alert,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-} from "react-native";
-
 import icons from "@/constants/icons";
 import images from "@/constants/images";
-import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import { Link, router } from "expo-router";
 import ButtonAuthGoogle from "@/presentation/components/theme/ButtonAuthGoogle";
+import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
+import { Link, router } from "expo-router";
+import SnackBarNotificationDanger from "@/presentation/components/notifications/SnackBarNotificationDanger";
 
 const LoginScreen = () => {
   const { login } = useAuthStore();
-
-  const { height } = useWindowDimensions();
-
   const [isPosting, setIsPosting] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
+  // Estado para el Snackbar
+  const [snackbar, setSnackbar] = useState({
+    visible: false,
+    message: "",
+  });
+
+  // Muestra o oculta el Snackbar
+  const showSnackbar = (message: string) => {
+    setSnackbar({ visible: true, message });
+  };
+  const hideSnackbar = () => {
+    setSnackbar({ visible: false, message: "" });
+  };
+
   const onLogin = async () => {
     const { email, password } = form;
-
-    console.log({ email, password });
-
     if (email.length === 0 || password.length === 0) {
-      // showSnackbar("Por favor ingresa todos los datos.");
-      Alert.alert(
-        "Opsss!",
-        "Faltan Datos por ingresar, por favor verifica los datos."
-      );
-
+      showSnackbar("Por favor ingresa todos los datos.");
       return;
     }
-
     setIsPosting(true);
     const authSuccess = await login(email, password);
     setIsPosting(false);
-
     if (authSuccess) {
       router.replace("/");
       return;
     }
-
-    Alert.alert("Error", "Usuario o contraseña no son correctos");
-    // showSnackbar("Usuario o contraseña no son correctos.");
+    showSnackbar("Usuario o contraseña no son correctos.");
   };
 
   return (
@@ -120,9 +111,7 @@ const LoginScreen = () => {
                 </Text>
               </View>
             </TouchableOpacity>
-
             <ButtonAuthGoogle />
-
             <Text className="text-base font-kanit-bold text-black-300 text-center mt-3">
               ¿No tienes cuenta? {"\n"}
               <Link href="/auth/register" className="text-primary-300">
@@ -132,6 +121,12 @@ const LoginScreen = () => {
           </View>
         </View>
       </ScrollView>
+      {/* Snackbar */}
+      <SnackBarNotificationDanger
+        visible={snackbar.visible}
+        onDismiss={hideSnackbar}
+        message={snackbar.message}
+      />
     </SafeAreaView>
   );
 };
