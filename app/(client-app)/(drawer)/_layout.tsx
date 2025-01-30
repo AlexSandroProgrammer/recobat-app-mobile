@@ -30,9 +30,12 @@ const DrawerLayout = () => {
   const user = userQuery.data!;
 
   // verificamos si el usuario tiene todos los datos registrados
+  // TODO: Redireccionar a la vista de un modal el cual indique que debe completar los datos
   if (!user.stateData) {
     return <ModalWindow />;
   }
+
+  //* al
   return (
     <Drawer
       drawerContent={CustomDrawer}

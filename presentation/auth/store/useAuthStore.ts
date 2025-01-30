@@ -7,6 +7,7 @@ import {
 } from "@/core/auth/actions/auth-actions";
 import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
 import { User } from "@/core/auth/interfaces/index.interface";
+import { UserData } from "../../../core/auth/interfaces/index.interface";
 // creamos los tipos de estado que puede tener un usuario
 export type AuthStatus = "authenticated" | "unauthenticated" | "checking";
 
@@ -37,6 +38,7 @@ export interface AuthState {
   ) => Promise<boolean>;
 
   checkStatus: () => Promise<void>;
+  saveUserAuthenticated: (user: UserData) => Promise<boolean>;
   logout: () => Promise<void>;
   // accion para cambiar de estado
   changeStatus: (jwt?: string) => Promise<boolean>;
@@ -129,5 +131,21 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
       user: undefined,
     });
     return;
+  },
+
+  // ------------ acciones ----------------
+  // accion para cambiar de estado
+  saveUserAuthenticated: async (user: UserData) => {
+    if (!user) {
+      await SecureStorageAdapter.removeUser("user");
+      return false;
+    }
+    set({
+      user: user,
+      // user: user,
+    });
+    //TODO: guardar el jwt en el secure storage
+    await SecureStorageAdapter.setItem("user", JSON.stringify(user));
+    return true;
   },
 }));

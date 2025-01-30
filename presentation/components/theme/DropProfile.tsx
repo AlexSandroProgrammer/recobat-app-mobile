@@ -1,16 +1,15 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
-import images from "@/constants/images";
 import icons from "@/constants/icons";
+import images from "@/constants/images";
 import { Ionicons } from "@expo/vector-icons";
-import { DropProfileProps } from "../../../core/client/interfaces/index.interface";
 import { router } from "expo-router";
-import { RelativePathString } from "expo-router";
+import React from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import { DropProfileProps } from "../../../core/client/interfaces/index.interface";
 
 const DropProfile = ({ title, titleButton, routeModal }: DropProfileProps) => {
   return (
     <>
-      <View className="flex flex-row items-center justify-between mt-5">
+      <View className="flex flex-row items-center justify-between">
         <View className="flex flex-row">
           <Image source={images.avatar} className="size-12 rounded-full" />
           <View className="flex flex-col items-start ml-2 justify-center">

@@ -19,7 +19,7 @@ const DataDropProfile: DropProfileProps = {
 const Home = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
   return (
-    <SafeAreaView className="h-full bg-white">
+    <SafeAreaView className="flex-1 h-full bg-white">
       <Animated.ScrollView
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
