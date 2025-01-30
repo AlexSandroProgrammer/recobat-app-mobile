@@ -1,4 +1,11 @@
-import React, { useEffect, useState } from "react";
+import icons from "@/constants/icons";
+import images from "@/constants/images";
+import { updateUserData } from "@/core/auth/actions/auth-actions";
+import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
+import SnackBarNotificationDanger from "@/presentation/components/notifications/SnackBarNotificationDanger";
+import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
+import { Redirect, router } from "expo-router";
+import React, { useState } from "react";
 import {
   Alert,
   Image,
@@ -8,49 +15,16 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import icons from "@/constants/icons";
-import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
-import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
-import useClient from "@/presentation/client/hooks/useClient";
-import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import ThemedButtonGroup from "../../../presentation/components/theme/ThemedButtonGroup";
-import images from "@/constants/images";
-import { router } from "expo-router";
-import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import SnackBarNotificationDanger from "@/presentation/components/notifications/SnackBarNotificationDanger";
 
 const UpdateDataScreen = () => {
-  const { updateUser } = useAuthStore();
+  const { user, logout } = useAuthStore();
   const [isPosting, setIsPosting] = useState(false);
-  const [jwt, setJwt] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchJwt = async () => {
-      try {
-        const token = await SecureStorageAdapter.getItem("jwt");
-        setJwt(token || null);
-      } catch (error) {
-        console.error("Error al obtener el token:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchJwt();
-  }, []);
-
-  const { userQuery } = useClient(jwt || "");
-
-  if (userQuery.isLoading) {
-    return <IsLoadingRefresh />;
-  }
-
-  const user = userQuery.data!;
 
   const [form, setForm] = useState({
-    id: user.id,
-    email: user.email,
-    username: user.username,
+    id: user?.id || 0,
+    email: user?.email || "",
+    username: user?.username || "",
     names: "",
     surnames: "",
     document: "",
@@ -87,8 +61,8 @@ const UpdateDataScreen = () => {
     } = form;
 
     if (
-      email.length === 0 ||
-      username.length === 0 ||
+      email?.length === 0 ||
+      username?.length === 0 ||
       names.length === 0 ||
       surnames.length === 0 ||
       document.length === 0 ||
@@ -101,7 +75,7 @@ const UpdateDataScreen = () => {
     }
 
     setIsPosting(true);
-    const authSuccess = await updateUser(
+    const authSuccess = await updateUserData(
       email,
       username,
       names,
@@ -116,8 +90,11 @@ const UpdateDataScreen = () => {
 
     //* hacemos el cargue de la app
     if (authSuccess) {
-      Alert.alert("Éxito", "Datos actualizados correctamente.");
-      router.replace("/");
+      Alert.alert(
+        "Todo salió bien!",
+        "Datos actualizados correctamente, Ahora te invitamos a iniciar sesion, para confirmar el registro de tu cuenta",
+        [{ text: "Aceptar", onPress: async () => await logout() }]
+      );
       return;
     }
     showSnackbar("Usuario o contraseña no son correctos.");
@@ -146,9 +123,9 @@ const UpdateDataScreen = () => {
               registro.
             </Text>
 
-            <View className="my-5">
-              <Text className="text-base text-left font-kanit text-black-100 mb-7">
-                Tipo de Documento:
+            <View className="my-7">
+              <Text className="text-base text-left font-kanit text-black-100 mb-10">
+                Seleccionar Tipo de Documento:
               </Text>
               <ThemedButtonGroup
                 options={["T.I.", "C.E."]}
@@ -197,7 +174,15 @@ const UpdateDataScreen = () => {
               autoCapitalize="none"
               value={form.surnames}
               iconRef="text-outline"
-              onChangeText={(value) => setForm({ ...form, surnames: value })}
+              onChangeText={(value) =>
+                setForm({
+                  ...form,
+                  surnames: value
+                    .split(" ")
+                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(" "),
+                })
+              }
             />
 
             <ThemedTextInput

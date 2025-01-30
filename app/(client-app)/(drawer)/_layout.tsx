@@ -2,11 +2,12 @@ import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import CustomDrawer from "@/presentation/components/drawer/CustomDrawer";
 import ModalWindow from "@/presentation/components/modals/ModalWindow";
 import { Ionicons } from "@expo/vector-icons";
+import { Redirect } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 const DrawerLayout = () => {
   const { user } = useAuthStore();
   if (!user?.stateData) {
-    return <ModalWindow />;
+    return <Redirect href="/user/modal" />;
   }
   return (
     <Drawer

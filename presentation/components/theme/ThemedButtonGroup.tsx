@@ -14,13 +14,15 @@ const ThemedButtonGroup = ({
           <TouchableOpacity
             className={`flex-1 p-7 rounded-lg items-center content-center font-kanit font-medium ${
               isSelected
-                ? "bg-primary-100 border border-primary-300"
+                ? "bg-primary-200 border border-primary-300"
                 : "bg-transparent"
             }`}
             onPress={() => onSelect(option)}
             key={option}
           >
-            <Text className="text-black">{option}</Text>
+            <View>
+              <Text className="text-white">{option}</Text>
+            </View>
           </TouchableOpacity>
         );
       })}
