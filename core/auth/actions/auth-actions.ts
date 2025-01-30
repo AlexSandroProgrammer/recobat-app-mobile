@@ -1,16 +1,10 @@
 import { recobatApi } from "../../api/recobatApi";
 import { SecureStorageAdapter } from "../../../helpers/adapters/secure-storage.adapter";
-import { User, UserData } from "../interfaces/index.interface";
-
-// interfaz con los datos del token y el usuario
-export interface AuthResponse {
-  jwt: string;
-  user: UserData;
-}
+import { User, UserDataJwt } from "../interfaces/index.interface";
 
 // creamos una funcion para retornar el token y el usuario
 const returnUserAndToken = (
-  data: AuthResponse
+  data: UserDataJwt
 ): {
   user: User;
   jwt: string;
@@ -18,27 +12,27 @@ const returnUserAndToken = (
   // extraemos los datos del usuario y el token de la respuesta
   const {
     id,
-    documentId,
-    document,
     username,
     email,
     names,
     surnames,
-    blocked,
-    confirmed,
+    document,
+    telephone,
+    stateData,
+    type_document,
   } = data.user;
   const { jwt } = data;
 
   const user: User = {
     id,
-    documentId,
-    document,
     username,
     email,
     names,
     surnames,
-    blocked,
-    confirmed,
+    document,
+    telephone,
+    stateData,
+    type_document,
   };
 
   return {
@@ -52,7 +46,7 @@ const returnUserAndToken = (
 export const authLogin = async (email: string, password: string) => {
   email = email.toLowerCase();
   try {
-    const { data } = await recobatApi.post<AuthResponse>("/auth/local", {
+    const { data } = await recobatApi.post<UserDataJwt>("/auth/local", {
       identifier: email,
       password,
     });
@@ -73,7 +67,7 @@ export const authRegister = async (
 ) => {
   email = email.toLowerCase();
   try {
-    const { data } = await recobatApi.post<AuthResponse>(
+    const { data } = await recobatApi.post<UserDataJwt>(
       "/auth/local/register",
       {
         username,
@@ -91,10 +85,17 @@ export const authRegister = async (
 
 export const authCheckStatus = async () => {
   try {
-    const jwt = await SecureStorageAdapter.getItem("jwt");
-    return {
+    const jwt = (await SecureStorageAdapter.getItem("jwt")) as string;
+    const { data } = await recobatApi.get<User>("/users/me", {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+
+    //* creamos una variable que devuelva la data y el jwt
+    const dataresponse: UserDataJwt = {
       jwt,
+      user: data,
     };
+    return returnUserAndToken(dataresponse);
   } catch (error) {
     console.error(error);
     return null;
@@ -115,7 +116,7 @@ export const updateUserData = async (
 ) => {
   try {
     const jwt = await SecureStorageAdapter.getItem("jwt");
-    const { data } = await recobatApi.put<UserData>(
+    const { data } = await recobatApi.put<User>(
       `/users/${id}`,
       {
         email,

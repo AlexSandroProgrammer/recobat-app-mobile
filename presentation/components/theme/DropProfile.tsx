@@ -5,8 +5,10 @@ import { router } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { DropProfileProps } from "../../../core/client/interfaces/index.interface";
+import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 
 const DropProfile = ({ title, titleButton, routeModal }: DropProfileProps) => {
+  const { user } = useAuthStore();
   return (
     <>
       <View className="flex flex-row items-center justify-between">
@@ -17,7 +19,7 @@ const DropProfile = ({ title, titleButton, routeModal }: DropProfileProps) => {
               Bienvenido
             </Text>
             <Text className="text-base font-kanit text-black-300">
-              Alejandro
+              {user?.names}
             </Text>
           </View>
         </View>

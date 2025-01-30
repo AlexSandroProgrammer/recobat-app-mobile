@@ -7,10 +7,8 @@ import {
 } from "@/core/auth/actions/auth-actions";
 import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
 import { User } from "@/core/auth/interfaces/index.interface";
-import { UserData } from "../../../core/auth/interfaces/index.interface";
 // creamos los tipos de estado que puede tener un usuario
 export type AuthStatus = "authenticated" | "unauthenticated" | "checking";
-
 // creamos la interfaz del estado del usuario
 export interface AuthState {
   // propiedades
@@ -38,10 +36,9 @@ export interface AuthState {
   ) => Promise<boolean>;
 
   checkStatus: () => Promise<void>;
-  saveUserAuthenticated: (user: UserData) => Promise<boolean>;
   logout: () => Promise<void>;
   // accion para cambiar de estado
-  changeStatus: (jwt?: string) => Promise<boolean>;
+  changeStatus: (jwt?: string, user?: User) => Promise<boolean>;
 }
 // creamos el objeto
 export const useAuthStore = create<AuthState>()((set, get) => ({
@@ -52,22 +49,17 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
 
   // ------------ acciones ----------------
   // accion para cambiar de estado
-  changeStatus: async (jwt?: string) => {
-    if (!jwt) {
-      set({
-        status: "unauthenticated",
-        jwt: undefined,
-        // user: undefined,
-      });
+  changeStatus: async (jwt?: string, user?: User) => {
+    if (!jwt || !user) {
+      set({ status: "unauthenticated", jwt: undefined, user: undefined });
       await SecureStorageAdapter.removeItem("jwt");
       return false;
     }
     set({
       status: "authenticated",
       jwt: jwt,
-      // user: user,
+      user: user,
     });
-    //TODO: guardar el jwt en el secure storage
     await SecureStorageAdapter.setItem("jwt", jwt);
     return true;
   },
@@ -76,14 +68,14 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
   login: async (email: string, password: string) => {
     // llamamos la accion para pasarle los datos
     const resp = await authLogin(email, password);
-    return get().changeStatus(resp?.jwt);
+    return get().changeStatus(resp?.jwt, resp?.user);
   },
 
   // accion del registro
   register: async (username: string, email: string, password: string) => {
     // llamamos la accion para pasarle los datos
     const resp = await authRegister(username, email, password);
-    return get().changeStatus(resp?.jwt);
+    return get().changeStatus(resp?.jwt, resp?.user);
   },
 
   // accion del login
@@ -118,7 +110,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
   checkStatus: async () => {
     //* verificamos si el token esta en el secure storage
     const resp = await authCheckStatus();
-    get().changeStatus(resp?.jwt);
+    get().changeStatus(resp?.jwt, resp?.user);
   },
 
   // accion para desloguearse
@@ -131,21 +123,5 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
       user: undefined,
     });
     return;
-  },
-
-  // ------------ acciones ----------------
-  // accion para cambiar de estado
-  saveUserAuthenticated: async (user: UserData) => {
-    if (!user) {
-      await SecureStorageAdapter.removeUser("user");
-      return false;
-    }
-    set({
-      user: user,
-      // user: user,
-    });
-    //TODO: guardar el jwt en el secure storage
-    await SecureStorageAdapter.setItem("user", JSON.stringify(user));
-    return true;
   },
 }));
