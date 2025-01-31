@@ -26,7 +26,7 @@ const ThemedTextInput = ({ iconRef, ...rest }: Props) => {
           ref={inputRef}
           onFocus={() => setIsActive(true)}
           onBlur={() => setIsActive(false)}
-          className="text-sm font-rubik text-black-300 ml-2 flex-1"
+          className="text-base font-kanit text-black-300 ml-2 flex-1"
           {...rest}
           placeholderTextColor="#273d88"
           // cambiamos el color de los inputs
