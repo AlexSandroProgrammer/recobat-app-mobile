@@ -18,9 +18,12 @@ const StackLayout = () => {
         contentStyle: {
           backgroundColor: "white",
         },
+
+        // headerTintColor: "#f0f6fe",
         headerLeft: ({ tintColor, canGoBack }) => (
           <Ionicons
             name={"menu-outline"}
+            className="mr-3"
             size={25}
             onPress={onHeaderLeftClick}
           />
@@ -45,22 +48,6 @@ const StackLayout = () => {
       />
       <Stack.Screen
         name="farm/update"
-        options={{
-          presentation: "transparentModal",
-          animation: "fade",
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="plots/register"
-        options={{
-          presentation: "transparentModal",
-          animation: "fade",
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="plots/update"
         options={{
           presentation: "transparentModal",
           animation: "fade",

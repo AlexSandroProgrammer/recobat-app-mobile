@@ -2,17 +2,10 @@ import { recobatApi } from "@/core/api/recobatApi";
 import { ListFarmsUserProps } from "../interfaces/index.interface";
 
 //* accion para llamar todas las fincas del usuario autenticado
-export const getFarmsForUser = async (
-  limit = 11,
-  pagination = 1,
-  idUser: number
-) => {
+export const getFarmsForUser = async (idUser: number) => {
   try {
     const { data } = await recobatApi.get<ListFarmsUserProps>(
-      `users/${idUser}?populate=farms`,
-      {
-        params: { limit, pagination },
-      }
+      `users/${idUser}?populate=farms`
     );
     const { farms } = await data;
     return farms;

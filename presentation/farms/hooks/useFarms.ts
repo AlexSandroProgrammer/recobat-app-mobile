@@ -1,18 +1,15 @@
 import { getFarmsForUser } from "@/core/farm/actions/farm-actions";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
+import { useQuery } from "@tanstack/react-query";
 
 export const useFarms = (idUser: number) => {
-  const farmsQuery = useInfiniteQuery({
-    queryKey: ["farms", "infinite"],
-    queryFn: ({ pageParam }) => getFarmsForUser(10, pageParam * 10, idUser),
-    staleTime: 1000 * 60 * 5, // 5 minutos
-    initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages) => allPages.length,
+  const farmsQuery = useQuery({
+    queryKey: ["farms", idUser],
+    queryFn: () => getFarmsForUser(idUser),
+    staleTime: 1000 * 60 * 60, // 1 hora
   });
 
   return {
-    // llamamos el metodo
     farmsQuery,
-    loadNextPage: farmsQuery.fetchNextPage,
   };
 };

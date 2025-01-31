@@ -3,9 +3,8 @@ import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import { FarmCard } from "@/presentation/components/cards/FarmCard";
 import DropProfile from "@/presentation/components/theme/DropProfile";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
-import FarmList from "@/presentation/farms/components/FarmList";
 import { useFarms } from "@/presentation/farms/hooks/useFarms";
-import { Redirect, RelativePathString } from "expo-router";
+import { RelativePathString } from "expo-router";
 import { useRef } from "react";
 import { Animated, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,19 +16,17 @@ const DataDropProfile: DropProfileProps = {
 };
 
 const FarmScreen = () => {
+  // llamamos al usuario auntenticado
   const { user } = useAuthStore();
-
-  const { farmsQuery, loadNextPage } = useFarms(user?.id!);
-
-  console.log(farmsQuery.data);
-
+  // llamamos las fincas del usuario
+  const { farmsQuery } = useFarms(user?.id!);
+  // si estamos cargando las fincas, mostramos el componente de carga
   if (farmsQuery.isLoading) {
     return <IsLoadingRefresh />;
   }
 
-  if (!farmsQuery.data) {
-    return <Redirect href="/" />;
-  }
+  const farms = farmsQuery.data!;
+
   // Referencia para controlar el scroll animado
   const scrollY = useRef(new Animated.Value(0)).current;
   return (
@@ -43,10 +40,11 @@ const FarmScreen = () => {
       >
         <View className="px-5">
           <DropProfile {...DataDropProfile} />
-          <FarmList
-            farms={farmsQuery.data?.pages.flatMap((page) => page) ?? []}
-            loadNextPage={loadNextPage}
-          />
+          <View className="flex gap-5 mb-28">
+            {farms.map((farm) => (
+              <FarmCard key={farm.id} {...farm} />
+            ))}
+          </View>
         </View>
       </Animated.ScrollView>
     </SafeAreaView>

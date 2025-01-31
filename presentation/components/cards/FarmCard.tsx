@@ -3,10 +3,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
 
-interface Props {
-  farm: Farm;
-}
-export const FarmCard = ({ farm }: Props) => {
+export const FarmCard = ({
+  address,
+  codeFarm,
+  telephone,
+  nameFarm,
+  id,
+}: Farm) => {
   return (
     <View
       className={`w-full p-6 rounded-xl shadow-lg bg-slate-200 shadow-black/80 relative`}
@@ -17,19 +20,27 @@ export const FarmCard = ({ farm }: Props) => {
         <Text className="text-2xl font-kanit-bold text-primary-400">
           {" "}
           {/* colocamos el numero que esta ocupando del arreglo */}
+          {nameFarm}
         </Text>
       </View>
       <View className="flex flex-row items-center content-center mt-3">
         <Ionicons name="invert-mode" size={24} color="blue-dark" />
-        <Text className="text-lg font-kanit-bold text-primary-400"> </Text>
+        <Text className="text-lg font-kanit-bold text-primary-400">
+          {" "}
+          {codeFarm}
+        </Text>
       </View>
       <View className="flex flex-row items-center content-center mt-2">
         <Ionicons name="location-outline" size={25} color="blue-dark" />
-        <Text className="text-lg font-kanit-bold text-primary-400"></Text>
+        <Text className="text-lg font-kanit-bold text-primary-400">
+          {address}
+        </Text>
       </View>
       <View className="flex flex-row items-center content-center mt-2">
         <Ionicons name="phone-portrait-outline" size={25} color="blue-dark" />
-        <Text className="text-lg font-kanit-bold text-primary-400"></Text>
+        <Text className="text-lg font-kanit-bold text-primary-400">
+          {telephone}
+        </Text>
       </View>
 
       {/* Footer */}

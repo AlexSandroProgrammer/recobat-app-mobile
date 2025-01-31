@@ -4,6 +4,7 @@ import { updateUserData } from "@/core/auth/actions/auth-actions";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import SnackBarNotificationDanger from "@/presentation/components/notifications/SnackBarNotificationDanger";
 import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
+import { Redirect, router } from "expo-router";
 import React, { useState } from "react";
 import {
   Alert,
