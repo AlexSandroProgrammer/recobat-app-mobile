@@ -1,8 +1,7 @@
-import { CardsItems } from "@/core/client/interfaces/index.interface";
 import { Farm } from "@/core/farm/interfaces/index.interface";
 import { Ionicons } from "@expo/vector-icons";
-import { Link, router } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Link } from "expo-router";
+import { Text, View } from "react-native";
 
 export const FarmCard = ({
   address,
