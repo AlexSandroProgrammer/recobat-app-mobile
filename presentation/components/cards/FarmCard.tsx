@@ -1,53 +1,81 @@
 import { CardsItems } from "@/core/client/interfaces/index.interface";
+import { Farm } from "@/core/farm/interfaces/index.interface";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
-export const FarmCard = ({ title, description, icon, route }: CardsItems) => {
+export const FarmCard = ({
+  address,
+  codeFarm,
+  telephone,
+  nameFarm,
+  id,
+}: Farm) => {
   return (
     <View
-      className={`w-full p-6 rounded-xl shadow-lg bg-slate-300 shadow-black/80 relative`}
+      className={`w-full p-6 rounded-xl shadow-lg bg-slate-200 shadow-black/80 relative`}
     >
       {/* Encabezado con icono y título */}
       <View className="flex flex-row items-center content-center">
-        <Ionicons
-          name={icon as keyof typeof Ionicons.glyphMap}
-          size={24}
-          color="white"
-        />
-        <Text className="text-2xl font-kanit-bold text-slate-100">
+        <Ionicons name="home-outline" size={24} color="blue-dark" />
+        <Text className="text-2xl font-kanit-bold text-primary-400">
           {" "}
-          {title}
+          {/* colocamos el numero que esta ocupando del arreglo */}
+          {nameFarm}
+        </Text>
+      </View>
+      <View className="flex flex-row items-center content-center mt-3">
+        <Ionicons name="invert-mode" size={24} color="blue-dark" />
+        <Text className="text-lg font-kanit-bold text-primary-400">
+          {" "}
+          {codeFarm}
+        </Text>
+      </View>
+      <View className="flex flex-row items-center content-center mt-2">
+        <Ionicons name="location-outline" size={25} color="blue-dark" />
+        <Text className="text-lg font-kanit-bold text-primary-400">
+          {address}
+        </Text>
+      </View>
+      <View className="flex flex-row items-center content-center mt-2">
+        <Ionicons name="phone-portrait-outline" size={25} color="blue-dark" />
+        <Text className="text-lg font-kanit-bold text-primary-400">
+          {telephone}
         </Text>
       </View>
 
-      {/* Contenido Principal */}
-      <View className="mt-3">
-        <Text className="text-lg font-kanit text-slate-100">{description}</Text>
-        {/* Estadísticas */}
-        <View className="flex flex-row mt-3">
-          <View className="flex items-center">
-            <Text className="text-xl font-kanit text-slate-100">
-              120 {title}
-            </Text>
-          </View>
-        </View>
-      </View>
       {/* Footer */}
-      <View className="flex flex-row items-end justify-end mt-3">
-        <TouchableOpacity
-          onPress={() => router.push("/")}
-          className="bg-primary-100 shadow-md shadow-zinc-300 rounded-full w-3/6 py-4"
+      <View className="flex flex-row items-end gap-3 justify-center mt-5">
+        {/* boton para eliminar un lote */}
+        <Link
+          href="/"
+          className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-4 text-center "
         >
           <View className="flex flex-row items-center justify-center">
-            <Text className="text-lg font-kanit text-black ml-2">Lotes</Text>
-            <Ionicons
-              name="arrow-forward-circle-outline"
-              size={25}
-              color="black"
-            />
+            <Ionicons name="remove-circle-outline" size={25} color="white" />
+            <Text className="text-lg font-kanit text-white ml-2"> Borrar</Text>
           </View>
-        </TouchableOpacity>
+        </Link>
+        {/* boton para crear un lote */}
+        <Link
+          href="/"
+          className="bg-green-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-4 text-center"
+        >
+          <View className="flex flex-row items-center justify-center">
+            <Ionicons name="add-circle-outline" size={25} color="white" />
+            <Text className="text-lg font-kanit text-white ml-2"> Lote</Text>
+          </View>
+        </Link>
+        {/* boton para mostrar los lotes de la finca */}
+        <Link
+          href="/"
+          className="bg-primary-300 shadow-md shadow-zinc-300 rounded-full w-2/6 py-4 text-center"
+        >
+          <View className="flex flex-row items-center justify-center">
+            <Ionicons name="eye" size={25} color="white" />
+            <Text className="text-lg font-kanit text-white ml-2"> Lotes</Text>
+          </View>
+        </Link>
       </View>
     </View>
   );

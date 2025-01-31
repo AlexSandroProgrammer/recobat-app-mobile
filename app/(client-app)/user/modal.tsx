@@ -34,15 +34,17 @@ const ModalWelcome = () => {
             </Text>
             <Text className="text-base text-left font-kanit text-black-200 mt-4">
               Para nosotros es todo un gusto saludarte, nos gustaria que
-              iniciaras terminando de realizar el registro de tus datos, solo te
-              tomara un par de minutos...
+              terminaras de realizar el registro de tus datos, solo te tomara un
+              par de minutos...
             </Text>
-
             <TouchableOpacity
               onPress={() => router.push("/user")}
               className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-10"
             >
               <View className="flex flex-row items-center justify-center">
+                <Text className="text-lg font-kanit text-white ml-2">
+                  ¡Quiero ir!
+                </Text>
                 <Image
                   source={icons.send}
                   className="w-5 h-5"
@@ -50,9 +52,6 @@ const ModalWelcome = () => {
                   // le cambiamos el color a blanco
                   style={{ tintColor: "white" }}
                 />
-                <Text className="text-lg font-kanit text-white ml-2">
-                  ¡Quiero ir!
-                </Text>
               </View>
             </TouchableOpacity>
           </View>

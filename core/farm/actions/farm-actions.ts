@@ -7,7 +7,8 @@ export const getFarmsForUser = async (idUser: number) => {
     const { data } = await recobatApi.get<ListFarmsUserProps>(
       `users/${idUser}?populate=farms`
     );
-    return data;
+    const { farms } = await data;
+    return farms;
   } catch (error) {
     throw new Error(
       "Error al momento de obtener los datos de las fincas del paciente"
