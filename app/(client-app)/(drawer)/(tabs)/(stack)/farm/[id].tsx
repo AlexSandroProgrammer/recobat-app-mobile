@@ -1,12 +1,28 @@
 import icons from "@/constants/icons";
 import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
-import { Link } from "expo-router";
-import { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
+import { Link, useNavigation } from "expo-router";
+import { useLocalSearchParams, useSearchParams } from "expo-router/build/hooks";
+import { useEffect, useState } from "react";
 import { Image, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Pressable, StyleSheet, Text } from "react-native";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 const UpdateFarmScreen = () => {
+  const navigation = useNavigation();
+  // obtenemos el id que viene por params
+  const { id } = useLocalSearchParams();
+
+  useEffect(() => {
+    // TODO: COLOCAR EL NOMBRE DE LA FINCA
+
+    navigation.setOptions({
+      headerRight: () => {
+        <Ionicons name="camera-outline" size={30} />;
+      },
+    });
+  }, []);
+
   const [isPosting, setIsPosting] = useState(false);
 
   const [form, setForm] = useState({

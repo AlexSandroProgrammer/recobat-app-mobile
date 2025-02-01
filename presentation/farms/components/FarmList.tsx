@@ -34,11 +34,11 @@ const FarmList = ({ userId }: { userId: number }) => {
       >
         <View className="px-5">
           <DropProfile {...DataDropProfile} />
-          <View className="flex gap-5 mb-28">
-            {farms.map((farm) => (
-              <FarmCard key={farm.id} {...farm} />
-            ))}
-          </View>
+            <View className="flex gap-5 mb-28">
+              {farms.map((farm) => (
+                <FarmCard key={farm.id} {...farm} />
+              ))}
+            </View>          
         </View>
       </Animated.ScrollView>
     </SafeAreaView>

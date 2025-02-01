@@ -1,14 +1,7 @@
-import { DropProfileProps } from "@/core/client/interfaces/index.interface";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import FarmList from "@/presentation/farms/components/FarmList";
-import { RelativePathString } from "expo-router";
-
-const DataDropProfile: DropProfileProps = {
-  title: "Mis Fincas",
-  titleButton: "Registrar",
-  routeModal: "/farm/register" as RelativePathString,
-};
+import { Text, View } from "react-native";
 
 const FarmScreen = () => {
   // llamamos al usuario autenticado
@@ -18,7 +11,11 @@ const FarmScreen = () => {
     return <IsLoadingRefresh />;
   }
 
-  return <FarmList userId={user?.id}></FarmList>;
+  return (
+    <View>
+      <Text>Hola</Text>
+    </View>
+  );
 };
 
 export default FarmScreen;

@@ -47,7 +47,7 @@ const StackLayout = () => {
         }}
       />
       <Stack.Screen
-        name="farm/update"
+        name="farm/[id]"
         options={{
           presentation: "transparentModal",
           animation: "fade",

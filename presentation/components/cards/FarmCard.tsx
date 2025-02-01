@@ -1,7 +1,8 @@
 import { Farm } from "@/core/farm/interfaces/index.interface";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 export const FarmCard = ({
   address,
@@ -10,9 +11,13 @@ export const FarmCard = ({
   nameFarm,
   id,
 }: Farm) => {
+  //* creamos una funcion para eliminar la finca
+  const handleDeleteFarm = (id: number) => {
+    console.log(`El id recibido es ${id}`);
+  };
   return (
     <View
-      className={`w-full p-6 rounded-xl shadow-lg bg-slate-200 shadow-black/80 relative`}
+      className={`w-full p-6 rounded-xl shadow-lg bg-primary-300 shadow-black/80 relative`}
     >
       {/* Encabezado con icono y título */}
       <View className="flex flex-row items-center content-center">
@@ -48,6 +53,7 @@ export const FarmCard = ({
         {/* boton para eliminar un lote */}
         <Link
           href="/"
+          onPress={() => handleDeleteFarm(id)}
           className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-4 text-center "
         >
           <View className="flex flex-row items-center justify-center">
@@ -56,6 +62,7 @@ export const FarmCard = ({
           </View>
         </Link>
         {/* boton para crear un lote */}
+
         <Link
           href="/"
           className="bg-green-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-4 text-center"
@@ -65,6 +72,18 @@ export const FarmCard = ({
             <Text className="text-lg font-kanit text-white ml-2"> Lote</Text>
           </View>
         </Link>
+
+        {/* boton para crear un lote */}
+        <TouchableOpacity
+          onPress={() => router.push(`/farm/[id]`)}
+          className="bg-yellow-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-4 text-center"
+        >
+          <View className="flex flex-row items-center justify-center">
+            <Ionicons name="pencil-outline" size={25} color="white" />
+            <Text className="text-lg font-kanit text-white ml-2"> Editar</Text>
+          </View>
+        </TouchableOpacity>
+
         {/* boton para mostrar los lotes de la finca */}
         <Link
           href="/"
