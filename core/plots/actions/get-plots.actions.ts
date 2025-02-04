@@ -1,11 +1,11 @@
 import { recobatApi } from "@/core/api/recobatApi";
-import { ListFarmsUserProps } from "../interfaces/index.interface";
+import { ListPlotsForFarm } from "../interfaces/index.interface";
 
 //* accion para llamar todas las fincas del usuario autenticado
-export const getFarmsForUser = async (idUser: number) => {
+export const getPlotsForFarm = async (idUser: number) => {
   try {
-    const { data } = await recobatApi.get<ListFarmsUserProps>(
-      `users/${idUser}?populate=farms`
+    const { data } = await recobatApi.get<ListPlotsForFarm>(
+      `farms/${idUser}?populate=plots`
     );
     return data;
   } catch (error) {

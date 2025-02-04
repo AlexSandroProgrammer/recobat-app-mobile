@@ -1,4 +1,4 @@
-import { Farm } from "@/core/farm/interfaces/index.interface";
+import { Farm } from "@/core/farms/interfaces/index.interface";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Link } from "expo-router";

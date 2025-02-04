@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import { ActivityIndicator } from "react-native-paper";
 
@@ -12,7 +12,7 @@ const IsLoadingRefresh = () => {
         marginBottom: 5,
       }}
     >
-      <ActivityIndicator size="large" color="#4880e9" />
+      <ActivityIndicator size={30} color="#4880e9" />
     </View>
   );
 };

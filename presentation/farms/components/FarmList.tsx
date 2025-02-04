@@ -7,6 +7,7 @@ import React, { useRef } from "react";
 import { Animated, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFarms } from "../hooks/useFarms";
+import FarmSubList from "./FarmSubList";
 
 const DataDropProfile: DropProfileProps = {
   title: "Mis Fincas",
@@ -16,13 +17,14 @@ const DataDropProfile: DropProfileProps = {
 
 const FarmList = ({ userId }: { userId: number }) => {
   const { farmsQuery } = useFarms(userId);
-  // si estamos cargando las fincas, mostramos el componente de carga
+
   if (farmsQuery.isLoading) {
     return <IsLoadingRefresh />;
   }
-  const farms = farmsQuery?.data?.farms!;
-  // Referencia para controlar el scroll animado
+  const farms = farmsQuery?.data!;
+
   const scrollY = useRef(new Animated.Value(0)).current;
+
   return (
     <SafeAreaView className="h-full bg-white">
       <Animated.ScrollView
@@ -34,11 +36,9 @@ const FarmList = ({ userId }: { userId: number }) => {
       >
         <View className="px-5">
           <DropProfile {...DataDropProfile} />
-            <View className="flex gap-5 mb-28">
-              {farms.map((farm) => (
-                <FarmCard key={farm.id} {...farm} />
-              ))}
-            </View>          
+          <View className="flex gap-5 mb-28">
+            <FarmSubList farms={farms} />
+          </View>
         </View>
       </Animated.ScrollView>
     </SafeAreaView>

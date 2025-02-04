@@ -41,17 +41,17 @@ export interface ListFarmsUserProps {
 
 export interface Farm {
   id: number;
-  documentId: string;
+  documentId?: string;
   nameFarm: string;
   latitude: string;
   altitude: string;
-  createdAt: Date;
-  updatedAt: Date;
-  publishedAt: null;
+  createdAt?: Date;
+  updatedAt?: Date;
+  publishedAt?: null;
   address: string;
-  codeFarm: string;
-  telephone: string;
-  longitude: string;
+  codeFarm?: string;
+  telephone?: string;
+  longitude?: string;
 }
 
 //--- fin interfaces para obtener las fincas de un usuario

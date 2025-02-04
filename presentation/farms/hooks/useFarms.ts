@@ -1,5 +1,4 @@
-import { getFarmsForUser } from "@/core/farm/actions/farm-actions";
-import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
+import { getFarmsForUser } from "@/core/farms/actions/get-farms.actions";
 import { useQuery } from "@tanstack/react-query";
 
 export const useFarms = (idUser: number) => {
