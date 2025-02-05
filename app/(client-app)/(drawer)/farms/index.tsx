@@ -1,26 +1,23 @@
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import FarmList from "@/presentation/farms/components/FarmList";
-import { View } from "react-native";
+import Layout from "@/presentation/layouts/Layout";
+import { useRef } from "react";
+import { Animated, View } from "react-native";
 
 const FarmScreen = () => {
   // llamamos al usuario autenticado
   const { user } = useAuthStore();
   // Si el usuario no está cargado, mostramos un componente de carga
+  const scrollY = useRef(new Animated.Value(0)).current;
+
   if (!user) {
     return <IsLoadingRefresh />;
   }
-
   return (
-    <View>
-      {
-        // verificamos que el usuario ya se haya cargado
-        (user && <FarmList userId={user.id} />) || (
-          // si el usuario no se ha cargado, mostramos un mensaje de error
-          <IsLoadingRefresh />
-        )
-      }
-    </View>
+    <Layout>
+      <FarmList userId={user.id} />
+    </Layout>
   );
 };
 

@@ -18,7 +18,6 @@ const StackLayout = () => {
         contentStyle: {
           backgroundColor: "white",
         },
-
         // headerTintColor: "#f0f6fe",
         headerLeft: ({ tintColor, canGoBack }) => (
           <Ionicons

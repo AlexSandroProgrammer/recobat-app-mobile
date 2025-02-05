@@ -43,7 +43,7 @@ const TabsLayout = () => {
           borderTopWidth: 1,
           minHeight: 70,
           borderRadius: 5,
-          marginBottom: 5,
+          marginTop: 5,
         },
       }}
     >
