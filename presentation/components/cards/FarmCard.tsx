@@ -10,10 +10,11 @@ export const FarmCard = ({
   telephone,
   nameFarm,
   id,
+  documentId,
 }: Farm) => {
   //* creamos una funcion para eliminar la finca
-  const handleDeleteFarm = (id: number) => {
-    console.log(`El id recibido es ${id}`);
+  const handleDeleteFarm = (documentId: string) => {
+    console.log(`El id recibido es ${documentId}`);
   };
   return (
     <View
@@ -42,7 +43,7 @@ export const FarmCard = ({
         {/* boton para eliminar un lote */}
         <Link
           href="/"
-          onPress={() => handleDeleteFarm(id)}
+          onPress={() => handleDeleteFarm(documentId!)}
           className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-1/6 py-4 text-center "
         >
           <View className="flex flex-row items-center justify-center">
@@ -61,7 +62,7 @@ export const FarmCard = ({
 
         {/* boton para crear un lote */}
         <TouchableOpacity
-          onPress={() => router.push(`/farm/${id}`)}
+          onPress={() => router.push(`/farm/${documentId}`)}
           className="bg-yellow-500 shadow-md shadow-zinc-300 rounded-full w-1/6 py-4 text-center"
         >
           <View className="flex flex-row items-center justify-center">

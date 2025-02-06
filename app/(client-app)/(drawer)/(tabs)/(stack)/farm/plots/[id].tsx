@@ -1,34 +1,55 @@
 import icons from "@/constants/icons";
 import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
-import { Ionicons } from "@expo/vector-icons";
-import { router, useNavigation } from "expo-router";
+import { usePlotStore } from "@/presentation/plots/usePlotStore";
+import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router/build/hooks";
-import { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 
 const RegisterPlotScreen = () => {
-  const navigation = useNavigation();
   // obtenemos el id que viene por params
   const { id } = useLocalSearchParams();
-  console.log(id);
 
-  useEffect(() => {
-    // TODO: COLOCAR EL NOMBRE DE LA FINCA
-    navigation.setOptions({
-      headerRight: () => {
-        <Ionicons name="camera-outline" size={30} />;
-      },
-    });
-  }, []);
+  const { plotRegister } = usePlotStore();
 
   const [isPosting, setIsPosting] = useState(false);
 
   const [form, setForm] = useState({
     namePlot: "",
     size: "",
-    farm: "",
+    farmId: id,
   });
+
+  // funcion para guardar la finca
+  const registerPlot = async () => {
+    const { namePlot, size, farmId } = form;
+
+    if (namePlot.length === 0 || size.length === 0) {
+      Alert.alert("Error", "Por favor ingresa todos los datos del lote.");
+      return;
+    }
+
+    console.log({
+      namePlot,
+      size,
+      farmId,
+    });
+
+    setIsPosting(true);
+    const authSuccess = await plotRegister(
+      namePlot,
+      size,
+      Array.isArray(farmId) ? farmId[0] : farmId
+    );
+    setIsPosting(false);
+    if (authSuccess) {
+      router.replace("/");
+      return;
+    }
+    Alert.alert("Lo sentimos!", "No se logro completar el registro.");
+  };
+
   return (
     <Animated.View
       entering={FadeIn}
@@ -58,7 +79,7 @@ const RegisterPlotScreen = () => {
           />
 
           <ThemedTextInput
-            placeholder="Medida del Lote"
+            placeholder="Medida del Lote en Hectarea"
             keyboardType="default"
             autoCapitalize="sentences"
             value={form.size}
@@ -68,7 +89,7 @@ const RegisterPlotScreen = () => {
           />
 
           <TouchableOpacity
-            onPress={() => console.log("")}
+            onPress={registerPlot}
             disabled={isPosting}
             className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
           >
