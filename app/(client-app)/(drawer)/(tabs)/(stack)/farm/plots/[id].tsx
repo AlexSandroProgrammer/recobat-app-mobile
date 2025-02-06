@@ -1,22 +1,20 @@
 import icons from "@/constants/icons";
 import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { Link, useNavigation } from "expo-router";
-import { useLocalSearchParams, useSearchParams } from "expo-router/build/hooks";
+import { router, useNavigation } from "expo-router";
+import { useLocalSearchParams } from "expo-router/build/hooks";
 import { useEffect, useState } from "react";
-import { Image, View } from "react-native";
-import { TouchableOpacity } from "react-native";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
-const UpdateFarmScreen = () => {
+
+const RegisterPlotScreen = () => {
   const navigation = useNavigation();
   // obtenemos el id que viene por params
   const { id } = useLocalSearchParams();
+  console.log(id);
 
   useEffect(() => {
     // TODO: COLOCAR EL NOMBRE DE LA FINCA
-
     navigation.setOptions({
       headerRight: () => {
         <Ionicons name="camera-outline" size={30} />;
@@ -27,40 +25,46 @@ const UpdateFarmScreen = () => {
   const [isPosting, setIsPosting] = useState(false);
 
   const [form, setForm] = useState({
-    document: "",
+    namePlot: "",
+    size: "",
+    farm: "",
   });
   return (
     <Animated.View
       entering={FadeIn}
       className="flex-auto content-center items-center bg-[#00000025] justify-center"
     >
-      {/* Dismiss modal when pressing outside */}
-      <Link href={"/"} asChild>
-        <Pressable style={StyleSheet.absoluteFill} />
-      </Link>
       <Animated.View
         entering={SlideInDown}
-        className="w-[90%] h-[80%] rounded-lg items-center justify-center bg-slate-50 mb-20"
+        className="w-full h-full items-center justify-center bg-slate-50 m-auto"
       >
-        <View className="px-10 w-[90%] mt-5">
+        <View className="px-5 w-[90%] mt-5">
           <Text className="text-3xl font-kanit-bold text-black-300 uppercase text-center mt-1">
-            <Text className="text-primary-300">Completar Mis Datos</Text>
+            <Text className="text-primary-300">Registro del Lote</Text>
           </Text>
           <Text className="text-base text-center font-kanit text-black-200">
-            Por favor ingresa los siguientes datos para terminar tu proceso de
-            registro.
+            Por favor ingresa los siguientes datos para registrar el lote de tu
+            finca
           </Text>
 
           <ThemedTextInput
-            placeholder="Numero de documento"
-            keyboardType="numeric"
-            autoCapitalize="none"
-            value={form.document}
-            iconRef="card-outline"
+            placeholder="Nombre del lote"
+            keyboardType="default"
+            autoCapitalize="sentences"
+            value={form.namePlot}
+            iconRef="text-outline"
             maxLength={12}
-            onChangeText={(value) =>
-              setForm({ ...form, document: value.replace(/\s/g, "") })
-            }
+            onChangeText={(value) => setForm({ ...form, namePlot: value })}
+          />
+
+          <ThemedTextInput
+            placeholder="Medida del Lote"
+            keyboardType="default"
+            autoCapitalize="sentences"
+            value={form.size}
+            iconRef="analytics-outline"
+            maxLength={12}
+            onChangeText={(value) => setForm({ ...form, size: value })}
           />
 
           <TouchableOpacity
@@ -82,7 +86,7 @@ const UpdateFarmScreen = () => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => router.push("/farms")}
+            onPress={() => router.push("/")}
             disabled={isPosting}
             className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-2"
           >
@@ -105,4 +109,4 @@ const UpdateFarmScreen = () => {
   );
 };
 
-export default UpdateFarmScreen;
+export default RegisterPlotScreen;

@@ -53,6 +53,15 @@ const StackLayout = () => {
           headerShown: false,
         }}
       />
+
+      <Stack.Screen
+        name="farm/plots/[id]"
+        options={{
+          presentation: "transparentModal",
+          animation: "fade",
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 };
