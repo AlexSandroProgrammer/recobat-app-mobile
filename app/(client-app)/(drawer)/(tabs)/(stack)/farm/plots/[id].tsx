@@ -1,6 +1,6 @@
 import icons from "@/constants/icons";
 import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
-import { usePlotStore } from "@/presentation/plots/usePlotStore";
+import { usePlotStore } from "@/presentation/plots/hooks/usePlotStore";
 import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router/build/hooks";
 import { useState } from "react";
@@ -29,12 +29,6 @@ const RegisterPlotScreen = () => {
       Alert.alert("Error", "Por favor ingresa todos los datos del lote.");
       return;
     }
-
-    console.log({
-      namePlot,
-      size,
-      farmId,
-    });
 
     setIsPosting(true);
     const authSuccess = await plotRegister(

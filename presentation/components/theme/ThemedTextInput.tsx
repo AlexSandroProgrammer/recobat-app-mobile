@@ -1,13 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
-import { View, Image, TextInput, TextInputProps } from "react-native";
 import { useRef, useState } from "react";
+import { TextInput, TextInputProps, View } from "react-native";
+
 interface Props extends TextInputProps {
   iconRef?: keyof typeof Ionicons.glyphMap;
 }
 const ThemedTextInput = ({ iconRef, ...rest }: Props) => {
   const [isActive, setIsActive] = useState(false);
   const inputRef = useRef<TextInput>(null);
-
   return (
     <View className="flex flex-row items-center justify-between w-full px-4 rounded-lg  border  border-primary-300 bg-primary-100 mt-5 py-2">
       <View
@@ -26,7 +26,7 @@ const ThemedTextInput = ({ iconRef, ...rest }: Props) => {
           ref={inputRef}
           onFocus={() => setIsActive(true)}
           onBlur={() => setIsActive(false)}
-          className="text-sm font-rubik text-black-300 ml-2 flex-1"
+          className="text-md font-rubik text-black-300 ml-2 flex-1"
           {...rest}
           placeholderTextColor="#273d88"
           // cambiamos el color de los inputs

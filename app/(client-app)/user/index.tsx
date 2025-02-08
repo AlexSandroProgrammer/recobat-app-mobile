@@ -1,21 +1,15 @@
+import React, { useState } from "react";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 import icons from "@/constants/icons";
 import images from "@/constants/images";
 import { updateUserData } from "@/core/auth/actions/auth-actions";
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import SnackBarNotificationDanger from "@/presentation/components/notifications/SnackBarNotificationDanger";
+
 import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
-import { Redirect, router } from "expo-router";
-import React, { useState } from "react";
-import {
-  Alert,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import ThemedButtonGroup from "../../../presentation/components/theme/ThemedButtonGroup";
+import Layout from "@/presentation/layouts/Layout";
+import { SelectItem } from "@/core/theme/index.interface";
+import ThemedSelect from "@/presentation/components/theme/ThemedSelect";
 
 const UpdateDataScreen = () => {
   const { user, logout } = useAuthStore();
@@ -32,6 +26,12 @@ const UpdateDataScreen = () => {
     type_document: "",
     stateData: "success",
   });
+
+  // Opciones para el select del tipo de documento
+  const documentTypeOptions: SelectItem[] = [
+    { label: "T.I.", value: "T.I." },
+    { label: "C.E.", value: "C.E." },
+  ];
 
   // Estado para el Snackbar
   const [snackbar, setSnackbar] = useState({
@@ -88,11 +88,11 @@ const UpdateDataScreen = () => {
     );
     setIsPosting(false);
 
-    //* hacemos el cargue de la app
+    //* Hacemos el cargue de la app
     if (authSuccess) {
       Alert.alert(
         "Todo salió bien!",
-        "Datos actualizados correctamente, Ahora te invitamos a iniciar sesion, para confirmar el registro de tu cuenta",
+        "Datos actualizados correctamente, Ahora te invitamos a iniciar sesión, para confirmar el registro de tu cuenta",
         [{ text: "Aceptar", onPress: async () => await logout() }]
       );
       return;
@@ -101,13 +101,8 @@ const UpdateDataScreen = () => {
   };
 
   return (
-    <SafeAreaView className="bg-white h-full">
-      <ScrollView
-        contentContainerStyle={{
-          height: "100%",
-        }}
-        showsVerticalScrollIndicator={false}
-      >
+    <>
+      <Layout>
         <View className="justify-center h-full">
           <Image
             source={images.logo}
@@ -122,26 +117,24 @@ const UpdateDataScreen = () => {
               Por favor ingresa los siguientes datos para terminar tu proceso de
               registro.
             </Text>
-
-            <View className="my-7">
-              <Text className="text-base text-left font-kanit text-black-100 mb-10">
-                Seleccionar Tipo de Documento:
-              </Text>
-              <ThemedButtonGroup
-                options={["T.I.", "C.E."]}
-                selectedOptions={form.type_document}
-                onSelect={(selectedOption) =>
-                  setForm((prevState) => ({
-                    ...prevState,
-                    type_document: selectedOption,
-                  }))
-                }
-              />
-            </View>
+            <ThemedSelect
+              placeholder="Seleccionar Tipo de documento"
+              data={documentTypeOptions}
+              selectedValue={documentTypeOptions.find(
+                (option) => option.value === form.type_document
+              )}
+              onValueChange={(item) =>
+                setForm((prevState) => ({
+                  ...prevState,
+                  type_document: item.value.toString(),
+                }))
+              }
+              iconRef="document-text-outline" // Puedes usar el ícono que prefieras
+            />
 
             <ThemedTextInput
               placeholder="Numero de documento"
-              keyboardType="numeric"
+              keyboardType="number-pad"
               autoCapitalize="none"
               value={form.document}
               iconRef="card-outline"
@@ -162,7 +155,11 @@ const UpdateDataScreen = () => {
                   ...form,
                   names: value
                     .split(" ")
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .map(
+                      (word) =>
+                        word.charAt(0).toUpperCase() +
+                        word.slice(1).toLowerCase()
+                    )
                     .join(" "),
                 })
               }
@@ -179,7 +176,11 @@ const UpdateDataScreen = () => {
                   ...form,
                   surnames: value
                     .split(" ")
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .map(
+                      (word) =>
+                        word.charAt(0).toUpperCase() +
+                        word.slice(1).toLowerCase()
+                    )
                     .join(" "),
                 })
               }
@@ -213,7 +214,6 @@ const UpdateDataScreen = () => {
               autoCapitalize="none"
               value={form.username}
               iconRef="person-outline"
-              // evitamos que tenga espacios
               maxLength={30}
               onChangeText={(value) =>
                 setForm({ ...form, username: value.replace(/\s/g, "") })
@@ -230,7 +230,6 @@ const UpdateDataScreen = () => {
                   source={icons.send}
                   className="w-5 h-5"
                   resizeMode="contain"
-                  // le cambiamos el color a blanco
                   style={{ tintColor: "white" }}
                 />
                 <Text className="text-lg font-kanit text-white ml-2">
@@ -240,14 +239,13 @@ const UpdateDataScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
-      {/* Snackbar */}
+      </Layout>
       <SnackBarNotificationDanger
         visible={snackbar.visible}
         onDismiss={hideSnackbar}
         message={snackbar.message}
       />
-    </SafeAreaView>
+    </>
   );
 };
 

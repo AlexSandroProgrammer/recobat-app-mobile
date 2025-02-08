@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import icons from "@/constants/icons";
 import images from "@/constants/images";
@@ -35,7 +42,6 @@ const RegisterScreen = () => {
   const onRegister = async () => {
     const { email, username, password } = form;
     if (email.length === 0 || username.length === 0 || password.length === 0) {
-      // showSnackbar("Por favor ingresa todos los datos.");
       showSnackbar("Por favor ingresa todos los datos.");
       return;
     }
@@ -49,7 +55,6 @@ const RegisterScreen = () => {
       return;
     }
 
-    // Alert.alert("Error", "Error al momento de registrar los datos");
     showSnackbar("Hey, Por favor verifica tus datos.");
   };
 
@@ -81,7 +86,6 @@ const RegisterScreen = () => {
               keyboardType="email-address"
               autoCapitalize="none"
               value={form.email}
-              // evitamos que tenga espacios
               maxLength={30}
               onChangeText={(value) =>
                 setForm({ ...form, email: value.replace(/\s/g, "") })
@@ -95,7 +99,6 @@ const RegisterScreen = () => {
               autoCapitalize="none"
               value={form.username}
               iconRef="person-outline"
-              // evitamos que tenga espacios
               maxLength={30}
               onChangeText={(value) =>
                 setForm({ ...form, username: value.replace(/\s/g, "") })
@@ -118,16 +121,21 @@ const RegisterScreen = () => {
               className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
             >
               <View className="flex flex-row items-center justify-center">
-                <Image
-                  source={icons.send}
-                  className="w-5 h-5"
-                  resizeMode="contain"
-                  // le cambiamos el color a blanco
-                  style={{ tintColor: "white" }}
-                />
-                <Text className="text-lg font-kanit text-white ml-2">
-                  Registrarme
-                </Text>
+                {isPosting ? (
+                  <ActivityIndicator size="small" color="#ffffff" />
+                ) : (
+                  <>
+                    <Image
+                      source={icons.send}
+                      className="w-5 h-5"
+                      resizeMode="contain"
+                      style={{ tintColor: "white" }}
+                    />
+                    <Text className="text-lg font-kanit text-white ml-2">
+                      Registrarme
+                    </Text>
+                  </>
+                )}
               </View>
             </TouchableOpacity>
 
@@ -141,7 +149,6 @@ const RegisterScreen = () => {
           </View>
         </View>
       </ScrollView>
-      {/* Snackbar */}
       <SnackBarNotificationDanger
         visible={snackbar.visible}
         onDismiss={hideSnackbar}

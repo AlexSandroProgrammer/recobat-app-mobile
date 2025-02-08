@@ -5,6 +5,7 @@ import { Link } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
 export const FarmCard = ({
+  //* example123@gmail.com
   address,
   codeFarm,
   telephone,

@@ -86,7 +86,6 @@ export const authRegister = async (
 export const authCheckStatus = async () => {
   try {
     const jwt = (await SecureStorageAdapter.getItem("jwt")) as string;
-    console.log(jwt);
     const { data } = await recobatApi.get<User>("/users/me", {
       headers: { Authorization: `Bearer ${jwt}` },
     });
