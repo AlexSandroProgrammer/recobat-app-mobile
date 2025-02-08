@@ -8,6 +8,8 @@ import ButtonAuthGoogle from "@/presentation/components/theme/ButtonAuthGoogle";
 import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
 import { Link, router } from "expo-router";
 import SnackBarNotificationDanger from "@/presentation/components/notifications/SnackBarNotificationDanger";
+import { ActivityIndicator } from "react-native-paper";
+import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 
 const LoginScreen = () => {
   const { login } = useAuthStore();
@@ -66,7 +68,7 @@ const LoginScreen = () => {
               <Text className="text-primary-300">Iniciar Sesion</Text>
             </Text>
             <Text className="text-base text-center font-kanit text-black-200">
-              Por favor Ingresa tus credenciales de email y contraseña.
+              Por favor Ingresa tus credenciales.
             </Text>
 
             <ThemedTextInput
@@ -99,19 +101,31 @@ const LoginScreen = () => {
               className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
             >
               <View className="flex flex-row items-center justify-center">
-                <Image
-                  source={icons.send}
-                  className="w-5 h-5"
-                  resizeMode="contain"
-                  // le cambiamos el color a blanco
-                  style={{ tintColor: "white" }}
-                />
-                <Text className="text-lg font-kanit text-white ml-2">
-                  Iniciar Sesion
-                </Text>
+                {isPosting ? (
+                  <ActivityIndicator size="small" color="#ffffff" />
+                ) : (
+                  <>
+                    <Image
+                      source={icons.send}
+                      className="w-5 h-5"
+                      resizeMode="contain"
+                      // le cambiamos el color a blanco
+                      style={{ tintColor: "white" }}
+                    />
+                    <Text className="text-lg font-kanit text-white ml-2">
+                      Iniciar Sesion
+                    </Text>
+                  </>
+                )}
               </View>
             </TouchableOpacity>
-            <ButtonAuthGoogle />
+            {isPosting ? (
+              <Text className="text-base font-kanit-bold text-primary-400 text-center mt-3">
+                Espera un momento...
+              </Text>
+            ) : (
+              <ButtonAuthGoogle />
+            )}
             <Text className="text-base font-kanit-bold text-black-300 text-center mt-3">
               ¿No tienes cuenta? {"\n"}
               <Link href="/auth/register" className="text-primary-300">

@@ -9,7 +9,6 @@ const IsLoadingRefresh = () => {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 5,
       }}
     >
       <ActivityIndicator size={30} color="#4880e9" />
