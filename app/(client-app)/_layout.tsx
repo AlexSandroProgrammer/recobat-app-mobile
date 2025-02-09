@@ -1,8 +1,7 @@
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import { Redirect, Slot, Stack } from "expo-router";
+import { Redirect, Slot } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { useEffect } from "react";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 
 const CheckAuthenticationLayout = () => {

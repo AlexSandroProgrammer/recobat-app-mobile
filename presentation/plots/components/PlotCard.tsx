@@ -1,81 +1,73 @@
-import { Farm } from "@/core/farms/interfaces/index.interface";
-import { Plot } from "@/core/plots/interfaces/index.interface";
+import React, { useRef, useEffect } from "react";
+import { Animated, TouchableOpacity, Image, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { Link } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { RelativePathString, router } from "expo-router";
+import icons from "@/constants/icons";
+import { Plot } from "@/core/plots/interfaces/index.interface";
 
-export const PlotCard = ({ id, namePlot, size }: Plot) => {
-  //* creamos una funcion para eliminar la finca
-  const handleDeleteFarm = (documentId: string) => {
-    console.log(`El id recibido es ${documentId}`);
-  };
+export const PlotCard = ({ id, namePlot, size, documentId }: Plot) => {
+  // Valor animado para la escala del botón
+  const pulseAnimation = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    // Animación de pulsación en bucle
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseAnimation, {
+          toValue: 1.1, // Aumenta la escala (puedes ajustar este valor)
+          duration: 600, // Duración de la animación (ms)
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnimation, {
+          toValue: 1, // Regresa a la escala original
+          duration: 600,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, [pulseAnimation]);
+
   return (
-    <View
-      className={`w-full p-6 rounded-xl shadow-lg bg-green-200 shadow-green-900/80 border border-primary-400 relative mb-4`}
-    >
+    <View className="w-full p-6 rounded-xl shadow-lg bg-zinc-50 shadow-slate-500/90 border border-slate-300 relative mb-6">
       {/* Encabezado con icono y título */}
-      <View className="flex flex-row items-center content-center">
-        <Ionicons name="home-outline" size={24} color="blue" />
-        <Text className="text-2xl font-kanit-bold text-primary-400">
-          {" "}
-          {namePlot}
-        </Text>
+      <View className="flex flex-row items-center justify-between">
+        <View className="flex flex-row">
+          <Ionicons name="leaf-outline" size={24} color="green" />
+          <Text className="text-2xl font-kanit-bold text-primary-400">
+            {namePlot}
+          </Text>
+        </View>
+        <View className="flex flex-row">
+          <Ionicons name="analytics-outline" size={24} color="green" />
+          <Text className="text-2xl font-kanit text-primary-400">
+            {" "}
+            {size} Ha
+          </Text>
+        </View>
       </View>
-      <View className="flex flex-row items-center content-center mt-3">
-        <Ionicons name="invert-mode" size={24} color="blue" />
-        <Text className="text-lg font-kanit text-primary-400"> {id}</Text>
-      </View>
-      <View className="flex flex-row items-center content-center mt-2">
-        <Ionicons name="location-outline" size={25} color="blue" />
-        <Text className="text-lg font-kanit text-primary-400">{size}</Text>
-      </View>
-      <View className="flex flex-row items-center content-center mt-2">
-        <Ionicons name="phone-portrait-outline" size={25} color="blue" />
-        <Text className="text-lg font-kanit text-primary-400">{}</Text>
-      </View>
-
       {/* Footer */}
       <View className="flex flex-row items-end gap-3 justify-center mt-5">
-        {/* boton para eliminar un lote */}
-        <Link
-          href="/"
-          onPress={() => handleDeleteFarm("")}
-          className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-1/6 py-4 text-center "
-        >
-          <View className="flex flex-row items-center justify-center">
-            <Ionicons name="remove-circle-outline" size={26} color="white" />
-          </View>
-        </Link>
-        {/* boton para crear un lote */}
         <TouchableOpacity
-          onPress={() => router.push(`/`)}
-          className="bg-green-500 shadow-md shadow-zinc-300 rounded-full w-1/6 py-4 text-center"
+          onPress={() =>
+            router.push(`/process/verification/` as RelativePathString)
+          }
+          className="bg-green-500 shadow-md shadow-green-800 rounded-full w-4/6 py-4 text-center"
         >
-          <View className="flex flex-row items-center justify-center">
-            <Ionicons name="add-circle-outline" size={26} color="white" />
-          </View>
-        </TouchableOpacity>
-
-        {/* boton para crear un lote */}
-        <TouchableOpacity
-          onPress={() => router.push(`/`)}
-          className="bg-yellow-500 shadow-md shadow-zinc-300 rounded-full w-1/6 py-4 text-center"
-        >
-          <View className="flex flex-row items-center justify-center">
-            <Ionicons name="pencil-outline" size={26} color="white" />
-          </View>
-        </TouchableOpacity>
-
-        {/* boton para mostrar los lotes de la finca */}
-        {/* boton para crear un lote */}
-        <TouchableOpacity
-          onPress={() => router.push(`/`)}
-          className="bg-primary-400 shadow-md shadow-zinc-300 rounded-full w-1/6 py-4 text-center"
-        >
-          <View className="flex flex-row items-center justify-center">
-            <Ionicons name="eye-outline" size={26} color="white" />
-          </View>
+          <Animated.View style={{ transform: [{ scale: pulseAnimation }] }}>
+            <View className="flex flex-row items-center justify-center">
+              <Image
+                source={icons.send}
+                className="w-5 h-5"
+                resizeMode="contain"
+                // Cambiamos el color a blanco
+                style={{ tintColor: "white" }}
+              />
+              <Text className="text-lg font-kanit-bold text-white">
+                {" "}
+                Iniciar Proceso
+              </Text>
+            </View>
+          </Animated.View>
         </TouchableOpacity>
       </View>
     </View>

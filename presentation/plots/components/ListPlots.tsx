@@ -39,7 +39,7 @@ const ListPlots = ({ farmId }: { farmId: string }) => {
               {farm.codeFarm}
             </Text>
             <Text className="text-base font-kanit-bold text-black-300">
-              {farm.nameFarm}
+              {farm.nameFarm} ({farm.address})
             </Text>
           </View>
         </View>
@@ -62,7 +62,7 @@ const ListPlots = ({ farmId }: { farmId: string }) => {
             title="No tienes lotes registrados"
             icon="arrow-back-circle-outline"
             description="Clic para volver a tu listado de fincas"
-            route={"/farms/index" as RelativePathString}
+            route={"/farms" as RelativePathString}
           />
         )}
       </View>

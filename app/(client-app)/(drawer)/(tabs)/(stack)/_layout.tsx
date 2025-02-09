@@ -10,8 +10,11 @@ const StackLayout = () => {
   return (
     <Stack
       screenOptions={{
-        // headerShown: false,
-        headerShadowVisible: false,
+        headerTitleStyle: {
+          fontFamily: "Poppins",
+          fontWeight: "bold",
+          fontSize: 20,
+        },
         headerStyle: {
           backgroundColor: "white",
         },
@@ -67,6 +70,14 @@ const StackLayout = () => {
         name="farm/listPlot/[id]"
         options={{
           title: "Lotes de Mi Finca",
+          headerTitleAlign: "center",
+        }}
+      />
+
+      <Stack.Screen
+        name="proccess/verification/[id]"
+        options={{
+          title: "Verificar del Lote o Cultivo",
           headerTitleAlign: "center",
         }}
       />

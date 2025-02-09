@@ -12,32 +12,33 @@ export const FarmCard = ({
   id,
   documentId,
 }: Farm) => {
+  const blueDark = "#1b2550";
   //* creamos una funcion para eliminar la finca
   const handleDeleteFarm = (documentId: string) => {
     console.log(`El id recibido es ${documentId}`);
   };
   return (
     <View
-      className={`w-full p-6 rounded-xl shadow-lg bg-gray-50 shadow-slate-800/60 border border-slate-400 relative mb-6`}
+      className={`w-full p-6 rounded-xl shadow-lg bg-zinc-50 shadow-slate-500/90 border border-slate-300 relative mb-6`}
     >
       {/* Encabezado con icono y título */}
       <View className="flex flex-row items-center content-center">
-        <Ionicons name="home-outline" size={24} color="blue" />
+        <Ionicons name="home-outline" size={24} color={blueDark} />
         <Text className="text-2xl font-kanit-bold text-primary-400">
           {" "}
           {nameFarm}
         </Text>
       </View>
       <View className="flex flex-row items-center content-center mt-3">
-        <Ionicons name="invert-mode" size={24} color="blue" />
+        <Ionicons name="invert-mode" size={24} color={blueDark} />
         <Text className="text-lg font-kanit text-primary-400"> {codeFarm}</Text>
       </View>
       <View className="flex flex-row items-center content-center mt-2">
-        <Ionicons name="location-outline" size={25} color="blue" />
+        <Ionicons name="location-outline" size={25} color={blueDark} />
         <Text className="text-lg font-kanit text-primary-400">{address}</Text>
       </View>
       <View className="flex flex-row items-center content-center mt-2">
-        <Ionicons name="phone-portrait-outline" size={25} color="blue" />
+        <Ionicons name="phone-portrait-outline" size={25} color={blueDark} />
         <Text className="text-lg font-kanit text-primary-400">{telephone}</Text>
       </View>
 

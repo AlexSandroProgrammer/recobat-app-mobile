@@ -1,5 +1,5 @@
 import { recobatApi } from "@/core/api/recobatApi";
-import { Farm, FarmBody } from "../interfaces/index.interface";
+import { FarmBody } from "../interfaces/index.interface";
 
 //* accion para llamar todas las fincas del usuario autenticado
 export const getFarm = async (farmId: string) => {
