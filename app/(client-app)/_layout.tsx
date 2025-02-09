@@ -3,6 +3,7 @@ import { Redirect, Slot, Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
+import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 
 const CheckAuthenticationLayout = () => {
   const { status, checkStatus } = useAuthStore();
@@ -12,18 +13,7 @@ const CheckAuthenticationLayout = () => {
   }, [checkStatus]);
 
   if (status === "checking") {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: 5,
-        }}
-      >
-        <ActivityIndicator size="large" color="#4880e9" />
-      </View>
-    );
+    return <IsLoadingRefresh />;
   }
 
   if (status === "unauthenticated") {

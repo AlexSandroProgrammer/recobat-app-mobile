@@ -1,19 +1,18 @@
-import { Farm } from "@/core/farms/interfaces/index.interface";
-
-export interface ListPlotsForFarm {
-  data: Datum[];
-  meta: Meta;
+// Representa la respuesta completa de la API
+export interface FarmResponse {
+  data: Farm;
 }
 
-export interface Datum {
+// Representa la información de la finca (incluye las parcelas)
+export interface Farm {
   id: number;
   documentId: string;
   nameFarm: string;
   latitude: string;
   altitude: string;
-  createdAt: Date;
-  updatedAt: Date;
-  publishedAt: Date;
+  createdAt: string; // La fecha viene como string
+  updatedAt: string;
+  publishedAt: string;
   address: string;
   codeFarm: string;
   telephone: string;
@@ -21,35 +20,13 @@ export interface Datum {
   plots: Plot[];
 }
 
+// Representa cada parcela (plot)
 export interface Plot {
   id: number;
   documentId: string;
   namePlot: string;
   size: string;
-  createdAt: Date;
-  updatedAt: Date;
-  publishedAt: Date;
-}
-
-export interface Meta {
-  pagination: Pagination;
-}
-
-export interface Pagination {
-  page: number;
-  pageSize: number;
-  pageCount: number;
-  total: number;
-}
-
-export interface PlotResponse {
-  data: Data;
-}
-
-export interface Data {
-  id: number;
-  documentId: string;
-  namePlot: string;
-  size: string;
-  farm?: Farm;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
 }

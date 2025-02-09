@@ -1,8 +1,7 @@
-import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import Layout from "@/presentation/layouts/Layout";
-import ListPlots from "@/presentation/plots/components/ListPlots";
 import { useLocalSearchParams } from "expo-router";
+import ListPlots from "@/presentation/plots/components/ListPlots";
 
 const ListPlotsScreen = () => {
   // llamamos al usuario autenticado
@@ -14,7 +13,7 @@ const ListPlotsScreen = () => {
 
   return (
     <Layout>
-      <ListPlots farmId={id} />
+      <ListPlots farmId={Array.isArray(id) ? id[0] : id} />
     </Layout>
   );
 };
