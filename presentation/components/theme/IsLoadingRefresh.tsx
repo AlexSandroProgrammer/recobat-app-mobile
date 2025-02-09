@@ -11,7 +11,7 @@ const IsLoadingRefresh = () => {
         alignItems: "center",
       }}
     >
-      <ActivityIndicator size={30} color="#4880e9" />
+      <ActivityIndicator size={40} color="#4880e9" />
     </View>
   );
 };

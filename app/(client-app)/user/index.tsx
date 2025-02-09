@@ -10,6 +10,7 @@ import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
 import Layout from "@/presentation/layouts/Layout";
 import { SelectItem } from "@/core/theme/index.interface";
 import ThemedSelect from "@/presentation/components/theme/ThemedSelect";
+import { ActivityIndicator } from "react-native-paper";
 
 const UpdateDataScreen = () => {
   const { user, logout } = useAuthStore();
@@ -226,15 +227,21 @@ const UpdateDataScreen = () => {
               className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
             >
               <View className="flex flex-row items-center justify-center">
-                <Image
-                  source={icons.send}
-                  className="w-5 h-5"
-                  resizeMode="contain"
-                  style={{ tintColor: "white" }}
-                />
-                <Text className="text-lg font-kanit text-white ml-2">
-                  Finalizar
-                </Text>
+                {isPosting ? (
+                  <ActivityIndicator size="small" color="#ffffff" />
+                ) : (
+                  <>
+                    <Image
+                      source={icons.send}
+                      className="w-5 h-5"
+                      resizeMode="contain"
+                      style={{ tintColor: "white" }}
+                    />
+                    <Text className="text-lg font-kanit text-white ml-2">
+                      Finalizar
+                    </Text>
+                  </>
+                )}
               </View>
             </TouchableOpacity>
           </View>

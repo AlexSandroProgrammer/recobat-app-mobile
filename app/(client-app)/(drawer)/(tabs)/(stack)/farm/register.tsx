@@ -86,7 +86,7 @@ const RegisterFarmScreen = () => {
             <TouchableOpacity
               onPress={() => router.push("/farms")}
               disabled={isPosting}
-              className="bg-red-400 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-2"
+              className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-2"
             >
               <View className="flex flex-row items-center justify-center">
                 <Image

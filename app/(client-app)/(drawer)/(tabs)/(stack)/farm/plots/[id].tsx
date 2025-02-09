@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router/build/hooks";
 import { useState } from "react";
 import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 
 const RegisterPlotScreen = () => {
@@ -88,16 +89,22 @@ const RegisterPlotScreen = () => {
             className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
           >
             <View className="flex flex-row items-center justify-center">
-              <Image
-                source={icons.send}
-                className="w-5 h-5"
-                resizeMode="contain"
-                // le cambiamos el color a blanco
-                style={{ tintColor: "white" }}
-              />
-              <Text className="text-lg font-kanit text-white ml-2">
-                Finalizar
-              </Text>
+              {isPosting ? (
+                <ActivityIndicator size={26} color="#ffff" />
+              ) : (
+                <>
+                  <Image
+                    source={icons.send}
+                    className="w-5 h-5"
+                    resizeMode="contain"
+                    // le cambiamos el color a blanco
+                    style={{ tintColor: "white" }}
+                  />
+                  <Text className="text-lg font-kanit text-white ml-2">
+                    Finalizar
+                  </Text>
+                </>
+              )}
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -106,16 +113,22 @@ const RegisterPlotScreen = () => {
             className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-2"
           >
             <View className="flex flex-row items-center justify-center">
-              <Image
-                source={icons.backArrow}
-                className="w-5 h-5"
-                resizeMode="contain"
-                // le cambiamos el color a blanco
-                style={{ tintColor: "white" }}
-              />
-              <Text className="text-lg font-kanit text-white ml-2">
-                Regresar
-              </Text>
+              {isPosting ? (
+                <ActivityIndicator size={26} color="#ffff" />
+              ) : (
+                <>
+                  <Image
+                    source={icons.backArrow}
+                    className="w-5 h-5"
+                    resizeMode="contain"
+                    // le cambiamos el color a blanco
+                    style={{ tintColor: "white" }}
+                  />
+                  <Text className="text-lg font-kanit text-white ml-2">
+                    Regresar
+                  </Text>
+                </>
+              )}
             </View>
           </TouchableOpacity>
         </View>

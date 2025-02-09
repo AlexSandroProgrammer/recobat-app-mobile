@@ -138,13 +138,21 @@ const RegisterScreen = () => {
                 )}
               </View>
             </TouchableOpacity>
-            <ButtonAuthGoogle />
-            <Text className="text-base font-kanit-bold text-black-300 text-center mt-1">
-              ¿Ya tienes cuenta? {"\n"}
-              <Link href="/auth/login/signin" className="text-primary-300">
-                Iniciar Sesion
-              </Link>
-            </Text>
+            {isPosting ? (
+              <Text className="text-base font-kanit-bold text-primary-400 text-center mt-3">
+                Espera un momento...
+              </Text>
+            ) : (
+              <>
+                <ButtonAuthGoogle />
+                <Text className="text-base font-kanit-bold text-black-300 text-center mt-1">
+                  ¿Ya tienes cuenta? {"\n"}
+                  <Link href="/auth/login/signin" className="text-primary-300">
+                    Iniciar Sesion
+                  </Link>
+                </Text>
+              </>
+            )}
           </View>
         </View>
       </ScrollView>

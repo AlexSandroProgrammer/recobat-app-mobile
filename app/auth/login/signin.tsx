@@ -9,7 +9,6 @@ import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
 import { Link, router } from "expo-router";
 import SnackBarNotificationDanger from "@/presentation/components/notifications/SnackBarNotificationDanger";
 import { ActivityIndicator } from "react-native-paper";
-import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 
 const LoginScreen = () => {
   const { login } = useAuthStore();
@@ -124,14 +123,16 @@ const LoginScreen = () => {
                 Espera un momento...
               </Text>
             ) : (
-              <ButtonAuthGoogle />
+              <>
+                <ButtonAuthGoogle />
+                <Text className="text-base font-kanit-bold text-black-300 text-center mt-3">
+                  ¿No tienes cuenta? {"\n"}
+                  <Link href="/auth/register" className="text-primary-300">
+                    Registrarme
+                  </Link>
+                </Text>
+              </>
             )}
-            <Text className="text-base font-kanit-bold text-black-300 text-center mt-3">
-              ¿No tienes cuenta? {"\n"}
-              <Link href="/auth/register" className="text-primary-300">
-                Registrarme
-              </Link>
-            </Text>
           </View>
         </View>
       </ScrollView>
