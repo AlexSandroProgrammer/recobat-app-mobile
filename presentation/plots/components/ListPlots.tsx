@@ -1,11 +1,7 @@
 import { DropProfileProps } from "@/core/client/interfaces/index.interface";
-import { CardInfo } from "@/presentation/components/cards/CardInfo";
-import { FarmCard } from "@/presentation/components/cards/FarmCard";
 import DropProfile from "@/presentation/components/theme/DropProfile";
-import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import { RelativePathString } from "expo-router";
 import { View } from "react-native";
-import { useFarms } from "../hooks/useFarms";
 
 const DataDropProfile: DropProfileProps = {
   title: "Mis Fincas",
@@ -13,21 +9,21 @@ const DataDropProfile: DropProfileProps = {
   routeModal: "/farm/register" as RelativePathString,
 };
 
-const FarmList = ({ userId }: { userId: number }) => {
-  const { farmsQuery } = useFarms(userId); // 🔹 Esto ahora siempre se ejecuta
+const ListPlots = (farmId: string) => {
+  console.log(farmId);
+  // const { farmsQuery } = useFarms(userId); // 🔹 Esto ahora siempre se ejecuta
 
-  // Si está cargando, mostramos el loader
-  if (farmsQuery.isLoading) {
-    return <IsLoadingRefresh />;
-  }
+  // // Si está cargando, mostramos el loader
+  // if (farmsQuery.isLoading) {
+  //   return <IsLoadingRefresh />;
+  // }
 
-  // Aseguramos que `farms` siempre tenga un valor
-  const farms = farmsQuery?.data ?? [];
+  // // Aseguramos que `farms` siempre tenga un valor
+  // const farms = farmsQuery?.data ?? [];
   return (
     <View className="px-5">
       <DropProfile {...DataDropProfile} />
-      <View>
-        {/* validamos si tiene fincas registradas */}
+      {/* <View>
         {farms.length > 0 ? (
           farms.map((farm) => <FarmCard key={farm.id} {...farm} />)
         ) : (
@@ -38,9 +34,9 @@ const FarmList = ({ userId }: { userId: number }) => {
             route={"/farms/index" as RelativePathString}
           />
         )}
-      </View>
+      </View> */}
     </View>
   );
 };
 
-export default FarmList;
+export default ListPlots;

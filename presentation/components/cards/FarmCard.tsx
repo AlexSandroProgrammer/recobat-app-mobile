@@ -25,7 +25,7 @@ export const FarmCard = ({
         <Ionicons name="home-outline" size={24} color="blue" />
         <Text className="text-2xl font-kanit-bold text-primary-400">
           {" "}
-          {nameFarm}
+          {nameFarm} - {id}
         </Text>
       </View>
       <View className="flex flex-row items-center content-center mt-3">
@@ -74,14 +74,15 @@ export const FarmCard = ({
         </TouchableOpacity>
 
         {/* boton para mostrar los lotes de la finca */}
-        <Link
-          href="/"
+        {/* boton para crear un lote */}
+        <TouchableOpacity
+          onPress={() => router.push(`/farm/listPlot/${documentId}`)}
           className="bg-primary-400 shadow-md shadow-zinc-300 rounded-full w-1/6 py-4 text-center"
         >
           <View className="flex flex-row items-center justify-center">
-            <Ionicons name="eye" size={26} color="white" />
+            <Ionicons name="eye-outline" size={26} color="white" />
           </View>
-        </Link>
+        </TouchableOpacity>
       </View>
     </View>
   );

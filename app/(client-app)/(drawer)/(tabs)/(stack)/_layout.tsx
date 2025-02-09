@@ -36,7 +36,7 @@ const StackLayout = () => {
           title: "Recobat",
           headerTitleAlign: "center",
         }}
-      ></Stack.Screen>
+      />
       <Stack.Screen
         name="farm/register"
         options={{
@@ -57,9 +57,17 @@ const StackLayout = () => {
       <Stack.Screen
         name="farm/plots/[id]"
         options={{
-          presentation: "transparentModal",
-          animation: "fade",
+          title: "Registro de Lote",
+          headerTitleAlign: "center",
           headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="farm/listPlot/[id]"
+        options={{
+          title: "Lotes de Mi Finca",
+          headerTitleAlign: "center",
         }}
       />
     </Stack>

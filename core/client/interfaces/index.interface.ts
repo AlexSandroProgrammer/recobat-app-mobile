@@ -10,7 +10,7 @@ export interface CardsItems {
   title: string;
   description: string;
   icon: string;
-  route: string;
+  route: RelativePathString;
   bgColor?: any;
 }
 

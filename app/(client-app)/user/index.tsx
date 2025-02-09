@@ -30,8 +30,9 @@ const UpdateDataScreen = () => {
 
   // Opciones para el select del tipo de documento
   const documentTypeOptions: SelectItem[] = [
-    { label: "T.I.", value: "T.I." },
-    { label: "C.E.", value: "C.E." },
+    { label: "Tarjeta de Identidad", value: "T.I." },
+    { label: "Cedula de Ciudadania", value: "C.C." },
+    { label: "Cedula de Extranjeria", value: "C.E." },
   ];
 
   // Estado para el Snackbar

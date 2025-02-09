@@ -7,8 +7,8 @@ export const CardStadistic = ({
   title,
   description,
   icon,
-  route,
   bgColor,
+  route,
 }: CardsItems) => {
   return (
     <View
@@ -43,7 +43,7 @@ export const CardStadistic = ({
       {/* Footer */}
       <View className="flex flex-row items-end justify-end mt-3">
         <TouchableOpacity
-          onPress={() => router.push("/farms")}
+          onPress={() => router.push(route)}
           className="bg-primary-100 shadow-md shadow-zinc-300 rounded-full w-3/6 py-4"
         >
           <View className="flex flex-row items-center justify-center">
