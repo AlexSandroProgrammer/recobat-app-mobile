@@ -77,7 +77,7 @@ const StackLayout = () => {
       <Stack.Screen
         name="proccess/verification/[id]"
         options={{
-          title: "Verificar del Lote o Cultivo",
+          title: "Inicio del Proceso",
           headerTitleAlign: "center",
         }}
       />

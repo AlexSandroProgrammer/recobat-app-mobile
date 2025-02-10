@@ -49,7 +49,9 @@ export const PlotCard = ({ id, namePlot, size, documentId }: Plot) => {
       <View className="flex flex-row items-end gap-3 justify-center mt-5">
         <TouchableOpacity
           onPress={() =>
-            router.push(`/process/verification/` as RelativePathString)
+            router.push(
+              `/proccess/verification/${documentId}` as RelativePathString
+            )
           }
           className="bg-green-500 shadow-md shadow-green-800 rounded-full w-4/6 py-4 text-center"
         >

@@ -1,6 +1,6 @@
 //* creamos una funcion para el login del usuario
 import { recobatApi } from "@/core/api/recobatApi";
-import { PlotResponse } from "../interfaces/index.interface";
+import { Plot } from "../interfaces/index.interface";
 
 export const registerPlot = async (
   namePlot: string,
@@ -8,7 +8,7 @@ export const registerPlot = async (
   farmId: string
 ) => {
   try {
-    const { data } = await recobatApi.post<PlotResponse>("/plots", {
+    const { data } = await recobatApi.post<Plot>("/plots", {
       data: {
         namePlot,
         size,

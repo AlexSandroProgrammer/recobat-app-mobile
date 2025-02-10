@@ -5,7 +5,7 @@ import { ListFarmsUserProps } from "../interfaces/index.interface";
 export const getFarmsForUser = async (idUser: number) => {
   try {
     const { data } = await recobatApi.get<ListFarmsUserProps>(
-      `users/${idUser}?populate=farms`
+      `/users/${idUser}?populate=farms`
     );
     return data.farms;
   } catch (error) {

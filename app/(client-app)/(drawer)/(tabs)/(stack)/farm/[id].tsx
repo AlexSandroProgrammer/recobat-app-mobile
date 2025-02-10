@@ -16,7 +16,6 @@ const UpdateFarmScreen = () => {
 
   useEffect(() => {
     // TODO: COLOCAR EL NOMBRE DE LA FINCA
-
     navigation.setOptions({
       headerRight: () => {
         <Ionicons name="camera-outline" size={30} />;

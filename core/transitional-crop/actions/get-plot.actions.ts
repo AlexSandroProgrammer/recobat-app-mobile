@@ -1,12 +1,14 @@
 import { recobatApi } from "@/core/api/recobatApi";
-import { FarmResponse } from "../interfaces/index.interface";
+import { FarmForPlot } from "../interfaces/index.interface";
 
 //* accion para llamar todas las fincas del usuario autenticado
-export const getPlotsForFarm = async (idFarm: string) => {
+export const getFarmForPlot = async (Plotid: string) => {
   try {
-    const { data } = await recobatApi.get<FarmResponse>(
-      `/farms/${idFarm}?populate=plots`
+    console.log(Plotid);
+    const { data } = await recobatApi.get<FarmForPlot>(
+      `/plots/${Plotid}?populate=farm`
     );
+    console.log(data);
     return data.data;
   } catch (error) {
     throw new Error(
