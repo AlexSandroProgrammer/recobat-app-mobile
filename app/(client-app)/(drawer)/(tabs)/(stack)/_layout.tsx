@@ -10,11 +10,6 @@ const StackLayout = () => {
   return (
     <Stack
       screenOptions={{
-        headerTitleStyle: {
-          fontFamily: "Poppins",
-          fontWeight: "bold",
-          fontSize: 20,
-        },
         headerStyle: {
           backgroundColor: "white",
         },
@@ -77,7 +72,7 @@ const StackLayout = () => {
       <Stack.Screen
         name="proccess/verification/[id]"
         options={{
-          title: "Inicio del Proceso",
+          title: "1.Proceso",
           headerTitleAlign: "center",
         }}
       />

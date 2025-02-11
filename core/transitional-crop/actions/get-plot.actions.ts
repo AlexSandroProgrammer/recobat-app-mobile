@@ -8,7 +8,6 @@ export const getFarmForPlot = async (Plotid: string) => {
     const { data } = await recobatApi.get<FarmForPlot>(
       `/plots/${Plotid}?populate=farm`
     );
-    console.log(data);
     return data.data;
   } catch (error) {
     throw new Error(

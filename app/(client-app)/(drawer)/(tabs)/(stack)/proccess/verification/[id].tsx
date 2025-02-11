@@ -22,12 +22,12 @@ const InitialCropScreen = () => {
 
   // Obtenemos la data del query, y si no existe dejamos un arreglo vacío
   const transitional = transitionalQuery?.data?.data ?? [];
-  const plotFarm = farmForPlotQuery?.data! ?? [];
+  const farmPlot = farmForPlotQuery?.data! ?? [];
 
   // Mapeamos los datos para obtener solo el id y el nombre del cultivo
   const filteredTransitional = transitional.map((crop) => ({
     label: crop.nameCrop,
-    value: crop.id,
+    value: crop.documentId,
   }));
 
   // Opciones para el select del cultivo
@@ -35,7 +35,11 @@ const InitialCropScreen = () => {
 
   return (
     <Layout>
-      <FormVerificationCrop id={id} cropOptions={cropOptions} />
+      <FormVerificationCrop
+        farmPlot={farmPlot}
+        id={id}
+        cropOptions={cropOptions}
+      />
     </Layout>
   );
 };

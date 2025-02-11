@@ -1,5 +1,6 @@
 import { Farm } from "@/core/farms/interfaces/index.interface";
 
+// interfaz para devolver el listado de cultivos transitorios
 export interface ListTransitionalCrop {
   data: TransitionalCrop[];
 }
@@ -24,10 +25,10 @@ export interface FilteredTransitionalCrops {
 }
 
 export interface FarmForPlot {
-  data: Data;
+  data: DataFarmForPlot;
 }
 
-export interface Data {
+export interface DataFarmForPlot {
   id: number;
   documentId: string;
   namePlot: string;
@@ -36,4 +37,31 @@ export interface Data {
   updatedAt: Date;
   publishedAt: Date;
   farm: Farm;
+}
+
+// ------- INTERFAZ PARA DEVOLVER LOS TIPOS DE CULTIVO ------
+
+export interface CropTypesProps {
+  data: Data;
+}
+
+export interface Data {
+  id: number;
+  documentId: string;
+  nameCrop: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  crop_types?: DataCropType[];
+  altitude?: string;
+}
+
+export interface DataCropType {
+  id: number;
+  documentId: string;
+  nameCrop: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  altitude?: string;
 }
