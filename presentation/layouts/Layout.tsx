@@ -12,19 +12,21 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <SafeAreaView
-      edges={["bottom", "left", "right", "top"]}
+      edges={["bottom", "left", "right"]}
       className="flex h-full bg-white"
     >
-      <Animated.ScrollView
-        showsVerticalScrollIndicator={false}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: true }
-        )}
-        scrollEventThrottle={5}
-      >
-        <View className="mb-24">{children}</View>
-      </Animated.ScrollView>
+      <View className="mt-5">
+        <Animated.ScrollView
+          showsVerticalScrollIndicator={false}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: true }
+          )}
+          scrollEventThrottle={5}
+        >
+          <View className="mb-24">{children}</View>
+        </Animated.ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

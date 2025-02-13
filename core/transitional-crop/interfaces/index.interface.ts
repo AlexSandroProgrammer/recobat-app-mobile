@@ -1,4 +1,5 @@
 import { Farm } from "@/core/farms/interfaces/index.interface";
+import { SelectItem } from "@/core/theme/index.interface";
 
 // interfaz para devolver el listado de cultivos transitorios
 export interface ListTransitionalCrop {
@@ -64,4 +65,11 @@ export interface DataCropType {
   updatedAt: Date;
   publishedAt: Date;
   altitude?: string;
+}
+
+// Interfaz para las props del formulario
+export interface InitialCropFormProps {
+  id: string;
+  cropOptions: SelectItem[];
+  farmPlot: DataFarmForPlot;
 }

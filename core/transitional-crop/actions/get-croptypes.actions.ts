@@ -15,7 +15,7 @@ export const getCropTypes = async (TransitionalId: string) => {
     //     }))
     //   : [];
     // console.log(cropTypes);
-    return data.data.crop_types; //* devuelve los tipos de cultivos del cultivo seleccionado
+    return data.data; //* devuelve los tipos de cultivos del cultivo seleccionado
   } catch (error) {
     throw new Error(
       "Error al momento de obtener los datos de las fincas del paciente"

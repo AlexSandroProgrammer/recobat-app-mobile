@@ -22,8 +22,8 @@ const ListPlots = ({ farmId }: { farmId: string }) => {
   if (!plots) {
     // enviamos una alerta y redireccionamos al usuario
     Alert.alert(
-      "Todo salió bien!",
-      "Datos actualizados correctamente, Ahora te invitamos a iniciar sesión, para confirmar el registro de tu cuenta",
+      "Algo salio mal!",
+      "Error al momento de obtener los lotes, te vamos a regresar al listado de fincas.",
       [{ text: "Aceptar", onPress: () => router.push("/farms") }]
     );
     return;
@@ -31,28 +31,38 @@ const ListPlots = ({ farmId }: { farmId: string }) => {
 
   return (
     <View className="px-5">
-      <View className="flex flex-row items-center justify-between">
+      <View className="mb-3">
+        <View className="flex flex-row items-center justify-between">
+          <Text className="text-xl font-kanit-bold text-black-300"></Text>
+          <TouchableOpacity
+            onPress={() => router.push("/farms")}
+            className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-2"
+          >
+            <View className="flex flex-row items-center justify-center">
+              <Ionicons
+                name="arrow-back-circle-outline"
+                size={25}
+                color="white"
+              />
+              <Text className="text-lg font-kanit-bold text-white ml-1">
+                Regresar
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View className="flex flex-row items-center">
         <View className="flex flex-row">
-          <Ionicons name="home-outline" size={30} />
+          <Ionicons name="home-outline" size={40} />
           <View className="flex flex-col items-start ml-2 justify-center">
-            <Text className="text-xs font-kanit text-black-100">
-              {farm.codeFarm}
+            <Text className="text-sm font-kanit text-black-100">
+              # {farm.codeFarm}
             </Text>
-            <Text className="text-base font-kanit-bold text-black-300">
+            <Text className="text-xl font-kanit-bold text-black-300">
               {farm.nameFarm} ({farm.address})
             </Text>
           </View>
         </View>
-        <TouchableOpacity
-          style={{ marginRight: 7 }}
-          onPress={() => router.push("/farms")}
-        >
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={25}
-            color={dangerColor}
-          />
-        </TouchableOpacity>
       </View>
       <View className="mt-5">
         {plots.length > 0 ? (

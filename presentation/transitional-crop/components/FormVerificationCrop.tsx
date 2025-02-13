@@ -1,21 +1,14 @@
 import React, { useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import { router } from "expo-router";
 import icons from "@/constants/icons";
 import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
 import ThemedSelectCrop from "@/presentation/components/theme/ThemedSelectCrop";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
-import { SelectItem } from "@/core/theme/index.interface";
-import { DataFarmForPlot } from "@/core/transitional-crop/interfaces/index.interface";
+import { InitialCropFormProps } from "@/core/transitional-crop/interfaces/index.interface";
 import { useTypeCrop } from "../hooks/useTypeCrop";
-
-// Interfaz para las props del formulario
-export interface InitialCropFormProps {
-  id: string;
-  cropOptions: SelectItem[];
-  farmPlot: DataFarmForPlot;
-}
+import { SelectItem } from "@/core/theme/index.interface";
 
 const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
   id,
@@ -23,6 +16,7 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
   farmPlot,
 }) => {
   const [isPosting, setIsPosting] = useState<boolean>(false);
+  const { altitude } = farmPlot?.farm;
 
   // Estado del formulario, con valores iniciales provenientes de farmPlot
   const [form, setForm] = useState({
@@ -30,7 +24,8 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
     namePlot: farmPlot?.namePlot || "",
     size: "",
     PlotId: id,
-    crop_transitional: "", // Aquí se guardará el id del cultivo seleccionado
+    crop_transitional: "",
+    crop_type: "",
   });
 
   /**
@@ -39,15 +34,33 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
    */
   const { cropTypesQuery } = useTypeCrop(form.crop_transitional);
 
-  const cropTypes = cropTypesQuery?.data;
+  if (cropTypesQuery.isLoading) {
+    return <IsLoadingRefresh />;
+  }
+
+  const plot = cropTypesQuery?.data;
+  const cropTypes = cropTypesQuery.data?.crop_types;
+
+  if (!plot) {
+    Alert.alert(
+      "No se encontraron tipos cultivos",
+      "Por favor seleccionar otro tipo de cultivo"
+    );
+  }
+
+  // Mapeamos los datos para obtener solo el id y el nombre del cultivo
+  const filteredCrop = cropTypes?.map((crop) => ({
+    label: crop.nameCrop,
+    value: crop.id,
+  }));
+
+  const cropOptionsFiltered: SelectItem[] = filteredCrop || [];
 
   // Función para enviar o registrar el lote
   const registerPlot = async () => {
     setIsPosting(true);
     try {
       console.log("datos enviados", form);
-      // Aquí implementar la lógica para registrar el lote, por ejemplo:
-      // await mutation.mutateAsync(form);
     } catch (error) {
       console.error("Error registrando el lote", error);
     } finally {
@@ -56,16 +69,16 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
   };
 
   return (
-    <View className="flex-auto justify-center items-center px-5">
+    <View className="flex-auto justify-center px-5">
       {/* Título y descripción */}
       <Text className="text-3xl font-kanit-bold text-black-300 uppercase text-center mt-1">
-        <Text className="text-primary-300 text-left">
+        <Text className="text-primary-300 text-center">
           Formulario Verificación del Cultivo
         </Text>
       </Text>
       <Text className="text-base text-left font-kanit text-black-200 mt-2">
-        Por favor ingresa los siguientes datos para validar si el terreno es
-        apto para el cultivo que deseas cosechar.
+        Por favor ingresa los siguientes datos para validar si la parcela es
+        apta para el cultivo que deseas cosechar.
       </Text>
 
       {/* Campos de texto inhabilitados (solo visualización) */}
@@ -105,30 +118,31 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
         iconRef="leaf-outline"
       />
 
-      {/* Sección para mostrar la data del cultivo obtenida mediante el hook */}
-      {form.crop_transitional && (
-        <View className="mt-4 w-full">
-          {cropTypesQuery.isLoading ? (
-            <IsLoadingRefresh />
-          ) : cropTypesQuery.isError ? (
-            <Text className="text-red-500 font-kanit">
-              Error al obtener los datos del cultivo.
+      {
+        // verificamos si el arreglo de tipos de cultivo viene vacio
+        cropTypes && cropTypes.length === 0 ? (
+          <View className="mt-4 w-full">
+            <Text className="text-md text-left font-kanit text-red-500">
+              Por favor seleccionar un tipo de cultivo...
             </Text>
-          ) : cropTypesQuery ? (
-            <View>
-              {/* Ejemplo de despliegue de la data */}
-              <Text className="text-base text-black">
-                {`Nombre del Cultivo: ${cropTypesQuery.data}`}
-              </Text>
-              {/* Puedes agregar aquí otros campos de cropData */}
-            </View>
-          ) : (
-            <Text className="text-base text-black ">
-              No hay datos para el cultivo seleccionado.
-            </Text>
-          )}
-        </View>
-      )}
+          </View>
+        ) : (
+          <ThemedSelectCrop
+            placeholder="Seleccionar Variacion de Cultivo"
+            data={cropOptionsFiltered}
+            selectedValue={filteredCrop?.find(
+              (option) => option.value.toString() === form.crop_type
+            )}
+            onValueChange={(item) =>
+              setForm((prev) => ({
+                ...prev,
+                crop_type: item.value.toString(),
+              }))
+            }
+            iconRef="leaf-outline"
+          />
+        )
+      }
 
       {/* Botón para finalizar el registro */}
       <TouchableOpacity

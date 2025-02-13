@@ -43,7 +43,7 @@ const RegisterPlotScreen = () => {
       Alert.alert(
         "Todo salió bien!",
         "Los datos han sido registrados correctamente",
-        [{ text: "Aceptar", onPress: () => router.push("/farms") }]
+        [{ text: "Aceptar", onPress: () => router.push("/") }]
       );
       return;
     }
@@ -67,7 +67,7 @@ const RegisterPlotScreen = () => {
           autoCapitalize="sentences"
           value={form.namePlot}
           iconRef="text-outline"
-          maxLength={12}
+          maxLength={20}
           onChangeText={(value) => setForm({ ...form, namePlot: value })}
         />
 
@@ -105,7 +105,7 @@ const RegisterPlotScreen = () => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push("/farms")}
+          onPress={() => router.push("/")}
           disabled={isPosting}
           className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-2"
         >
@@ -122,7 +122,7 @@ const RegisterPlotScreen = () => {
                   style={{ tintColor: "white" }}
                 />
                 <Text className="text-lg font-kanit text-white ml-2">
-                  Regresar
+                  Ir al Inicio
                 </Text>
               </>
             )}

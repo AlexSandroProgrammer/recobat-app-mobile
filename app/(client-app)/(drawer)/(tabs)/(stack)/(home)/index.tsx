@@ -1,19 +1,18 @@
+import { View } from "react-native";
+import { RelativePathString } from "expo-router";
 import {
   backgroundColors,
   dataCardItems,
 } from "@/presentation/components/cards/CardItems.data";
 import { CardStadistic } from "@/presentation/components/cards/CardStadistic";
 import DropProfile from "@/presentation/components/theme/DropProfile";
-import { RelativePathString } from "expo-router";
-import { useRef } from "react";
-import { Animated, View } from "react-native";
 import { DropProfileProps } from "@/core/client/interfaces/index.interface";
 import Layout from "@/presentation/layouts/Layout";
 
 const DataDropProfile: DropProfileProps = {
   title: "Estadisticas",
-  titleButton: "Crear",
-  routeModal: "/farm/register" as RelativePathString,
+  titleButton: "Iniciar",
+  routeModal: "/farms" as RelativePathString,
 };
 
 const Home = () => {

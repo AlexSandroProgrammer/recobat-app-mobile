@@ -32,6 +32,7 @@ const DropProfile = ({ title, titleButton, routeModal }: DropProfileProps) => {
           </Text>
           <TouchableOpacity
             onPress={() => router.push(routeModal)}
+            disabled={true}
             className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-48 py-2"
           >
             <View className="flex flex-row items-center justify-center">

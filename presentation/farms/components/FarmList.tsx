@@ -35,7 +35,7 @@ const FarmList = ({ userId }: { userId: number }) => {
             title="No tienes Fincas!"
             icon="add-circle-outline"
             description="Por favor registra tu primera finca"
-            route={"/farms/index" as RelativePathString}
+            route={"/farms" as RelativePathString}
           />
         )}
       </View>

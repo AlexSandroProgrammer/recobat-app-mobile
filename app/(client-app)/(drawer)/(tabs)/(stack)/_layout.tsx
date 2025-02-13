@@ -16,11 +16,12 @@ const StackLayout = () => {
         contentStyle: {
           backgroundColor: "white",
         },
+        // le quitamos el sombreado de abajo al element
         // headerTintColor: "#f0f6fe",
         headerLeft: ({ tintColor, canGoBack }) => (
           <Ionicons
             name={"menu-outline"}
-            className="mr-3"
+            className="mr-1"
             size={25}
             onPress={onHeaderLeftClick}
           />
@@ -33,6 +34,7 @@ const StackLayout = () => {
         options={{
           title: "Recobat",
           headerTitleAlign: "center",
+          animation: "fade",
         }}
       />
       <Stack.Screen
@@ -57,6 +59,7 @@ const StackLayout = () => {
         options={{
           title: "Registro de Lote",
           headerTitleAlign: "center",
+          animation: "fade",
           headerShown: false,
         }}
       />
@@ -65,6 +68,7 @@ const StackLayout = () => {
         name="farm/listPlot/[id]"
         options={{
           title: "Lotes de Mi Finca",
+          animation: "fade",
           headerTitleAlign: "center",
         }}
       />
@@ -73,6 +77,7 @@ const StackLayout = () => {
         name="proccess/verification/[id]"
         options={{
           title: "1.Proceso",
+          animation: "fade",
           headerTitleAlign: "center",
         }}
       />
