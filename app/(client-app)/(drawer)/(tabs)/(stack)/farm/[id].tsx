@@ -3,7 +3,7 @@ import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Link, useNavigation } from "expo-router";
-import { useLocalSearchParams, useSearchParams } from "expo-router/build/hooks";
+import { useLocalSearchParams } from "expo-router/build/hooks";
 import { useEffect, useState } from "react";
 import { Image, View } from "react-native";
 import { TouchableOpacity } from "react-native";

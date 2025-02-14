@@ -26,6 +26,7 @@ export interface Plot {
   documentId: string;
   namePlot: string;
   size: string;
+  status_plot?: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

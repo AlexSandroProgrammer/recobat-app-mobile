@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 export interface SelectItem {
   label: string;
   value: string | number;
+  altitudeCropType?: string;
 }
 
 // Propiedades del componente ThemedSelect

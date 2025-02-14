@@ -10,7 +10,7 @@ const InitialCropScreen = () => {
   // Obtenemos el id de los parámetros de la URL
   const { id } = useLocalSearchParams<{ id: string }>();
   const { transitionalQuery } = useTransitional();
-  const { farmForPlotQuery } = useFarmForPlot(id);
+  const { farmForPlotQuery } = useFarmForPlot(`${id}`);
 
   if (farmForPlotQuery.isLoading) {
     return <IsLoadingRefresh />;

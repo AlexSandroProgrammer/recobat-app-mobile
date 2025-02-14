@@ -16,11 +16,7 @@ export const CardInfo = ({
     >
       {/* Encabezado con icono y título */}
       <View className="flex flex-row items-center content-center">
-        <Ionicons
-          name={icon as keyof typeof Ionicons.glyphMap}
-          size={24}
-          color="white"
-        />
+        <Ionicons name="sad-outline" size={40} color="white" />
         <Text className="text-2xl text-center font-kanit-bold text-slate-100">
           {" "}
           {title}
@@ -31,13 +27,13 @@ export const CardInfo = ({
       <View className="mt-3">
         <Text className="text-lg font-kanit text-slate-100">{description}</Text>
         {/* Estadísticas */}
-        <View className="flex flex-row mt-3">
+        {/* <View className="flex flex-row mt-3">
           <View className="flex items-center">
             <Text className="text-xl font-kanit text-slate-100">
               120 {title}
             </Text>
           </View>
-        </View>
+        </View> */}
       </View>
 
       {/* Footer */}
@@ -47,12 +43,12 @@ export const CardInfo = ({
           className="bg-primary-100 shadow-md shadow-zinc-300 rounded-full w-3/6 py-4"
         >
           <View className="flex flex-row items-center justify-center">
-            <Text className="text-lg font-kanit text-black ml-2">Mirar</Text>
             <Ionicons
-              name="arrow-forward-circle-outline"
+              name="arrow-back-circle-outline"
               size={25}
               color="black"
             />
+            <Text className="text-lg font-kanit text-black ml-2">Regresar</Text>
           </View>
         </TouchableOpacity>
       </View>

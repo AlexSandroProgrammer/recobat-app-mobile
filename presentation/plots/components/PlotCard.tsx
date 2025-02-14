@@ -59,14 +59,14 @@ export const PlotCard = ({ id, namePlot, size, documentId }: Plot) => {
             <View className="flex flex-row items-center justify-center">
               <Image
                 source={icons.send}
-                className="w-5 h-5"
+                className="w-6 h-6"
                 resizeMode="contain"
                 // Cambiamos el color a blanco
                 style={{ tintColor: "white" }}
               />
               <Text className="text-lg font-kanit-bold text-white">
                 {" "}
-                Iniciar Proceso
+                Verificar Cultivo
               </Text>
             </View>
           </Animated.View>

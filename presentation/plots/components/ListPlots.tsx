@@ -53,13 +53,23 @@ const ListPlots = ({ farmId }: { farmId: string }) => {
       </View>
       <View className="flex flex-row items-center">
         <View className="flex flex-row">
-          <Ionicons name="home-outline" size={40} />
+          <Ionicons name="home-outline" size={35} />
           <View className="flex flex-col items-start ml-2 justify-center">
             <Text className="text-sm font-kanit text-black-100">
               # {farm.codeFarm}
             </Text>
-            <Text className="text-xl font-kanit-bold text-black-300">
-              {farm.nameFarm} ({farm.address})
+            <Text className="text-lg font-kanit-bold text-black-300">
+              {farm.nameFarm}
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View className="flex flex-row items-center">
+        <View className="flex flex-row">
+          <Ionicons name="location-outline" size={30} />
+          <View className="flex flex-col items-start ml-2 justify-center">
+            <Text className="text-lg font-kanit-bold text-black-300">
+              ({farm.address})
             </Text>
           </View>
         </View>
