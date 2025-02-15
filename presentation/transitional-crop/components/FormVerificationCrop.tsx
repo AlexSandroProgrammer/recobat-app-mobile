@@ -6,19 +6,25 @@ import icons from "@/constants/icons";
 import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
 import ThemedSelectCrop from "@/presentation/components/theme/ThemedSelectCrop";
 import ThemedDatePicker from "@/presentation/components/theme/ThemedDatePicker";
-import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import { InitialCropFormProps } from "@/core/transitional-crop/interfaces/index.interface";
 import { useTypeCrop } from "../hooks/useTypeCrop";
 import { SelectItem } from "@/core/theme/index.interface";
 import AlertModal from "@/presentation/components/theme/AlertModal";
+import { useGenProccessStore } from "@/presentation/general-proccess/store/useGenProccessStore";
+import AlertModalSuccess from "@/presentation/components/theme/AlertModalSuccess";
 
 const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
   id,
   cropOptions,
   farmPlot,
 }) => {
+  //* llamar al hook del store para el registro
+
+  const { registerGeneralInstance } = useGenProccessStore();
+
   const [isPosting, setIsPosting] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [showAlertSuccess, setShowAlertSuccess] = useState(false);
 
   // Estado del formulario, incluyendo el campo "fecha"
   const [form, setForm] = useState({
@@ -29,14 +35,11 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
     id_crop_type: "",
     altitude: farmPlot?.farm?.altitude || "",
     altitudeCropType: farmPlot?.farm?.altitude || "",
-    initDate: "", // Campo para almacenar la fecha
+    init_date: "", // Campo para almacenar la fecha
   });
 
   // Estado y lógica para el selector de cultivo
   const { cropTypesQuery } = useTypeCrop(form.crop_transitional);
-  if (cropTypesQuery.isLoading) {
-    return <IsLoadingRefresh />;
-  }
 
   const cropTypes = cropTypesQuery.data?.crop_types;
 
@@ -48,13 +51,31 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
 
   const cropOptionsFiltered: SelectItem[] = filteredCrop || [];
 
+  const returnHome = () => {
+    router.replace("/");
+  };
+
   // Función para continuar con el proceso luego de confirmar en la alerta
   const continueProcess = async () => {
     setShowAlert(false);
+
+    const { PlotId: plot, id_crop_type: crop_type, init_date } = form;
+
     setIsPosting(true);
-    // Aquí se agrega la lógica para continuar con el registro
-    console.log("Continuamos con el proceso de registro", { form });
+
+    const registerGeneral = await registerGeneralInstance(
+      plot,
+      crop_type,
+      init_date
+    );
+
     setIsPosting(false);
+
+    if (registerGeneral) {
+      setShowAlertSuccess(true);
+      return;
+    }
+    Alert.alert("Lo sentimos!", "No se pudo completar el registro.");
   };
 
   // Función para cancelar el proceso (cerrar la alerta sin continuar)
@@ -64,13 +85,14 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
 
   // Función para enviar o registrar el lote
   const registerGeneralProccess = async () => {
-    const { PlotId, id_crop_type, altitude, initDate, altitudeCropType } = form;
+    const { PlotId, id_crop_type, altitude, init_date, altitudeCropType } =
+      form;
 
     // Verificamos que todos los campos obligatorios estén completos
     if (
       !PlotId ||
       !id_crop_type ||
-      !initDate ||
+      !init_date ||
       !altitude ||
       !altitudeCropType
     ) {
@@ -107,6 +129,14 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
         onCancel={cancelProcess}
         confirmText="Confirmar Proceso"
         cancelText="No quiero perder!"
+      />
+
+      <AlertModalSuccess
+        visible={showAlertSuccess}
+        title="¡Felicidades!"
+        message="Haz logrado iniciar verificar cultivo para una parcela, ahora te invitamos a realizar cada uno de los procesos para finalizar con la cosecha del cultivo en tu parcela."
+        onConfirm={returnHome}
+        confirmText="Iniciar ya!"
       />
       {/* Título y descripción */}
       <Text className="text-3xl font-kanit-bold text-black-300 uppercase text-center mt-1">
@@ -191,9 +221,9 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
       <ThemedDatePicker
         iconRef="calendar-number-outline"
         placeholder="Seleccionar Fecha de Inicio"
-        value={form.initDate}
+        value={form.init_date}
         onChange={(selectedDate) =>
-          setForm((prev) => ({ ...prev, initDate: selectedDate }))
+          setForm((prev) => ({ ...prev, init_date: selectedDate }))
         }
       />
 

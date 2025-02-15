@@ -23,3 +23,13 @@ export interface SelectModalProps {
   onSelect: (item: SelectItem) => void;
   onClose: () => void;
 }
+
+export interface AlertModalProps {
+  visible: boolean;
+  title: string;
+  message: string;
+  onConfirm?: () => void;
+  onCancel?: () => void;
+  confirmText?: string;
+  cancelText?: string;
+}

@@ -50,7 +50,7 @@ const ThemedDatePicker: React.FC<ThemedDatePickerProps> = ({
             className="text-base font-kanit text-black-300 ml-2"
             style={{ color: "#1b2550" }}
           >
-            {value ? `Fecha: ${value}` : placeholder}
+            {value ? `Fecha Inicial: ${value}` : placeholder}
           </Text>
         </View>
       </TouchableOpacity>
