@@ -10,7 +10,7 @@ export interface GeneralProccessState {
   registerGeneralInstance: (
     plot: number,
     crop_type: string,
-    document_id: string,
+    documentId: string,
     init_date: string
   ) => Promise<boolean>;
   // Otros estados y métodos del store
@@ -27,7 +27,7 @@ export const useGenProccessStore = create<GeneralProccessState>()(
     ) => {
       // Registro del proceso general
       const generalProcess = await registerGeneralProcess(
-        plot,
+        documentId,
         crop_type,
         init_date
       );

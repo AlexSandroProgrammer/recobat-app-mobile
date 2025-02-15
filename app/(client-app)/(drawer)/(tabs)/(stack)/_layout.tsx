@@ -76,7 +76,25 @@ const StackLayout = () => {
       <Stack.Screen
         name="proccess/verification/[id]"
         options={{
-          title: "1.Proceso",
+          title: "Verificacion del Cultivo",
+          animation: "fade",
+          headerTitleAlign: "center",
+        }}
+      />
+
+      <Stack.Screen
+        name="proccess/listProccess/[id]"
+        options={{
+          title: "Procesos de Cultivo",
+          animation: "fade",
+          headerTitleAlign: "center",
+        }}
+      />
+
+      <Stack.Screen
+        name="proccess/[id]"
+        options={{
+          title: "Procesos del Lote",
           animation: "fade",
           headerTitleAlign: "center",
         }}

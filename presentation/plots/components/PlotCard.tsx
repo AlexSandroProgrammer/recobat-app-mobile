@@ -1,8 +1,7 @@
 import React, { useRef, useEffect } from "react";
-import { Animated, TouchableOpacity, Image, Text, View } from "react-native";
+import { Animated, TouchableOpacity, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { RelativePathString, router } from "expo-router";
-import icons from "@/constants/icons";
 import { Plot } from "@/core/plots/interfaces/index.interface";
 
 export const PlotCard = ({
@@ -12,7 +11,7 @@ export const PlotCard = ({
   documentId,
   status_plot,
 }: Plot) => {
-  // Valor animado para la escala del botón
+  // Valor animado para la escala del botón aleja@gmail.com
   const pulseAnimation = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
@@ -57,9 +56,7 @@ export const PlotCard = ({
         {status_plot === "verified" ? (
           <TouchableOpacity
             onPress={() =>
-              router.push(
-                `/proccess/verification/${documentId}` as RelativePathString
-              )
+              router.push(`/proccess/${documentId}` as RelativePathString)
             }
             className="bg-primary-200 shadow-md shadow-blue-800 rounded-full w-4/6 py-4 text-center"
           >

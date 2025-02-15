@@ -8,7 +8,6 @@ import { CardInfo } from "@/presentation/components/cards/CardInfo";
 import { PlotCard } from "./PlotCard";
 
 const ListPlots = ({ farmId }: { farmId: string }) => {
-  const dangerColor = "#f44336";
   const { plotsQuery } = usePlots(farmId); // 🔹 Esto ahora siempre se ejecuta
 
   // Si está cargando, mostramos el loader

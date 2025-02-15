@@ -15,7 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
       edges={["bottom", "left", "right"]}
       className="flex h-full bg-white"
     >
-      <View className="mt-5">
+      <View className="mt-10">
         <Animated.ScrollView
           showsVerticalScrollIndicator={false}
           onScroll={Animated.event(
