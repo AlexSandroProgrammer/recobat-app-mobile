@@ -5,7 +5,7 @@ export const useFarms = (idUser: number) => {
   const farmsQuery = useQuery({
     queryKey: ["farms"],
     queryFn: () => getFarmsForUser(idUser),
-    staleTime: 1000 * 60 * 60, // 1 hora
+    staleTime: 1000 * 60, // 1 hora
   });
 
   return {

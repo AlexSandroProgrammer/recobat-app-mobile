@@ -5,7 +5,7 @@ export const useTransitional = () => {
   const transitionalQuery = useQuery({
     queryKey: ["transitional_crops"],
     queryFn: () => getTransitionalCrops(),
-    staleTime: 1000 * 60 * 60, // 1 hora
+    staleTime: 1000 * 60, // 1 minuto
   });
 
   return {

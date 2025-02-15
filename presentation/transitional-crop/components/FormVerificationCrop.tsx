@@ -140,8 +140,8 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
 
       <AlertModalSuccess
         visible={showAlertSuccess}
-        title="¡Felicidades!"
-        message="Haz logrado iniciar verificar cultivo para una parcela, ahora te invitamos a realizar cada uno de los procesos para finalizar con la cosecha del cultivo en tu parcela."
+        title="Felicidades"
+        message="Haz logrado finalizar el proceso de verificacion del cultivo para una parcela, ahora te invitamos a realizar cada uno de los procesos para finalizar con la cosecha del cultivo en tu parcela."
         onConfirm={returnHome}
         confirmText="Iniciar ya!"
       />

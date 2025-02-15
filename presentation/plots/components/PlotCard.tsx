@@ -12,6 +12,7 @@ export const PlotCard = ({
   documentId,
   status_plot,
 }: Plot) => {
+  console.log(status_plot);
   // Valor animado para la escala del botón
   const pulseAnimation = useRef(new Animated.Value(1)).current;
 
@@ -40,7 +41,7 @@ export const PlotCard = ({
         <View className="flex flex-row">
           <Ionicons name="leaf-outline" size={24} color="green" />
           <Text className="text-2xl font-kanit-bold text-primary-400">
-            {namePlot}
+            {`${id} - ${namePlot}`}
           </Text>
         </View>
         <View className="flex flex-row">

@@ -5,7 +5,7 @@ export const useFarm = (farmId: string) => {
   const farmQuery = useQuery({
     queryKey: ["farms", farmId],
     queryFn: () => getFarm(farmId),
-    staleTime: 1000 * 60 * 60, // 1 hora
+    staleTime: 1000 * 60, // 1 minuto
   });
 
   // TODO: Mutacion
