@@ -31,6 +31,7 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
     nameFarm: farmPlot?.farm?.nameFarm || "",
     namePlot: farmPlot?.namePlot || "",
     PlotId: farmPlot?.id,
+    documentId: farmPlot?.documentId,
     crop_transitional: "",
     id_crop_type: "",
     altitude: farmPlot?.farm?.altitude || "",
@@ -59,13 +60,19 @@ const FormVerificationCrop: React.FC<InitialCropFormProps> = ({
   const continueProcess = async () => {
     setShowAlert(false);
 
-    const { PlotId: plot, id_crop_type: crop_type, init_date } = form;
+    const {
+      PlotId: plot,
+      id_crop_type: crop_type,
+      init_date,
+      documentId,
+    } = form;
 
     setIsPosting(true);
 
     const registerGeneral = await registerGeneralInstance(
       plot,
       crop_type,
+      documentId,
       init_date
     );
 

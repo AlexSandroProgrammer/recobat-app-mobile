@@ -90,11 +90,11 @@ export const registerAllProcesses = async (
 
 //* accion para actualizar el estado del lote
 export const updatedStatePlot = async (
-  plot: number,
+  documentId: string,
   status_plot = "verified"
 ): Promise<boolean> => {
   try {
-    const { data } = await recobatApi.post<Plot>(`/plots/${plot}`, {
+    const { data } = await recobatApi.put<Plot>(`/plots/${documentId}`, {
       data: {
         status_plot,
       },

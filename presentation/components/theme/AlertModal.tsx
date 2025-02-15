@@ -21,8 +21,12 @@ const AlertModal: React.FC<AlertModalProps> = ({
             <Ionicons name="alert-circle-outline" size={80} color="red" />
           </View>
 
-          <Text className="text-2xl font-bold text-center mb-4">{title}</Text>
-          <Text className="text-base text-center mb-6">{message}</Text>
+          <Text className="text-2xl font-bold font-kanit-bold text-center mb-4">
+            {title}
+          </Text>
+          <Text className="text-base text-center mb-6 font-kanit-regular">
+            {message}
+          </Text>
           <View className="flex-row justify-around">
             <TouchableOpacity
               onPress={onCancel}

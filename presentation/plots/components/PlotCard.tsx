@@ -5,7 +5,13 @@ import { RelativePathString, router } from "expo-router";
 import icons from "@/constants/icons";
 import { Plot } from "@/core/plots/interfaces/index.interface";
 
-export const PlotCard = ({ id, namePlot, size, documentId }: Plot) => {
+export const PlotCard = ({
+  id,
+  namePlot,
+  size,
+  documentId,
+  status_plot,
+}: Plot) => {
   // Valor animado para la escala del botón
   const pulseAnimation = useRef(new Animated.Value(1)).current;
 
