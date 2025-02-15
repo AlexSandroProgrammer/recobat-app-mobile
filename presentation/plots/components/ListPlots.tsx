@@ -31,8 +31,7 @@ const ListPlots = ({ farmId }: { farmId: string }) => {
   return (
     <View className="px-5">
       <View className="mb-3">
-        <View className="flex flex-row items-center justify-between">
-          <Text className="text-xl font-kanit-bold text-black-300"></Text>
+        <View className="flex flex-row items-start justify-end">
           <TouchableOpacity
             onPress={() => router.push("/farms")}
             className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-2"

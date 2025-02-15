@@ -5,6 +5,7 @@ import {
 } from "../interfaces/index.interface";
 
 import { Plot } from "../../plots/interfaces/index.interface";
+import { PlotProccessProps } from "@/presentation/proccess/interfaces/index.interface";
 /**
  * Registra el proceso general del cultivo.
  * @param plot Identificador de la parcela.
@@ -113,14 +114,12 @@ export const updatedStatePlot = async (
  * @returns devolvemos la data verificando si la trae o no
  */
 
-export const getGeneralProccess = async (
-  documentIdPlot: string
-): Promise<BodyGeneralProcess["data"] | null> => {
+export const getGeneralProccess = async (idPlot: string) => {
   try {
-    const { data } = await recobatApi.get<BodyGeneralProcess>(
-      `/general-processes/${documentIdPlot}`
+    const { data } = await recobatApi.get<PlotProccessProps>(
+      `/plots/${idPlot}?populate=general_processes`
     );
-    return data?.data ?? null;
+    return data;
   } catch (error) {
     console.error(`Error al registrar proceso general: ${error}`);
     return null;

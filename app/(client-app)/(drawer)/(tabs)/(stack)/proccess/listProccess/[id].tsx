@@ -1,16 +1,14 @@
 import Layout from "@/presentation/layouts/Layout";
 import { useLocalSearchParams } from "expo-router";
 import { Text, View } from "react-native";
-import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import { Ionicons } from "@expo/vector-icons";
 import { ConditioningCard } from "@/presentation/proccess/components/ConditioningCard";
 
 const ListProccessScreen = () => {
   // Obtenemos el id de los parámetros de la URL
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { user } = useAuthStore();
 
-  console.log(id);
+  console.log(`id del proceso: ${id}`);
 
   return (
     <Layout>
