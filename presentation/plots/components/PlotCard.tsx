@@ -12,7 +12,6 @@ export const PlotCard = ({
   documentId,
   status_plot,
 }: Plot) => {
-  console.log(status_plot);
   // Valor animado para la escala del botón
   const pulseAnimation = useRef(new Animated.Value(1)).current;
 
@@ -53,31 +52,67 @@ export const PlotCard = ({
         </View>
       </View>
       {/* Footer */}
-      <View className="flex flex-row items-end gap-3 justify-center mt-5">
-        <TouchableOpacity
-          onPress={() =>
-            router.push(
-              `/proccess/verification/${documentId}` as RelativePathString
-            )
-          }
-          className="bg-green-500 shadow-md shadow-green-800 rounded-full w-4/6 py-4 text-center"
-        >
-          <Animated.View style={{ transform: [{ scale: pulseAnimation }] }}>
+      <View className="flex flex-row justify-center mt-5">
+        //* verificamos el lote ya esta verificado
+        {status_plot === "verified" ? (
+          <TouchableOpacity
+            onPress={() =>
+              router.push(
+                `/proccess/verification/${documentId}` as RelativePathString
+              )
+            }
+            className="bg-primary-200 shadow-md shadow-blue-800 rounded-full w-4/6 py-4 text-center"
+          >
             <View className="flex flex-row items-center justify-center">
-              <Image
-                source={icons.send}
-                className="w-6 h-6"
-                resizeMode="contain"
-                // Cambiamos el color a blanco
-                style={{ tintColor: "white" }}
-              />
               <Text className="text-lg font-kanit-bold text-white">
-                {" "}
-                Verificar Cultivo
+                Iniciar Proceso{" "}
               </Text>
+              <Ionicons name="aperture-outline" size={30} color="white" />
             </View>
-          </Animated.View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() =>
+              router.push(
+                `/proccess/verification/${documentId}` as RelativePathString
+              )
+            }
+            className="bg-green-500 shadow-md shadow-green-800 rounded-full w-4/6 py-4 text-center"
+          >
+            <Animated.View style={{ transform: [{ scale: pulseAnimation }] }}>
+              <View className="flex flex-row items-center justify-center">
+                <Text className="text-lg font-kanit-bold text-white">
+                  Verificar Cultivo{" "}
+                </Text>
+                <Ionicons
+                  name="search-circle-outline"
+                  size={30}
+                  color="white"
+                />
+              </View>
+            </Animated.View>
+          </TouchableOpacity>
+        )}
+      </View>
+
+      <View className="flex flex-row justify-end mt-2">
+        <View className="flex flex-row">
+          {status_plot === "verified" ? (
+            <View className="flex flex-row items-center justify-center">
+              <Text className="text-md font-kanit-bold">Lote Verificado </Text>
+              <Ionicons
+                name="checkmark-circle-outline"
+                size={30}
+                color="green"
+              />
+            </View>
+          ) : (
+            <View className="flex flex-row items-center justify-center">
+              <Text className="text-md font-kanit-bold">Sin Verificar </Text>
+              <Ionicons name="alert-circle-outline" size={30} color="red" />
+            </View>
+          )}
+        </View>
       </View>
     </View>
   );
