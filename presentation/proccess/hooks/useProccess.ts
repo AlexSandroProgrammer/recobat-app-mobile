@@ -1,5 +1,5 @@
-import { getGeneralProccess } from "@/core/general-proccess/actions/general-actions";
 import { useQuery } from "@tanstack/react-query";
+import { getGeneralProccess } from "@/core/general-proccess/actions/general-actions";
 
 export const useProccess = (idPlot: string) => {
   const proccessQuery = useQuery({

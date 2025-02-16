@@ -12,10 +12,10 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <SafeAreaView
-      edges={["bottom", "left", "right"]}
+      edges={["bottom", "left", "right", "top"]}
       className="flex h-full bg-white"
     >
-      <View className="mt-10">
+      <View>
         <Animated.ScrollView
           showsVerticalScrollIndicator={false}
           onScroll={Animated.event(

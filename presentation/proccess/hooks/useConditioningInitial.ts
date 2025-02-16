@@ -1,5 +1,5 @@
-import { getPlotsForFarm } from "@/core/plots/actions/get-plots.actions";
 import { useQuery } from "@tanstack/react-query";
+import { getPlotsForFarm } from "@/core/plots/actions/get-plots.actions";
 
 export const useConditioningInitial = (idFarm: string) => {
   const plotsQuery = useQuery({
