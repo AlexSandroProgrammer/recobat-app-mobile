@@ -33,13 +33,13 @@ export const PlotCard = ({
   }, [pulseAnimation]);
 
   return (
-    <View className="w-full p-6 rounded-xl shadow-lg bg-zinc-50 shadow-slate-500/90 border border-slate-300 relative mb-6">
+    <View className="w-full p-6 rounded-xl shadow-lg bg-zinc-50 shadow-slate-500/90 border border-slate-400 relative mb-6">
       {/* Encabezado con icono y título */}
       <View className="flex flex-row items-center justify-between">
         <View className="flex flex-row">
           <Ionicons name="leaf-outline" size={24} color="green" />
           <Text className="text-2xl font-kanit-bold text-primary-400">
-            {`${id} - ${namePlot}`}
+            {`${namePlot}`}
           </Text>
         </View>
         <View className="flex flex-row">

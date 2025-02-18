@@ -6,7 +6,7 @@ import { CardProccessProps } from "../interfaces/index.interface";
 export const ProccessCard = ({ title, documentId, id }: CardProccessProps) => {
   return (
     <View
-      className={`w-full p-4 rounded-xl bg-slate-100 shadow-lg shadow-black/80 relative`}
+      className={`w-full p-4 rounded-xl bg-zinc-50 border border-slate-400 shadow-lg shadow-black/80 relative`}
     >
       {/* Encabezado con icono y título */}
       <View className="flex flex-col items-center content-center gap-3">

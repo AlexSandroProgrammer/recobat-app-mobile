@@ -15,7 +15,7 @@ export const SoilsAnalysisCard = ({
   const firstJobSubProccess = jobSubProccess ? jobSubProccess[0] : null;
   return (
     <View
-      className={`w-full p-4 rounded-xl bg-zinc-50 shadow-lg shadow-black/80 relative`}
+      className={`w-full p-4 rounded-xl bg-zinc-50 shadow-lg border border-slate-400 shadow-black/80 relative`}
     >
       {/* Encabezado con icono y título */}
       <View className="flex flex-col items-center content-center gap-3">

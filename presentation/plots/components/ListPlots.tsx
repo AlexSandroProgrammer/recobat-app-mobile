@@ -1,11 +1,10 @@
 import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
-import { usePlots } from "../hooks/usePlot";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import { Ionicons } from "@expo/vector-icons";
-import icons from "@/constants/icons";
 import { RelativePathString, router } from "expo-router";
 import { CardInfo } from "@/presentation/components/cards/CardInfo";
 import { PlotCard } from "./PlotCard";
+import { usePlots } from "../hooks/usePlots";
 
 const ListPlots = ({ farmId }: { farmId: string }) => {
   const { plotsQuery } = usePlots(farmId); // 🔹 Esto ahora siempre se ejecuta
@@ -67,7 +66,7 @@ const ListPlots = ({ farmId }: { farmId: string }) => {
           <Ionicons name="location-outline" size={30} />
           <View className="flex flex-col items-start ml-2 justify-center">
             <Text className="text-lg font-kanit-bold text-black-300">
-              ({farm.address})
+              {farm.address}
             </Text>
           </View>
         </View>
