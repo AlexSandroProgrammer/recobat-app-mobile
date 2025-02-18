@@ -10,6 +10,8 @@ import { FertilizationCard } from "@/presentation/proccess/components/Fertilizat
 import { SoilsAnalysisCard } from "@/presentation/proccess/components/SoilsAnalysisCard";
 import { PestControlCard } from "@/presentation/proccess/components/PestControlCard";
 import { QuimicControlCard } from "@/presentation/proccess/components/QuimicControlCard";
+import { WeedControlCard } from "@/presentation/proccess/components/WeedControlCard";
+import { DieaseControlCard } from "@/presentation/proccess/components/DieaseControlCard";
 
 const ListProccessScreen = () => {
   // Obtenemos el id de los parámetros de la URL
@@ -28,11 +30,11 @@ const ListProccessScreen = () => {
   const jobSubProccess = proccessAll?.job_sub_proccess_details; // segundo proceso
   const soilsAnalysis = proccessAll?.soils_analysis_details; // tercer proceso
   const fertilization = proccessAll?.fertilization_proccesses; // cuarto proceso
-  const pestControl = proccessAll?.pest_control_proccesses; // quinto proceso
+  const quimicControl = proccessAll?.pest_control_proccesses; // quinto proceso
   const organicControl = proccessAll?.pest_organic_proccesses; // sexto proceso
+  const weedControl = proccessAll?.weed_control_proccesses; // septimo proceso
 
-  const dieaseControl = proccessAll?.disease_control_proccesses; // septimo proceso
-  const weedControl = proccessAll?.weed_control_proccesses; // octavo proceso
+  const dieaseControl = proccessAll?.disease_control_proccesses; // octavo proceso
 
   return (
     <Layout>
@@ -85,17 +87,33 @@ const ListProccessScreen = () => {
           {/* Card para el proceso de Control Quimico de Organicos */}
           <QuimicControlCard
             fertilization_proccesses={fertilization}
-            pest_control_proccesses={pestControl}
+            pest_control_proccesses={quimicControl}
             title="Control Quimico de Plagas"
             description="En este proceso aprenderas sobre como trabajar con el apoyo de un asistente agronomo para el control quimico de las plagas en los suelos de tus terrenos de una manera segura y confiable."
           />
 
           {/* Card para el proceso de Control Organico de Plagas */}
           <PestControlCard
-            fertilization_proccesses={fertilization}
-            pest_control_proccesses={pestControl}
-            title="Control de Plagas"
-            description="En este proceso aprenderas sobre como trabajar con el apoyo de un asistente agronomo para el control quimico de las plagas en los suelos de tus terrenos de una manera segura y confiable."
+            pest_control_proccesses={quimicControl}
+            pest_organic_proccesses={organicControl}
+            title="Control Organico de Plagas"
+            description="En este proceso aprenderas sobre como trabajar con el apoyo de un asistente agronomo para el control organico de las plagas en los suelos de tus terrenos de una manera segura y confiable."
+          />
+
+          {/* Card para el proceso de Control de Malezas */}
+          <WeedControlCard
+            pest_organic_proccesses={organicControl}
+            weed_control_proccesses={weedControl}
+            title="Control de Malezas"
+            description="En este proceso aprenderas sobre como trabajar con el apoyo de un asistente agronomo para el control de malezas en los suelos de tus terrenos de una manera segura y confiable."
+          />
+
+          {/* Card para el proceso de Control de Enfermedades */}
+          <DieaseControlCard
+            weed_control_proccesses={weedControl}
+            disease_control_proccesses={dieaseControl}
+            title="Control de Enfermedades"
+            description="En este proceso aprenderas sobre como trabajar con el apoyo de un asistente agronomo para el control de enfermedades en los suelos de tus terrenos de una manera segura y confiable."
           />
         </View>
       </View>

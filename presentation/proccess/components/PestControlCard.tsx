@@ -6,14 +6,16 @@ import { CardSubProccessProps } from "../interfaces/index.interface";
 export const PestControlCard = ({
   title,
   description,
-  fertilization_proccesses: fertilizationProccess,
-  pest_control_proccesses: pestControlProccess,
+  pest_control_proccesses: quimicControlProccess,
+  pest_organic_proccesses: organicControlProccess,
 }: CardSubProccessProps) => {
-  const firstFertilization = fertilizationProccess
-    ? fertilizationProccess[0]
+  const firstQuimicControl = quimicControlProccess
+    ? quimicControlProccess[0]
     : null;
 
-  const firstPestControl = pestControlProccess ? pestControlProccess[0] : null;
+  const firstOrganicControl = organicControlProccess
+    ? organicControlProccess[0]
+    : null;
   return (
     <View
       className={`w-full p-4 rounded-xl bg-zinc-100 border border-slate-400 shadow-lg shadow-black/80 relative`}
@@ -22,7 +24,7 @@ export const PestControlCard = ({
       <View className="flex flex-col items-center content-center gap-3">
         <Ionicons name="aperture" size={50} color="blue" />
         <Text className="text-2xl text-center font-kanit-bold text-primary-400">
-          Proceso No. 5
+          Proceso No. 6
         </Text>
         <Text className="text-xl text-center font-kanit-bold uppercase text-primary-400">
           {title}
@@ -33,13 +35,11 @@ export const PestControlCard = ({
           {description}
         </Text>
       </View>
-      {
-        //* validamos si el proceso esta habilitado para iniciar
-      }
+
       {/* Footer */}
       <View className="flex flex-row items-end justify-center mt-3">
-        {firstFertilization?.status_fertilization === "finish" &&
-        firstPestControl?.status_organic_control === "enabled" ? (
+        {firstQuimicControl?.status_fertilization === "finish" &&
+        firstOrganicControl?.status_organic_control === "enabled" ? (
           <TouchableOpacity
             onPress={() => router.push("/")}
             className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-3/6 py-4"

@@ -7,13 +7,18 @@ export const QuimicControlCard = ({
   title,
   description,
   fertilization_proccesses: fertilizationProccess,
-  pest_control_proccesses: pestControlProccess,
+  pest_control_proccesses: quimicControlProccess,
 }: CardSubProccessProps) => {
+  //* obtenemos la ultima fertilizacion encontrada
   const firstFertilization = fertilizationProccess
     ? fertilizationProccess[0]
     : null;
 
-  const firstPestControl = pestControlProccess ? pestControlProccess[0] : null;
+  //* obtenemos el ultimo control quimico de plagas
+  const firstPestControl = quimicControlProccess
+    ? quimicControlProccess[0]
+    : null;
+
   return (
     <View
       className={`w-full p-4 rounded-xl bg-zinc-50 shadow-lg border border-slate-400 shadow-black/80 relative`}
