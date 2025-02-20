@@ -99,6 +99,15 @@ const StackLayout = () => {
           headerTitleAlign: "center",
         }}
       />
+
+      <Stack.Screen
+        name="farm/employees/[id]"
+        options={{
+          title: "Colaboradores",
+          animation: "fade",
+          headerTitleAlign: "center",
+        }}
+      />
     </Stack>
   );
 };

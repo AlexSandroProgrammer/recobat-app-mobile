@@ -33,7 +33,7 @@ const DropProfile = ({ title, titleButton, routeModal }: DropProfileProps) => {
           <TouchableOpacity
             onPress={() => router.push(routeModal)}
             disabled={true}
-            className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-48 py-2"
+            className="bg-primary-200 shadow-md shadow-zinc-300 rounded-xl w-3/6 py-2"
           >
             <View className="flex flex-row items-center justify-center">
               <Ionicons name="create-outline" size={25} color="white" />

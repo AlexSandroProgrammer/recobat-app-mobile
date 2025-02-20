@@ -3,9 +3,11 @@ import { CardInfo } from "@/presentation/components/cards/CardInfo";
 import { FarmCard } from "@/presentation/components/cards/FarmCard";
 import DropProfile from "@/presentation/components/theme/DropProfile";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
-import { RelativePathString } from "expo-router";
-import { View } from "react-native";
+import { RelativePathString, router } from "expo-router";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useFarms } from "../hooks/useFarms";
+import Layout from "@/presentation/layouts/Layout";
+import { Ionicons } from "@expo/vector-icons";
 
 const DataDropProfile: DropProfileProps = {
   title: "Mis Fincas",
@@ -24,22 +26,44 @@ const FarmList = ({ userId }: { userId: number }) => {
   // Aseguramos que `farms` siempre tenga un valor
   const farms = farmsQuery?.data ?? [];
   return (
-    <View className="px-5">
-      <DropProfile {...DataDropProfile} />
-      <View>
-        {/* validamos si tiene fincas registradas */}
-        {farms.length > 0 ? (
-          farms.map((farm) => <FarmCard key={farm.id} {...farm} />)
-        ) : (
-          <CardInfo
-            title="No tienes Fincas!"
-            icon="add-circle-outline"
-            description="Por favor registra tu primera finca"
-            route={"/farms" as RelativePathString}
-          />
-        )}
+    <Layout>
+      <View className="px-5">
+        <View className="mb-2">
+          <View className="flex flex-row items-start justify-end">
+            <TouchableOpacity
+              onPress={() => router.push("/")}
+              className="bg-red-500 shadow-md shadow-zinc-300 rounded-2xl w-2/6 py-2"
+            >
+              <View className="flex flex-row items-center justify-center">
+                <Ionicons
+                  name="arrow-back-circle-outline"
+                  size={25}
+                  color="white"
+                />
+                <Text className="text-lg font-kanit-bold text-white ml-1">
+                  Regresar
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <DropProfile {...DataDropProfile} />
+
+        <View>
+          {/* validamos si tiene fincas registradas */}
+          {farms.length > 0 ? (
+            farms.map((farm) => <FarmCard key={farm.id} {...farm} />)
+          ) : (
+            <CardInfo
+              title="No tienes Fincas!"
+              icon="add-circle-outline"
+              description="Por favor registra tu primera finca"
+              route={"/farms" as RelativePathString}
+            />
+          )}
+        </View>
       </View>
-    </View>
+    </Layout>
   );
 };
 

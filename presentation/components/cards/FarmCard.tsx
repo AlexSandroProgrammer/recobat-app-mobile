@@ -43,32 +43,10 @@ export const FarmCard = ({
 
       {/* Footer */}
       <View className="flex flex-row items-end gap-3 justify-center mt-5">
-        {/* boton para eliminar un lote */}
-        {/* <Link
-          href="/"
-          onPress={() => handleDeleteFarm(documentId!)}
-          className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-1/6 py-4 text-center "
-        >
-          <View className="flex flex-row items-center justify-center">
-            <Ionicons name="remove-circle-outline" size={26} color="white" />
-          </View>
-        </Link> */}
-        {/* boton para crear un lote */}
-
-        {/* boton para crear un lote */}
-        {/* <TouchableOpacity
-          onPress={() => router.push(`/farm/${documentId}`)}
-          className="bg-yellow-500 shadow-md shadow-zinc-300 rounded-full w-1/6 py-4 text-center"
-          >
-          <View className="flex flex-row items-center justify-center">
-          <Ionicons name="pencil-outline" size={26} color="white" />
-          </View>
-          </TouchableOpacity> */}
-
         {/* boton para crear un lote */}
         <TouchableOpacity
           onPress={() => router.push(`/farm/plots/${id}`)}
-          className="bg-green-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-4 text-center"
+          className="bg-green-500 shadow-md shadow-zinc-300 rounded-3xl w-3/6 py-2 text-center"
         >
           <View className="flex flex-row items-center justify-center">
             <Ionicons name="add-circle-outline" size={26} color="white" />
@@ -78,11 +56,38 @@ export const FarmCard = ({
         {/* boton para mostrar los lotes de la finca */}
         <TouchableOpacity
           onPress={() => router.push(`/farm/listPlot/${documentId}`)}
-          className="bg-primary-300 shadow-md shadow-zinc-300 rounded-full w-2/6 py-4 text-center"
+          className="bg-primary-300 shadow-md shadow-zinc-300 rounded-3xl w-3/6 py-2 text-center"
         >
           <View className="flex flex-row items-center justify-center">
             <Ionicons name="eye-outline" size={26} color="white" />
             <Text className="text-lg font-kanit-bold text-white"> Lotes</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      <View className="flex flex-row items-end gap-3 justify-center mt-5">
+        <TouchableOpacity
+          onPress={() => router.push(`/farm/employees/${id}`)}
+          className="bg-primary-400 shadow-md shadow-zinc-300 rounded-3xl w-3/6 py-2 text-center"
+        >
+          <View className="flex flex-row items-center justify-center">
+            <Ionicons name="add-circle-outline" size={26} color="white" />
+            <Text className="text-lg font-kanit-bold text-white">
+              {" "}
+              Empleado
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push(`/farm/employees/${id}`)}
+          className="bg-slate-800 shadow-md shadow-zinc-300 rounded-3xl w-3/6 py-2 text-center"
+        >
+          <View className="flex flex-row items-center justify-center">
+            <Ionicons name="eye-outline" size={26} color="white" />
+            <Text className="text-lg font-kanit-bold text-white">
+              {" "}
+              Empleados
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
