@@ -5,6 +5,7 @@ import { RelativePathString, router } from "expo-router";
 import { CardInfo } from "@/presentation/components/cards/CardInfo";
 import { PlotCard } from "./PlotCard";
 import { usePlots } from "../hooks/usePlots";
+import Layout from "@/presentation/layouts/Layout";
 
 const ListPlots = ({ farmId }: { farmId: string }) => {
   const { plotsQuery } = usePlots(farmId); // 🔹 Esto ahora siempre se ejecuta
@@ -28,62 +29,64 @@ const ListPlots = ({ farmId }: { farmId: string }) => {
   }
 
   return (
-    <View className="px-5">
-      <View className="mb-3">
-        <View className="flex flex-row items-start justify-end">
-          <TouchableOpacity
-            onPress={() => router.push("/farms")}
-            className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-2"
-          >
-            <View className="flex flex-row items-center justify-center">
-              <Ionicons
-                name="arrow-back-circle-outline"
-                size={25}
-                color="white"
-              />
-              <Text className="text-lg font-kanit-bold text-white ml-1">
-                Regresar
+    <Layout>
+      <View className="px-5">
+        <View className="mb-3">
+          <View className="flex flex-row items-start justify-end">
+            <TouchableOpacity
+              onPress={() => router.push("/farms")}
+              className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-2"
+            >
+              <View className="flex flex-row items-center justify-center">
+                <Ionicons
+                  name="arrow-back-circle-outline"
+                  size={25}
+                  color="white"
+                />
+                <Text className="text-lg font-kanit-bold text-white ml-1">
+                  Regresar
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View className="flex flex-row items-center">
+          <View className="flex flex-row">
+            <Ionicons name="home-outline" size={35} />
+            <View className="flex flex-col items-start ml-2 justify-center">
+              <Text className="text-sm font-kanit text-black-100">
+                # {farm.codeFarm}
+              </Text>
+              <Text className="text-lg font-kanit-bold text-black-300">
+                {farm.nameFarm}
               </Text>
             </View>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View className="flex flex-row items-center">
-        <View className="flex flex-row">
-          <Ionicons name="home-outline" size={35} />
-          <View className="flex flex-col items-start ml-2 justify-center">
-            <Text className="text-sm font-kanit text-black-100">
-              # {farm.codeFarm}
-            </Text>
-            <Text className="text-lg font-kanit-bold text-black-300">
-              {farm.nameFarm}
-            </Text>
           </View>
         </View>
-      </View>
-      <View className="flex flex-row items-center">
-        <View className="flex flex-row">
-          <Ionicons name="location-outline" size={30} />
-          <View className="flex flex-col items-start ml-2 justify-center">
-            <Text className="text-lg font-kanit-bold text-black-300">
-              {farm.address}
-            </Text>
+        <View className="flex flex-row items-center">
+          <View className="flex flex-row">
+            <Ionicons name="location-outline" size={30} />
+            <View className="flex flex-col items-start ml-2 justify-center">
+              <Text className="text-lg font-kanit-bold text-black-300">
+                {farm.address}
+              </Text>
+            </View>
           </View>
         </View>
+        <View className="mt-5">
+          {plots.length > 0 ? (
+            plots.map((plot) => <PlotCard key={plot.id} {...plot} />)
+          ) : (
+            <CardInfo
+              title="No tienes lotes registrados"
+              icon="arrow-back-circle-outline"
+              description="Clic para volver a tu listado de fincas"
+              route={"/farms" as RelativePathString}
+            />
+          )}
+        </View>
       </View>
-      <View className="mt-5">
-        {plots.length > 0 ? (
-          plots.map((plot) => <PlotCard key={plot.id} {...plot} />)
-        ) : (
-          <CardInfo
-            title="No tienes lotes registrados"
-            icon="arrow-back-circle-outline"
-            description="Clic para volver a tu listado de fincas"
-            route={"/farms" as RelativePathString}
-          />
-        )}
-      </View>
-    </View>
+    </Layout>
   );
 };
 
