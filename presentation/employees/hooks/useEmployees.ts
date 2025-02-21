@@ -1,10 +1,10 @@
-import { getFarm } from "@/core/farms/actions/get-farm.actions";
+import { getEmployees } from "@/core/employees/actions/employees.actions";
 import { useQuery } from "@tanstack/react-query";
 
 export const useEmployees = (farmId: string) => {
-  const farmQuery = useQuery({
+  const employeesQuery = useQuery({
     queryKey: ["farms", farmId],
-    queryFn: () => getFarm(farmId),
+    queryFn: () => getEmployees(farmId),
     staleTime: 1000 * 60, // 1 minuto
   });
 
@@ -14,6 +14,6 @@ export const useEmployees = (farmId: string) => {
 
   return {
     // metodos
-    farmQuery,
+    employeesQuery,
   };
 };

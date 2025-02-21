@@ -18,9 +18,11 @@ const DrawerLayout = () => {
         //* cambiamos el ancho
         drawerStyle: {
           width: 260,
+          //* cambiamos el color de los botones del drawer
+          backgroundColor: "#f0f6fe",
         },
         sceneStyle: {
-          backgroundColor: "white",
+          backgroundColor: "#f0f6fe",
         },
         headerTitleAlign: "center",
       }}

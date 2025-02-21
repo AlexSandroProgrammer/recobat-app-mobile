@@ -5,26 +5,31 @@ import DropProfile from "@/presentation/components/theme/DropProfile";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import { RelativePathString, router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
-import { useFarms } from "../hooks/useFarms";
 import Layout from "@/presentation/layouts/Layout";
 import { Ionicons } from "@expo/vector-icons";
+import { Farm } from "@/core/farms/interfaces/index.interface";
+import {
+  BodyFarmResponse,
+  Employee,
+} from "../../../core/employees/interfaces/index.interface";
+import { EmployeeCard } from "./EmployeeCard";
 
 const DataDropProfile: DropProfileProps = {
-  title: "Mis Fincas",
+  title: "Mis Colaboradores",
   titleButton: "Registrar",
   routeModal: "/farm/register" as RelativePathString,
 };
 
-const FarmList = ({ userId }: { userId: number }) => {
-  const { farmsQuery } = useFarms(userId); // 🔹 Esto ahora siempre se ejecuta
+//* props para listar los empleados y la finca
+interface EmployeesListProps {
+  employees: Employee[];
+  farm: BodyFarmResponse;
+}
 
-  // Si está cargando, mostramos el loader
-  if (farmsQuery.isLoading) {
+const EmployeesList: React.FC<EmployeesListProps> = ({ employees, farm }) => {
+  if (!employees || !farm) {
     return <IsLoadingRefresh />;
   }
-
-  // Aseguramos que `farms` siempre tenga un valor
-  const farms = farmsQuery?.data ?? [];
   return (
     <Layout>
       <View className="px-5">
@@ -50,21 +55,13 @@ const FarmList = ({ userId }: { userId: number }) => {
         <DropProfile {...DataDropProfile} />
 
         <View>
-          {/* validamos si tiene fincas registradas */}
-          {farms.length > 0 ? (
-            farms.map((farm) => <FarmCard key={farm.id} {...farm} />)
-          ) : (
-            <CardInfo
-              title="No tienes Fincas!"
-              icon="add-circle-outline"
-              description="Por favor registra tu primera finca"
-              route={"/farms" as RelativePathString}
-            />
-          )}
+          {employees.map((employee) => (
+            <EmployeeCard key={employee.names} {...employee} />
+          ))}
         </View>
       </View>
     </Layout>
   );
 };
 
-export default FarmList;
+export default EmployeesList;
