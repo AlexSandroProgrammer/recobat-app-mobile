@@ -17,8 +17,6 @@ const EmployeeScreen = () => {
   const farm = employeesQuery?.data!;
   const employees = employeesQuery?.data?.employees!;
 
-  console.log(employees);
-
   return (
     <>
       <EmployeesList employees={employees} farm={farm} />
