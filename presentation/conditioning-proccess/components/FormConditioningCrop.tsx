@@ -7,9 +7,14 @@ import AlertModal from "@/presentation/components/theme/AlertModal";
 import AlertModalSuccess from "@/presentation/components/theme/AlertModalSuccess";
 import ThemedDatePicker from "@/presentation/components/theme/ThemedDatePicker";
 import { Ionicons } from "@expo/vector-icons";
-import ThemedSelectCrop from "@/presentation/components/theme/ThemedSelectCrop";
+import { InitialConditioningCrops } from "@/core/conditioning/interfaces/index.interface";
+import ThemedSelect from "@/presentation/components/theme/ThemedSelect";
 
-const FormConditioningCrop = ({}) => {
+const FormConditioningCrop: React.FC<InitialConditioningCrops> = ({
+  employeesOptions,
+  id,
+  conditioningsOptions,
+}) => {
   //* llamar al hook del store para el registro
   const [isPosting, setIsPosting] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -18,6 +23,8 @@ const FormConditioningCrop = ({}) => {
   // Estado del formulario, incluyendo el campo "fecha"
   const [form, setForm] = useState({
     init_date: "",
+    employee: "",
+    typeConditioningSelect: "",
   });
 
   const returnHome = () => {
@@ -25,28 +32,7 @@ const FormConditioningCrop = ({}) => {
   };
 
   // Función para continuar con el proceso luego de confirmar en la alerta
-  const continueProcess = async () => {
-    // setShowAlert(false);
-    // const {
-    //   PlotId: plot,
-    //   id_crop_type: crop_type,
-    //   init_date,
-    //   documentId,
-    // } = form;
-    // setIsPosting(true);
-    // const registerGeneral = await registerGeneralInstance(
-    //   plot,
-    //   crop_type,
-    //   documentId,
-    //   init_date
-    // );
-    // setIsPosting(false);
-    // if (registerGeneral) {
-    //   setShowAlertSuccess(true);
-    //   return;
-    // }
-    // Alert.alert("Lo sentimos!", "No se pudo completar el registro.");
-  };
+  const continueProcess = async () => {};
 
   // Función para cancelar el proceso (cerrar la alerta sin continuar)
   const cancelProcess = () => {
@@ -54,36 +40,7 @@ const FormConditioningCrop = ({}) => {
   };
 
   // Función para enviar o registrar el lote
-  const registerGeneralProccess = async () => {
-    // const { PlotId, id_crop_type, altitude, init_date, altitudeCropType } =
-    //   form;
-    // // Verificamos que todos los campos obligatorios estén completos
-    // if (
-    //   !PlotId ||
-    //   !id_crop_type ||
-    //   !init_date ||
-    //   !altitude ||
-    //   !altitudeCropType
-    // ) {
-    //   Alert.alert(
-    //     "¡Faltan Datos!",
-    //     "Todos los campos son obligatorios, por favor ingresa todos los datos.",
-    //     [{ text: "Aceptar" }],
-    //     { cancelable: false }
-    //   );
-    //   return;
-    // }
-    // // Validamos si la altitud del lote es diferente a la del cultivo
-    // if (altitudeCropType !== altitude) {
-    //   // Se muestra la alerta modal para preguntar si se continúa
-    //   setShowAlert(true);
-    //   return;
-    // }
-    // setIsPosting(true);
-    // // Aquí se agregaría la lógica para consultar el cultivo o registrar el lote
-    // console.log("Registro completado", { form });
-    // setIsPosting(false);
-  };
+  const registerGeneralProccess = async () => {};
 
   return (
     <View className="flex-auto justify-center content-center px-5">
@@ -106,71 +63,45 @@ const FormConditioningCrop = ({}) => {
         confirmText="Iniciar ya!"
       />
       {/* Título y descripción */}
-      <Text className="text-3xl font-kanit-bold text-black-300 uppercase text-center mt-5">
-        <Text className="text-primary-300 text-center">
-          Formulario Verificación del Cultivo
+      <Text className="text-3xl font-kanit-bold text-black-300 uppercase text-left ">
+        <Text className="text-primary-300">
+          Formulario Acondicionamiento del Terreno
         </Text>
       </Text>
-      <Text className="text-base text-left font-kanit text-black-200 mt-2">
+      <Text className="text-base font-kanit text-black-200 mt-2">
         Por favor ingresa los siguientes datos para programar el
         acondicionamiento de cultivo de tu colaborador.
       </Text>
 
-      {/* <ThemedTextInput
-        placeholder="Nombre de la finca"
-        editable={false}
-        value={form.nameFarm}
-        iconRef="home-outline"
-        onChangeText={(value) =>
-          setForm((prev) => ({ ...prev, nameFarm: value }))
-        }
-      /> */}
-
-      {/* <ThemedSelectCrop
-        placeholder="Seleccionar Tipo de Cultivo"
-        data={cropOptions}
-        selectedValue={cropOptions.find(
-          (option) => option.value.toString() === form.crop_transitional
+      <ThemedSelect
+        placeholder="Seleccionar Empleado Para tarea"
+        data={employeesOptions}
+        selectedValue={employeesOptions.find(
+          (option) => option.value === form.employee
         )}
-        onValueChange={(item) => {
-          const selectedCrop = cropOptions.find(
-            (option) => option.value.toString() === item.value.toString()
-          );
-          setForm((prev) => ({
-            ...prev,
-            crop_transitional: item.value.toString(),
-            altitudeCropType: selectedCrop?.altitudeCropType || "",
-          }));
-        }}
-        iconRef="leaf-outline"
-      /> */}
+        onValueChange={(item) =>
+          setForm((prevState) => ({
+            ...prevState,
+            employee: item.value.toString(),
+          }))
+        }
+        iconRef="document-text-outline" // Puedes usar el ícono que prefieras
+      />
 
-      {/* {cropTypes && cropTypes.length === 0 ? (
-        <View className="mt-4 w-full">
-          <Text className="text-lg text-left font-kanit text-red-500">
-            Por favor seleccionar un tipo de cultivo...
-          </Text>
-        </View>
-      ) : (
-        <ThemedSelectCrop
-          placeholder="Seleccionar Variacion de Cultivo"
-          data={cropOptionsFiltered}
-          selectedValue={cropOptionsFiltered?.find(
-            (option) => option.value.toString() === form.id_crop_type
-          )}
-          onValueChange={(item) => {
-            const selectedCropType = cropOptionsFiltered.find(
-              (option) => option.value.toString() === item.value.toString()
-            );
-            setForm((prev) => ({
-              ...prev,
-              id_crop_type: item.value.toString(),
-              altitudeCropType: selectedCropType?.altitudeCropType || "",
-            }));
-          }}
-          iconRef="leaf-outline"
-        />
-      )} */}
+      <ThemedSelect
+        placeholder="Seleccionar Tipo de Acondicionamiento"
+        data={conditioningsOptions}
+        selectedValue={conditioningsOptions.find(
+          (option) => option.value === form.typeConditioningSelect
+        )}
+        onValueChange={(item) =>
+          setForm((prevState) => ({
+            ...prevState,
+            typeConditioningSelect: item.value.toString(),
+          }))
+        }
+        iconRef="document-text-outline" // Puedes usar el ícono que prefieras
+      />
 
       <ThemedDatePicker
         iconRef="calendar-number-outline"
