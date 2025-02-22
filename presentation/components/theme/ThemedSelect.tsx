@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { TouchableOpacity, View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { ThemedSelectProps } from "../../../core/theme/index.interface";
-import SelectModal from "../modals/SelectModal";
+import { ThemedSelectProps } from "@/core/theme/index.interface";
+import SelectModal from "@/presentation/components/modals/SelectModal";
 
 const ThemedSelect: React.FC<ThemedSelectProps> = ({
   data,

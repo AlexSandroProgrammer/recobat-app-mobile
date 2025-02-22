@@ -19,3 +19,18 @@ export interface TypeConditioning {
   updatedAt: Date;
   publishedAt: Date;
 }
+
+export interface RegisterActivityConditioning {
+  data: ActivityConditioning;
+}
+
+export interface ActivityConditioning {
+  id: number;
+  documentId: string;
+  salary: string;
+  register_date: Date;
+  status_activity: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+}

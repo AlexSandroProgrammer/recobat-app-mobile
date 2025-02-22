@@ -5,6 +5,7 @@ export interface SelectItem {
   label: string;
   value: string | number;
   altitudeCropType?: string;
+  salaryEmployee?: string;
 }
 
 // Propiedades del componente ThemedSelect
