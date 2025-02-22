@@ -31,3 +31,21 @@ export interface Employee {
   publishedAt: Date;
   salary: string;
 }
+
+export interface RegisterEmployeeResponse {
+  data: BodyResponseEmployee;
+}
+
+export interface BodyResponseEmployee {
+  id: number;
+  documentId: string;
+  document: string;
+  names: string;
+  surnames: string;
+  email: string;
+  telephone: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  salary: string;
+}

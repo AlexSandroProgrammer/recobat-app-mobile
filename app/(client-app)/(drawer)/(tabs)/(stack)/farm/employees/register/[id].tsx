@@ -1,19 +1,21 @@
 import icons from "@/constants/icons";
 import ThemedTextInput from "@/presentation/components/theme/ThemedTextInput";
+import { useEmployeeStore } from "@/presentation/employees/hooks/useEmployeeStore";
 import Layout from "@/presentation/layouts/Layout";
-import { usePlotStore } from "@/presentation/plots/hooks/usePlotStore";
 import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router/build/hooks";
+import LottieView from "lottie-react-native";
 import { useState } from "react";
 import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 
 const RegisterEmployeeScreen = () => {
+  const [isLottieLoaded, setLottieLoaded] = useState(false);
+  const [isPosting, setIsPosting] = useState(false);
+
   // obtenemos el id que viene por params
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { plotRegister } = usePlotStore();
-
-  const [isPosting, setIsPosting] = useState(false);
+  const { employeeRegister } = useEmployeeStore();
 
   const [form, setForm] = useState({
     document: "",
@@ -22,44 +24,88 @@ const RegisterEmployeeScreen = () => {
     email: "",
     telephone: "",
     salary: "",
+    farmId: id,
   });
 
   // funcion para guardar la finca
-  const registerPlot = async () => {
-    const { names, surnames, email, telephone, salary, document } = form;
-    // if (namePlot.length === 0 || size.length === 0) {
-    //   Alert.alert("Error", "Por favor ingresa todos los datos del lote.");
-    //   return;
-    // }
-    // setIsPosting(true);
-    // const authSuccess = await plotRegister(
-    //   namePlot,
-    //   size,
-    //   Array.isArray(farmId) ? farmId[0] : farmId
-    // );
-    // setIsPosting(false);
-    // if (authSuccess) {
-    //   // le mostramos una alerta al usuario
-    //   Alert.alert(
-    //     "Todo salió bien!",
-    //     "Los datos han sido registrados correctamente",
-    //     [{ text: "Aceptar", onPress: () => router.push("/") }]
-    //   );
-    //   return;
-    // }
-    // Alert.alert("Lo sentimos!", "No se logro completar el registro.");
+  const registerEmployee = async () => {
+    const { names, surnames, email, telephone, salary, document, farmId } =
+      form;
+
+    if (
+      names.length === 0 ||
+      surnames.length === 0 ||
+      email.length === 0 ||
+      telephone.length === 0 ||
+      salary.length === 0 ||
+      document.length === 0
+    ) {
+      Alert.alert("Error", "Por favor ingresa todos los datos del lote.");
+      return;
+    }
+    setIsPosting(true);
+    const confirmEmployeeRegister = await employeeRegister(
+      document,
+      names,
+      surnames,
+      email,
+      telephone,
+      salary,
+      farmId
+    );
+    setIsPosting(false);
+    if (confirmEmployeeRegister) {
+      // le mostramos una alerta al usuario
+      Alert.alert(
+        "Todo salió bien!",
+        "Los datos han sido registrados correctamente",
+        [{ text: "Aceptar", onPress: () => router.push("/farms") }]
+      );
+      return;
+    }
+    Alert.alert("Lo sentimos!", "No se logro completar el registro.");
   };
 
   return (
     <Layout>
       <View className="h-full">
         <View className="flex-auto justify-center content-center items-center px-5">
-          <Text className="text-2xl font-kanit-bold text-black-300 uppercase text-center mt-1">
+          <View className="flex flex-row">
+            {/* Contenedor del Lottie con ActivityIndicator */}
+            <View className="justify-center items-center relative">
+              <LottieView
+                source={require("@/assets/lottie/register.json")}
+                autoPlay
+                loop
+                speed={0.8}
+                style={{ width: 100, height: 100 }}
+                onLayout={() => setLottieLoaded(true)}
+              />
+              {!isLottieLoaded && (
+                <ActivityIndicator
+                  size="large"
+                  color="blue"
+                  style={{ position: "absolute" }}
+                />
+              )}
+            </View>
+          </View>
+          <Text className="text-2xl font-kanit-bold text-black-300 uppercase text-center">
             <Text className="text-primary-300">Registro de Empleado</Text>
           </Text>
-          <Text className="text-base text-center font-kanit text-black-200">
+          <Text className="text-base text-left font-kanit text-black-200">
             Por favor ingresa los siguientes datos para registrar tu colaborador
           </Text>
+          <ThemedTextInput
+            placeholder="Ingresar Documento"
+            keyboardType="number-pad"
+            value={form.document}
+            iconRef="card-outline"
+            maxLength={11}
+            onChangeText={(value) =>
+              setForm({ ...form, document: value.replace(/\s/g, "") })
+            }
+          />
 
           <ThemedTextInput
             placeholder="Ingresar Nombres"
@@ -68,7 +114,18 @@ const RegisterEmployeeScreen = () => {
             value={form.names}
             iconRef="person-circle-outline"
             maxLength={20}
-            onChangeText={(value) => setForm({ ...form, names: value })}
+            onChangeText={(value) =>
+              setForm({
+                ...form,
+                names: value
+                  .split(" ")
+                  .map(
+                    (word) =>
+                      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                  )
+                  .join(" "),
+              })
+            }
           />
 
           <ThemedTextInput
@@ -78,16 +135,18 @@ const RegisterEmployeeScreen = () => {
             value={form.surnames}
             iconRef="person-circle-outline"
             maxLength={20}
-            onChangeText={(value) => setForm({ ...form, surnames: value })}
-          />
-
-          <ThemedTextInput
-            placeholder="Ingresar Documento"
-            keyboardType="number-pad"
-            value={form.document}
-            iconRef="card-outline"
-            maxLength={11}
-            onChangeText={(value) => setForm({ ...form, document: value })}
+            onChangeText={(value) =>
+              setForm({
+                ...form,
+                surnames: value
+                  .split(" ")
+                  .map(
+                    (word) =>
+                      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                  )
+                  .join(" "),
+              })
+            }
           />
 
           <ThemedTextInput
@@ -96,7 +155,9 @@ const RegisterEmployeeScreen = () => {
             value={form.email}
             iconRef="mail-outline"
             maxLength={30}
-            onChangeText={(value) => setForm({ ...form, email: value })}
+            onChangeText={(value) =>
+              setForm({ ...form, email: value.replace(/\s/g, "") })
+            }
           />
 
           <ThemedTextInput
@@ -105,7 +166,9 @@ const RegisterEmployeeScreen = () => {
             value={form.telephone}
             iconRef="phone-portrait-outline"
             maxLength={30}
-            onChangeText={(value) => setForm({ ...form, telephone: value })}
+            onChangeText={(value) =>
+              setForm({ ...form, telephone: value.replace(/\s/g, "") })
+            }
           />
 
           <ThemedTextInput
@@ -114,11 +177,13 @@ const RegisterEmployeeScreen = () => {
             value={form.salary}
             iconRef="cash-outline"
             maxLength={30}
-            onChangeText={(value) => setForm({ ...form, salary: value })}
+            onChangeText={(value) =>
+              setForm({ ...form, salary: value.replace(/\s/g, "") })
+            }
           />
 
           <TouchableOpacity
-            onPress={registerPlot}
+            onPress={registerEmployee}
             disabled={isPosting}
             className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
           >

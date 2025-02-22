@@ -88,7 +88,7 @@ const EmployeesList: React.FC<EmployeesListProps> = ({ employees, farm }) => {
 
         <View>
           {employees.map((employee) => (
-            <EmployeeCard key={employee.names} {...employee} />
+            <EmployeeCard key={employee.id} {...employee} />
           ))}
         </View>
       </View>

@@ -1,5 +1,8 @@
 import { recobatApi } from "@/core/api/recobatApi";
-import { FarmEmployeesResponse } from "../interfaces/index.interface";
+import {
+  FarmEmployeesResponse,
+  RegisterEmployeeResponse,
+} from "../interfaces/index.interface";
 
 //* accion para llamar todas las fincas del usuario autenticado
 export const getEmployees = async (farmId: string) => {
@@ -13,26 +16,34 @@ export const getEmployees = async (farmId: string) => {
   }
 };
 
-// accion para registrar los datos del empleado
-
-// export const authRegister = async (
-//   username: string,
-//   email: string,
-//   password: string
-// ) => {
-//   email = email.toLowerCase();
-//   try {
-//     const { data } = await recobatApi.post<>(
-//       "/auth/local/register",
-//       {
-//         username,
-//         email,
-//         password,
-//       }
-//     );
-//   } catch (error) {
-//     console.error(error);
-//     // throw new Error("Error al momento de iniciar sesion");
-//     return null;
-//   }
-// };
+export const registerEmployee = async (
+  document: string,
+  names: string,
+  surnames: string,
+  email: string,
+  telephone: string,
+  salary: string,
+  farmId: string
+) => {
+  try {
+    const { data } = await recobatApi.post<RegisterEmployeeResponse>(
+      "/employees",
+      {
+        data: {
+          document,
+          names,
+          surnames,
+          email,
+          telephone,
+          salary,
+          farms: [farmId],
+        },
+      }
+    );
+    return true;
+  } catch (error) {
+    console.error(error);
+    // throw new Error("Error al momento de iniciar sesion");
+    return null;
+  }
+};
