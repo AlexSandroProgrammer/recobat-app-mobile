@@ -13,7 +13,7 @@ const RegisterEmployeeScreen = () => {
   const [isLottieLoaded, setLottieLoaded] = useState(false);
   const [isPosting, setIsPosting] = useState(false);
 
-  // obtenemos el id que viene por params
+  // obtenemos el id que viene por params albeiro@gmail.com
   const { id } = useLocalSearchParams<{ id: string }>();
   const { employeeRegister } = useEmployeeStore();
 
@@ -59,7 +59,7 @@ const RegisterEmployeeScreen = () => {
       Alert.alert(
         "Todo salió bien!",
         "Los datos han sido registrados correctamente",
-        [{ text: "Aceptar", onPress: () => router.push("/farms") }]
+        [{ text: "Aceptar", onPress: () => router.replace("/farms") }]
       );
       return;
     }

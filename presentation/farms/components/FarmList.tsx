@@ -32,7 +32,7 @@ const FarmList = ({ userId }: { userId: number }) => {
           <View className="flex flex-row items-start justify-end">
             <TouchableOpacity
               onPress={() => router.push("/")}
-              className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-2"
+              className="bg-red-500 shadow-md shadow-zinc-300 rounded-md w-2/6 py-2"
             >
               <View className="flex flex-row items-center justify-center">
                 <Ionicons
