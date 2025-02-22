@@ -108,6 +108,16 @@ const StackLayout = () => {
           headerTitleAlign: "center",
         }}
       />
+
+      <Stack.Screen
+        name="farm/employees/register/[id]"
+        options={{
+          title: "Registro de Colaborador",
+          animation: "fade",
+          headerTitleAlign: "center",
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 };

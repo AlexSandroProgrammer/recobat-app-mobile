@@ -68,20 +68,22 @@ export const EmployeeCard = ({
 
       <View className="flex flex-row items-center gap-3 justify-end mt-5">
         <TouchableOpacity
+          disabled={true}
           onPress={() => router.push(`/farm/employees/${id}`)}
           className="bg-primary-300 shadow-md shadow-zinc-300 rounded-3xl w-2/6 py-2 text-center"
         >
           <View className="flex flex-row items-center justify-center">
-            <Ionicons name="pencil-outline" size={26} color="white" />
+            <Ionicons name="pencil-outline" size={25} color="white" />
             <Text className="text-lg font-kanit-bold text-white"> Editar</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
+          disabled={true}
           onPress={() => router.push(`/farm/employees/${documentId}`)}
           className="bg-red-500 shadow-md shadow-zinc-300 rounded-3xl w-2/6 py-2 text-center"
         >
           <View className="flex flex-row items-center justify-center">
-            <Ionicons name="remove-circle-outline" size={26} color="white" />
+            <Ionicons name="remove-circle-outline" size={25} color="white" />
             <Text className="text-lg font-kanit-bold text-white"> Borrar</Text>
           </View>
         </TouchableOpacity>

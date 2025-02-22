@@ -1,21 +1,17 @@
+import icons from "@/constants/icons";
+import images from "@/constants/images";
 import { DropProfileProps } from "@/core/client/interfaces/index.interface";
-import { CardInfo } from "@/presentation/components/cards/CardInfo";
-import { FarmCard } from "@/presentation/components/cards/FarmCard";
-import DropProfile from "@/presentation/components/theme/DropProfile";
+import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
-import { RelativePathString, router } from "expo-router";
-import { Image, Text, TouchableOpacity, View } from "react-native";
 import Layout from "@/presentation/layouts/Layout";
 import { Ionicons } from "@expo/vector-icons";
-import { Farm } from "@/core/farms/interfaces/index.interface";
+import { RelativePathString, router } from "expo-router";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import {
   BodyFarmResponse,
   Employee,
 } from "../../../core/employees/interfaces/index.interface";
 import { EmployeeCard } from "./EmployeeCard";
-import icons from "@/constants/icons";
-import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
-import images from "@/constants/images";
 
 const DataDropProfile: DropProfileProps = {
   title: "Mis Colaboradores",
@@ -77,8 +73,7 @@ const EmployeesList: React.FC<EmployeesListProps> = ({ employees, farm }) => {
               Mis Colaboradores
             </Text>
             <TouchableOpacity
-              onPress={() => router.push("/")}
-              disabled={true}
+              onPress={() => router.push(`/farm/employees/register/${farm.id}`)}
               className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-3/6 py-2"
             >
               <View className="flex flex-row items-center justify-center">

@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <SafeAreaView
-      edges={["bottom", "left", "right"]}
+      edges={["bottom", "left", "right", "top"]}
       className="flex h-full bg-white"
     >
       <View>
@@ -24,7 +24,7 @@ const Layout = ({ children }: LayoutProps) => {
           )}
           scrollEventThrottle={5}
         >
-          <View className="mb-24 mt-3">{children}</View>
+          <View className="mb-24">{children}</View>
         </Animated.ScrollView>
       </View>
     </SafeAreaView>
