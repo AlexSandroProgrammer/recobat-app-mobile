@@ -38,4 +38,5 @@ export interface CardSubProccessProps {
   pest_organic_proccesses?: ConditioningSubDetail[];
   weed_control_proccesses?: ConditioningSubDetail[];
   disease_control_proccesses?: ConditioningSubDetail[];
+  farmId?: string;
 }

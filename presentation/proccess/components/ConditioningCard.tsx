@@ -7,6 +7,7 @@ export const ConditioningCard = ({
   title,
   description,
   conditioning_sub_details: conditioning,
+  farmId,
 }: CardSubProccessProps) => {
   //* obtenemos el primer objeto
   const firstConditioning = conditioning ? conditioning[0] : null;
@@ -36,7 +37,11 @@ export const ConditioningCard = ({
       <View className="flex flex-row items-end justify-center mt-3">
         {firstConditioning?.status_conditioning === "enabled" ? (
           <TouchableOpacity
-            onPress={() => router.push("/")}
+            onPress={() =>
+              router.push(
+                `/proccess/conditioning/${firstConditioning.id}?farmId=${farmId}`
+              )
+            }
             className="bg-primary-200 shadow-md shadow-zinc-300 rounded-full w-3/6 py-4"
           >
             <View className="flex flex-row items-center justify-center">

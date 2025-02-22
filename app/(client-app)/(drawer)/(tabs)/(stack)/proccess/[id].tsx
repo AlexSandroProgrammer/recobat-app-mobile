@@ -9,8 +9,8 @@ import { ProccessCard } from "@/presentation/proccess/components/ProccessCard";
 const ProccessScreen = () => {
   // Obtenemos el id de los parámetros de la URL
   const { id } = useLocalSearchParams<{ id: string }>();
-
-  //
+  // Obtenemos el id de la finca que viene como query
+  const { farmId } = useLocalSearchParams<{ farmId: string }>();
 
   const { proccessQuery } = useProccess(id);
 
@@ -44,6 +44,7 @@ const ProccessScreen = () => {
             <ProccessCard
               key={index}
               id={id}
+              farmId={farmId}
               documentId={proccess.documentId}
               title={proccess.id}
             />

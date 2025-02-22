@@ -118,6 +118,16 @@ const StackLayout = () => {
           headerShown: false,
         }}
       />
+
+      <Stack.Screen
+        name="proccess/conditioning/[id]"
+        options={{
+          title: "ACONDICIONAMIENTO",
+          animation: "fade",
+          headerTitleAlign: "center",
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 };

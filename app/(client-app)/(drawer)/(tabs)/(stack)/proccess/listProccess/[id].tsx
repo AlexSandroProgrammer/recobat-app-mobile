@@ -16,6 +16,7 @@ import { DieaseControlCard } from "@/presentation/proccess/components/DieaseCont
 const ListProccessScreen = () => {
   // Obtenemos el id de los parámetros de la URL
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { farmId } = useLocalSearchParams<{ farmId: string }>();
 
   const { proccessAllQuery } = useProccessAll(id);
 
@@ -56,6 +57,7 @@ const ListProccessScreen = () => {
           {/* Card para el proceso de Acondicionamiento */}
           <ConditioningCard
             conditioning_sub_details={conditioning}
+            farmId={farmId}
             title="Acondicionamiento del terreno Para la Siembra"
             description="En este proceso aprenderas sobre como acondicionar tus terrenos de una manera segura y confiable."
           />
@@ -64,6 +66,7 @@ const ListProccessScreen = () => {
           <JobSubProccessCard
             conditioning_sub_details={conditioning}
             job_sub_proccess_details={jobSubProccess}
+            farmId={farmId}
             title="Adecuacion del Suelo"
             description="En este proceso aprenderas sobre como adecuar tus terrenos de una manera segura y confiable."
           />
@@ -72,6 +75,7 @@ const ListProccessScreen = () => {
           <SoilsAnalysisCard
             job_sub_proccess_details={jobSubProccess}
             soils_analysis_details={soilsAnalysis}
+            farmId={farmId}
             title="Analisis del Suelo"
             description="En este proceso aprenderas sobre como trabajar con el apoyo de un asistente agronomo para determinar el analisis del suelo tus terrenos de una manera segura y confiable."
           />
@@ -80,6 +84,7 @@ const ListProccessScreen = () => {
           <FertilizationCard
             soils_analysis_details={soilsAnalysis}
             fertilization_proccesses={fertilization}
+            farmId={farmId}
             title="Programacion de Fertilizacion"
             description="En este proceso aprenderas sobre como trabajar con el apoyo de un asistente agronomo para la fertilizacion del suelo de tus terrenos de una manera segura y confiable."
           />
@@ -88,6 +93,7 @@ const ListProccessScreen = () => {
           <QuimicControlCard
             fertilization_proccesses={fertilization}
             pest_control_proccesses={quimicControl}
+            farmId={farmId}
             title="Control Quimico de Plagas"
             description="En este proceso aprenderas sobre como trabajar con el apoyo de un asistente agronomo para el control quimico de las plagas en los suelos de tus terrenos de una manera segura y confiable."
           />
@@ -96,6 +102,7 @@ const ListProccessScreen = () => {
           <PestControlCard
             pest_control_proccesses={quimicControl}
             pest_organic_proccesses={organicControl}
+            farmId={farmId}
             title="Control Organico de Plagas"
             description="En este proceso aprenderas sobre como trabajar con el apoyo de un asistente agronomo para el control organico de las plagas en los suelos de tus terrenos de una manera segura y confiable."
           />
@@ -104,6 +111,7 @@ const ListProccessScreen = () => {
           <WeedControlCard
             pest_organic_proccesses={organicControl}
             weed_control_proccesses={weedControl}
+            farmId={farmId}
             title="Control de Malezas"
             description="En este proceso aprenderas sobre como trabajar con el apoyo de un asistente agronomo para el control de malezas en los suelos de tus terrenos de una manera segura y confiable."
           />
@@ -112,6 +120,7 @@ const ListProccessScreen = () => {
           <DieaseControlCard
             weed_control_proccesses={weedControl}
             disease_control_proccesses={dieaseControl}
+            farmId={farmId}
             title="Control de Enfermedades"
             description="En este proceso aprenderas sobre como trabajar con el apoyo de un asistente agronomo para el control de enfermedades en los suelos de tus terrenos de una manera segura y confiable."
           />

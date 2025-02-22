@@ -1,4 +1,4 @@
-import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import IsLoadingRefresh from "@/presentation/components/theme/IsLoadingRefresh";
 import { Ionicons } from "@expo/vector-icons";
 import { RelativePathString, router } from "expo-router";
@@ -35,7 +35,7 @@ const ListPlots = ({ farmId }: { farmId: string }) => {
           <View className="flex flex-row items-start justify-end">
             <TouchableOpacity
               onPress={() => router.push("/farms")}
-              className="bg-red-500 shadow-md shadow-zinc-300 rounded-full w-2/6 py-2"
+              className="bg-red-500 shadow-md shadow-zinc-300 rounded-md w-2/6 py-2"
             >
               <View className="flex flex-row items-center justify-center">
                 <Ionicons
@@ -75,7 +75,9 @@ const ListPlots = ({ farmId }: { farmId: string }) => {
         </View>
         <View className="mt-5">
           {plots.length > 0 ? (
-            plots.map((plot) => <PlotCard key={plot.id} {...plot} />)
+            plots.map((plot) => (
+              <PlotCard key={plot.id} farmId={farmId} {...plot} />
+            ))
           ) : (
             <CardInfo
               title="No tienes lotes registrados"

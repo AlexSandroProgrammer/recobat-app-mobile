@@ -26,14 +26,6 @@ export const CardInfo = ({
       {/* Contenido Principal */}
       <View className="mt-3">
         <Text className="text-lg font-kanit text-slate-100">{description}</Text>
-        {/* Estadísticas */}
-        {/* <View className="flex flex-row mt-3">
-          <View className="flex items-center">
-            <Text className="text-xl font-kanit text-slate-100">
-              120 {title}
-            </Text>
-          </View>
-        </View> */}
       </View>
 
       {/* Footer */}
